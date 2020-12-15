@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.running;
+package rs.ac.bg.etf.running.calories;
 
 import android.os.Bundle;
 
@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MyViewModel extends ViewModel {
+public class CaloriesViewModel extends ViewModel {
 
     public static final String CALORIES_BURNED_KEY = "calories-burned";
     public static final String CALORIES_NEEDED_KEY = "calories-needed";

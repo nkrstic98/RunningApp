@@ -1,45 +1,44 @@
-package rs.ac.bg.etf.running;
+package rs.ac.bg.etf.running.calories;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
+import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.databinding.ActivityCaloriesBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class CaloriesActivity extends AppCompatActivity {
 
-    private MyViewModel myViewModel;
+    private CaloriesViewModel caloriesViewModel;
 
-    private ActivityMainBinding binding;
+    private ActivityCaloriesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityCaloriesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+        caloriesViewModel = new ViewModelProvider(this).get(CaloriesViewModel.class);
 
-        myViewModel.initByInstanceStateBundle(savedInstanceState);
+        caloriesViewModel.initByInstanceStateBundle(savedInstanceState);
 
-        myViewModel.getCaloriesBurned().observe(this, caloriesBurned -> {
+        caloriesViewModel.getCaloriesBurned().observe(this, caloriesBurned -> {
             if (caloriesBurned != -1) {
                 String prefix = getResources().getString(R.string.burned);
                 binding.burned.setText(prefix + ": " + caloriesBurned + " kcal");
             }
         });
 
-        myViewModel.getCaloriesNeeded().observe(this, caloriesNeeded -> {
+        caloriesViewModel.getCaloriesNeeded().observe(this, caloriesNeeded -> {
             if (caloriesNeeded != -1) {
                 String prefix = getResources().getString(R.string.bmr);
-                binding.bmr.setText(prefix + ": " + caloriesNeeded + " kcal");
+                binding.needed.setText(prefix + ": " + caloriesNeeded + " kcal");
             }
         });
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             TypedArray metValues = getResources().obtainTypedArray(R.array.met_values);
             double met = metValues.getFloat(binding.spinner.getSelectedItemPosition(), 0);
 
-            myViewModel.updateValues(weight, height, age, isMale, duration, met);
+            caloriesViewModel.updateValues(weight, height, age, isMale, duration, met);
         });
     }
 
@@ -108,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(
-                MyViewModel.CALORIES_BURNED_KEY, myViewModel.getCaloriesBurned().getValue());
+                CaloriesViewModel.CALORIES_BURNED_KEY, caloriesViewModel.getCaloriesBurned().getValue());
         outState.putInt(
-                MyViewModel.CALORIES_NEEDED_KEY, myViewModel.getCaloriesNeeded().getValue());
+                CaloriesViewModel.CALORIES_NEEDED_KEY, caloriesViewModel.getCaloriesNeeded().getValue());
     }
 }
