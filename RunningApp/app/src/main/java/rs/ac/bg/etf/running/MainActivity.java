@@ -29,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        caloriesFragment = new CaloriesFragment();
-
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.frame_layout, caloriesFragment, CALORIES_TAG)
-                .commit();
+        if (fragmentManager.getFragments().size() == 0) {
+            caloriesFragment = new CaloriesFragment();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_layout, caloriesFragment, CALORIES_TAG)
+                    .commit();
+        } else {
+            caloriesFragment = (CaloriesFragment) fragmentManager.findFragmentByTag(CALORIES_TAG);
+        }
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
