@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_item_routes:
                     //dodaje se novi fragment na backstack
-                    navController.navigate(R.id.route_browse);
+                    navController.navigate(R.id.action_calories_pop);
                     return true;
                 case R.id.menu_item_calories:
-                    navController.navigate(R.id.calories);
+                    navController.navigate(R.id.action_global_calories);
                     return true;
             }
             return false;
