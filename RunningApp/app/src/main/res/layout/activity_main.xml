@@ -69,35 +69,17 @@
         app:layout_constraintRight_toRightOf="@id/height"
         app:layout_constraintTop_toTopOf="@id/age">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
-
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/male"
-                app:layout_constraintBottom_toTopOf="@id/female"
-                app:layout_constraintLeft_toLeftOf="@id/guideline_1"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/female"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/guideline_1"
-                app:layout_constraintTop_toBottomOf="@id/male" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout

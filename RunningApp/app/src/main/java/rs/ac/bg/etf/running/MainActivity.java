@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            if (binding.female.isChecked() == false && binding.male.isChecked() == false) {
+            if (binding.radioGroup.getCheckedRadioButtonId() == -1) {
                 Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
                 return;
             }
