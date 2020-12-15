@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="DefaultHorizontalMargin">16dp</dimen>
-    <dimen name="ResultTextSize">20sp</dimen>
+
+    <!-- Calories -->
+    <dimen name="calories_result_text_size">20sp</dimen>
+
+    <!-- Main -->
+    <dimen name="main_button_margins">32dp</dimen>
 </resources>

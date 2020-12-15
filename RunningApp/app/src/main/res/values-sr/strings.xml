@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Aplikacija za trcanje</string>
-    <string name="weight">Tezina</string>
-    <string name="height">Visina</string>
-    <string name="age">Starost</string>
-    <string name="male">Musko</string>
-    <string name="female">Zensko</string>
-    <string name="duration">Trajanje</string>
-    <string name="calculate">Izracunaj</string>
-    <string name="weight_unit">kg</string>
-    <string name="height_unit">cm</string>
-    <string name="age_unit">god</string>
-    <string name="duration_unit">min</string>
-    <string name="burned">Potroseno</string>
-    <string name="bmr">Potrebno</string>
-    <string name="error_message">Pogresne vrednosti!</string>
+
+    <string name="app_name">Aplikacija za trčanje</string>
+
+    <!-- Calories -->
+    <string name="calories_weight">Težina</string>
+    <string name="calories_height">Visina</string>
+    <string name="calories_age">Starost</string>
+    <string name="calories_male">Muško</string>
+    <string name="calories_female">Žensko</string>
+    <string name="calories_duration">Trajanje</string>
+    <string name="calories_button_label_calculate">Izračunaj</string>
+    <string name="calories_weight_unit">kg</string>
+    <string name="calories_height_unit">cm</string>
+    <string name="calories_age_unit">god</string>
+    <string name="calories_duration_unit">min</string>
+    <string name="calories_burned">Potrošeno</string>
+    <string name="calories_needed">Potrebno</string>
+    <string name="calories_error_message">Pogrešne vrednosti!</string>
+
+    <!-- Main -->
+    <string name="main_button_label_calories">Izračunaj kalorije</string>
+    <string name="main_button_label_browse">Pretraži rute</string>
 </resources>

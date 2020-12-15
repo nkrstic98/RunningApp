@@ -1,17 +1,24 @@
 <resources>
+
     <string name="app_name">Running Application</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
-    <string name="age">Age</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="duration">Duration</string>
-    <string name="calculate">Calculate</string>
-    <string name="weight_unit">kg</string>
-    <string name="height_unit">cm</string>
-    <string name="age_unit">year</string>
-    <string name="duration_unit">min</string>
-    <string name="burned">Burned</string>
-    <string name="bmr">Needed</string>
-    <string name="error_message">Wrong values!</string>
+
+    <!-- Calories -->
+    <string name="calories_weight">Weight</string>
+    <string name="calories_height">Height</string>
+    <string name="calories_age">Age</string>
+    <string name="calories_male">Male</string>
+    <string name="calories_female">Female</string>
+    <string name="calories_duration">Duration</string>
+    <string name="calories_button_label_calculate">Calculate</string>
+    <string name="calories_weight_unit">kg</string>
+    <string name="calories_height_unit">cm</string>
+    <string name="calories_age_unit">year</string>
+    <string name="calories_duration_unit">min</string>
+    <string name="calories_burned">Burned</string>
+    <string name="calories_needed">Needed</string>
+    <string name="calories_error_message">Wrong values!</string>
+
+    <!-- Main -->
+    <string name="main_button_label_calories">Calculate calories</string>
+    <string name="main_button_label_browse">Browse routes</string>
 </resources>

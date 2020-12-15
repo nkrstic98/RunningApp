@@ -30,14 +30,14 @@ public class CaloriesActivity extends AppCompatActivity {
 
         caloriesViewModel.getCaloriesBurned().observe(this, caloriesBurned -> {
             if (caloriesBurned != -1) {
-                String prefix = getResources().getString(R.string.burned);
+                String prefix = getResources().getString(R.string.calories_burned);
                 binding.burned.setText(prefix + ": " + caloriesBurned + " kcal");
             }
         });
 
         caloriesViewModel.getCaloriesNeeded().observe(this, caloriesNeeded -> {
             if (caloriesNeeded != -1) {
-                String prefix = getResources().getString(R.string.bmr);
+                String prefix = getResources().getString(R.string.calories_needed);
                 binding.needed.setText(prefix + ": " + caloriesNeeded + " kcal");
             }
         });
@@ -55,7 +55,7 @@ public class CaloriesActivity extends AppCompatActivity {
                 weight = Double.parseDouble(
                         binding.weight.getEditText().getText().toString());
             } catch (NumberFormatException nfe) {
-                Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.calories_error_message, Toast.LENGTH_SHORT).show();
                 binding.weight.getEditText().requestFocus();
                 return;
             }
@@ -65,7 +65,7 @@ public class CaloriesActivity extends AppCompatActivity {
                 height = Double.parseDouble(
                         binding.height.getEditText().getText().toString());
             } catch (NumberFormatException nfe) {
-                Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.calories_error_message, Toast.LENGTH_SHORT).show();
                 binding.height.getEditText().requestFocus();
                 return;
             }
@@ -75,13 +75,13 @@ public class CaloriesActivity extends AppCompatActivity {
                 age = Integer.parseInt(
                         binding.age.getEditText().getText().toString());
             } catch (NumberFormatException nfe) {
-                Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.calories_error_message, Toast.LENGTH_SHORT).show();
                 binding.age.getEditText().requestFocus();
                 return;
             }
 
             if (binding.radioGroup.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.calories_error_message, Toast.LENGTH_SHORT).show();
                 return;
             }
             boolean isMale = binding.male.isChecked();
@@ -91,7 +91,7 @@ public class CaloriesActivity extends AppCompatActivity {
                 duration = Double.parseDouble(
                         binding.duration.getEditText().getText().toString());
             } catch (NumberFormatException nfe) {
-                Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.calories_error_message, Toast.LENGTH_SHORT).show();
                 binding.duration.getEditText().requestFocus();
                 return;
             }
