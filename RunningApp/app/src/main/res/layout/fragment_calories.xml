@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calories.CaloriesFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight"
+        style="@style/MaterialEditText.MaterialEditTextConstraintable"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
+        android:hint="@string/calories_weight"
+        app:layout_constraintBottom_toTopOf="@id/age"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/height"
+        app:layout_constraintTop_toTopOf="parent"
+        app:suffixText="@string/calories_weight_unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/weight_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/height"
+        style="@style/MaterialEditText.MaterialEditTextConstraintable"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
+        android:hint="@string/calories_height"
+        app:layout_constraintBaseline_toBaselineOf="@id/weight"
+        app:layout_constraintLeft_toRightOf="@id/weight"
+        app:layout_constraintRight_toRightOf="parent"
+        app:suffixText="@string/calories_height_unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/height_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/age"
+        style="@style/MaterialEditText.MaterialEditTextConstraintable"
+        android:hint="@string/calories_age"
+        app:layout_constraintBottom_toTopOf="@id/duration"
+        app:layout_constraintLeft_toLeftOf="@id/weight"
+        app:layout_constraintRight_toRightOf="@id/weight"
+        app:layout_constraintTop_toBottomOf="@id/weight"
+        app:suffixText="@string/calories_age_unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/age_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/age"
+        app:layout_constraintLeft_toLeftOf="@id/height"
+        app:layout_constraintRight_toRightOf="@id/height"
+        app:layout_constraintTop_toTopOf="@id/age">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calories_male" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calories_female" />
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/duration"
+        style="@style/MaterialEditText.MaterialEditTextConstraintable"
+        android:hint="@string/calories_duration"
+        app:layout_constraintBottom_toTopOf="@id/calculate"
+        app:layout_constraintLeft_toLeftOf="@id/age"
+        app:layout_constraintRight_toRightOf="@id/age"
+        app:layout_constraintTop_toBottomOf="@id/age"
+        app:suffixText="@string/calories_duration_unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/duration_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/duration"
+        app:layout_constraintLeft_toLeftOf="@id/radio_group"
+        app:layout_constraintRight_toRightOf="@id/radio_group"
+        app:layout_constraintTop_toTopOf="@id/duration" />
+
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calories_button_label_calculate"
+        app:layout_constraintBottom_toTopOf="@id/burned"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration" />
+
+    <TextView
+        android:id="@+id/burned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/calories_result_text_size"
+        app:layout_constraintBottom_toTopOf="@id/needed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate" />
+
+    <TextView
+        android:id="@+id/needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/calories_result_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/burned" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
