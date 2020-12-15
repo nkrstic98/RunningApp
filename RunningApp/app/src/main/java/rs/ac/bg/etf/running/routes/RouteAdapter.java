@@ -58,6 +58,16 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
             super(binding.getRoot());
             this.binding = binding;
 
+            binding.routeButtonDescription.setOnClickListener(view -> {
+                int routeIndex = getAdapterPosition();
+
+                Intent intent = new Intent();
+                intent.setClass(routeBrowseActivity, RouteDetailsActivity.class);
+                intent.putExtra(RouteDetailsActivity.SELECTED_ROUTE_INDEX, routeIndex);
+
+                routeBrowseActivity.startActivity(intent);
+            });
+
             binding.routeButtonLocation.setOnClickListener(view -> {
                 int routeIndex = getAdapterPosition();
                 String locationString = routes.get(routeIndex).getLocation();

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RunningApplication">
-        <activity android:name=".routes.RouteBrowseActivity"></activity>
+        <activity android:name=".routes.RouteDetailsActivity"></activity>
+        <activity android:name=".routes.RouteBrowseActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
