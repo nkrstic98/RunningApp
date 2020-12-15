@@ -3,6 +3,8 @@ package rs.ac.bg.etf.running;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
 
+    private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
+        //dohvatimo NavHostFragment
+        NavHostFragment navHost = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment);
+        //dohvatimo NavController
+        navController = navHost.getNavController();
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_item_routes:
-
+                    //dodaje se novi fragment na backstack
+                    navController.navigate(R.id.route_browse);
                     return true;
                 case R.id.menu_item_calories:
-
+                    navController.navigate(R.id.calories);
                     return true;
             }
             return false;
