@@ -60,7 +60,7 @@ public class RouteFragment extends Fragment {
         }
 
         routeViewModel.getSelectedRoute().observe(this, selectedRoute -> {
-            if (selectedRoute != null) {
+            if (selectedRoute != null && childFragmentManager.getBackStackEntryCount() == 0) {
                 childFragmentManager
                         .beginTransaction()
                         .replace(R.id.frame_layout, new RouteDetailsFragment())
