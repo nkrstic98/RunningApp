@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="met_strings">
+        <item>8 min/km</item>
+        <item>7,5 min/km</item>
+        <item>7 min/km</item>
+        <item>6,5 min/km</item>
+        <item>6 min/km</item>
+        <item>5,5 min/km</item>
+        <item>5 min/km</item>
+        <item>4,5 min/km</item>
+        <item>4 min/km</item>
+    </string-array>
+    <array name="met_values">
+        <item>6</item>
+        <item>8.3</item>
+        <item>9</item>
+        <item>9.4</item>
+        <item>9.8</item>
+        <item>10.5</item>
+        <item>11.5</item>
+        <item>11.8</item>
+        <item>12.8</item>
+    </array>
+</resources>

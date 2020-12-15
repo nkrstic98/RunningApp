@@ -12,4 +12,7 @@
     <string name="height_unit">cm</string>
     <string name="age_unit">god</string>
     <string name="duration_unit">min</string>
+    <string name="burned">Potroseno</string>
+    <string name="bmr">Potrebno</string>
+    <string name="error_message">Pogresne vrednosti!</string>
 </resources>

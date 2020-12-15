@@ -11,4 +11,7 @@
     <string name="height_unit">cm</string>
     <string name="age_unit">year</string>
     <string name="duration_unit">min</string>
+    <string name="burned">Burned</string>
+    <string name="bmr">Needed</string>
+    <string name="error_message">Wrong values!</string>
 </resources>
