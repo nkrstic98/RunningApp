@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         binding.duration.getEditText().getText().toString());
             } catch (NumberFormatException nfe) {
                 Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
-                binding.age.getEditText().requestFocus();
+                binding.duration.getEditText().requestFocus();
                 return;
             }
 
