@@ -36,10 +36,10 @@ public class CaloriesFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCaloriesBinding.inflate(inflater, container, false);
 
+        MainActivity parentActivity = (MainActivity) getActivity();
+
         caloriesViewModel = new ViewModelProvider(this).get(CaloriesViewModel.class);
         caloriesViewModel.initByInstanceStateBundle(savedInstanceState);
-
-        MainActivity parentActivity = (MainActivity) getActivity();
 
         caloriesViewModel.getCaloriesBurned().observe(this, caloriesBurned -> {
             if (caloriesBurned != -1) {
