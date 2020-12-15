@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/main_navigation_label_routes" />
+    <item
+        android:icon="@drawable/baseline_terrain_black_48"
+        android:title="@string/main_navigation_label_routes" />
 
-    <item android:title="@string/main_navigation_label_calories" />
+    <item
+        android:icon="@drawable/baseline_directions_run_black_48"
+        android:title="@string/main_navigation_label_calories" />
 </menu>
