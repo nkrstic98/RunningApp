@@ -35,7 +35,20 @@ public class RouteBrowseFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentRouteBrowseBinding.inflate(inflater, container, false);
 
-        MainActivity parentActivity = (MainActivity) getParentFragment().getActivity();
+        MainActivity parentActivity = (MainActivity) getActivity();
+
+        routeViewModel = new ViewModelProvider(parentActivity).get(RouteViewModel.class);
+        List<Route> routes = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            routes.add(Route.createFromResources(getResources(), i));
+        }
+        routeViewModel.setRoutes(routes);
+
+        routeViewModel.getSelectedRoute().observe(this, selectedRoute -> {
+            if (selectedRoute != null) {
+
+            }
+        });
 
         routeViewModel = new ViewModelProvider(parentActivity).get(RouteViewModel.class);
 
