@@ -21,4 +21,8 @@
     <!-- Main -->
     <string name="main_button_label_calories">Calculate calories</string>
     <string name="main_button_label_browse">Browse routes</string>
+
+    <!-- Route -->
+    <string name="route_button_label_description">Description</string>
+    <string name="route_button_label_location">Location</string>
 </resources>

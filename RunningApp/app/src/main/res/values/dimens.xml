@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="DefaultHorizontalMargin">16dp</dimen>
+    <dimen name="default_horizontal_margin">16dp</dimen>
+    <dimen name="default_view_offset">8dp</dimen>
 
     <!-- Calories -->
     <dimen name="calories_result_text_size">20sp</dimen>
 
     <!-- Main -->
     <dimen name="main_button_margins">32dp</dimen>
+
+    <!-- Routes -->
+    <dimen name="route_image_height">200dp</dimen>
+    <dimen name="route_info_padding">16dp</dimen>
+    <dimen name="route_info_item_margin_top">8dp</dimen>
+    <dimen name="route_card_corner_radius">8dp</dimen>
+
 </resources>

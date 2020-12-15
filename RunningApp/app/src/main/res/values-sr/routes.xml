@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="route_label">Ruta</string>
+    <string name="route_length_label">Dužina:</string>
+    <string name="route_difficulty_label">Težina:</string>
+
+    <string-array name="route_difficulties_phrases">
+        <item>lako</item>
+        <item>srednje</item>
+        <item>teško</item>
+    </string-array>
+
+    <!-- Katarina Haberli Harker - Hiking and Biking in Serbia -->
+    <string-array name="route_names">
+        <item>Šetnja beogradskom šumom Košutnjak</item>
+        <item>Pešačenje na Avali</item>
+        <item>Pešačenje planinom Bukulja</item>
+        <item>Šetnja močvarama Zasavice</item>
+        <item>Pešačenje od Starog Slankamena do vinarije Šapat i Novog Slankamena</item>
+        <item>Od Stražilova preko Brankovog groba, manastira Grgeteg i sela Neradin</item>
+        <item>Šetnja kanjonom Gradac, od manastira Ćelije do Valjeva</item>
+        <item>Šetnja od Bojaninih voda na vrh Trem</item>
+        <item>Peške na Midžor na Staroj planini</item>
+    </string-array>
+
+    <string-array name="route_descriptions">
+        <item>
+            Staza vodi širokim grebenom Košutnjaka, u početku kroz šumu, a zatim preko velike
+            čistine, potom se spušta pored ski žičare do tramvaja.
+
+            \n\nSa autobuske stanice Skojevska (iz pravca centra grada) pređite na suprotnu
+            stranu ulice i koračajte par koraka trotoarom. Spazićete stazu među drvećem koja se
+            postepeno udaljava od puta. Nakon stotinak metara od autobuske stanice staza zalazi u
+            šumu i prolazi pored terena na kome se penzioneri kuglaju. Odatle je staza obeležna i
+            nakon oko 150 metara dovodi do restorana Rubin. Na kraju prostora za parking
+            restorana Rubin nalazi se betonska staza odmah pored zgrade i njome se vraćate u šumu.
+            Pređite asfaltni put i nastavite širokim šumskim putem. Pređite drugi asfaltni put i
+            nastavite uporednom šumskom stazom koja u velikom luku vodi ulevo, a zatim udesno i
+            njome ćete nakon oko 500m stići do Pionirskog grada sa dečijim kampom.
+
+            \n\nIzađite iz Pionirskog grada kroz kapiju pored igrališta na kome su u plavo i
+            narandžasto obojena stabla i klupe. Pređite asfaltni put i nastavite stazom do znaka
+            na kome stoji veliki broj 9, a koja vodi do restorana Devetka, koji se takođe nalazi u
+            šumi. Prođite pored devet drvenih pečuraka iza restorana Devetka na šumskom putu i
+            nastavite sve dok ne izađete na čistinu. Skrenite levo kod dva crvena sportska terena.
+            Nakon drugog crvenog sportskog terena skrenite levo preko čistine na dobro utabanu
+            pešačku stazu do grupe hrastova i izvora pijaće vode.
+        </item>
+        <item>
+            Prelazak planine Avala od jugoistoka ka severozapadu kroz šumu.
+
+            \n\nSa autobuske stanice "Put za Zuce", podignite pogled, crveno-bela antena uzdiže se
+            tačno na stazi kojom ćete osvojiti Avalu. Pređite glavni put do informativnog pulta i
+            restorana Lovac i sledite asfaltni put s leve strane restorana koji vodi ka šumi.
+            Na raskršću nastavite levo. Staza je obeležena žutom, crvenom i belom bojom, kao i
+            plavom i belom, i prolazi pored brojnih baraka sve do kraja asfaltnog puta. Na tom
+            mestu se nalazi putokaz za vrh Avale (50 min).
+
+            \n\nNastavite šumskim putem uzbrdo i ne obraćajte pažnju na pojedina skretanja
+            ulevo ili udesno. Oko 400 metara nakon poslednjih baraka gde se nalazi
+            mali betonski zid, pešačka staza se odvaja ulevo dok put kroz šumu nastavlja udesno.
+            Sledite uzanu stazu obeleženu crveno-belim obeleživačima dok ne stignete do lakat
+            krivine asfaltnog puta koji vodi ka vrhu Avale pored žuto-crne barijere. Obeležena
+            staza skreće ulevo i nastavlja dalje nešto iznad asfaltnog puta da bi konačno skrenula
+            udesno i vodila uzbrdo duž strme strane, njom stižete do crveno-bele antene koju ste
+            ugledali sa utobuske stanice. Pored antene siđite na asfaltni put oivičen velikim
+            blokovima.
+
+            \n\nNakon dvadesetak metara asfaltnim putem skrenite levo, a zatim se stepnicama
+            popnite do Spomenika neznanom junaku i žrtvama Prvog svetskog rata koji je podignut
+            u čast stradanja nezamislivog broja žrtava koji je bio jednak trećini srpskog
+            stanovništva, tada 4,5 miliona. Sa najvišeg vrha Avale na kome se uzdiže Spomenik
+            neznanom junaku, delu vajara Ivana Meštrovića, koje je izradio tridesetih godina
+            prošlog veka po nalogu kralja Aleksandra, pruža se neverovatan pogled na brdovitu
+            Šumadiju i planinu Kosmaj ka jugu i Beograd i ravnicu Vojvodine na severu. Na tom
+            mestu se ranije nalazila rimska, zatim srednjevekovna srpska, pa posle i osmanlijska
+            tvrđava (Žrnovo), pređašnji spomenik posvećen sećanju na žrtve Prvog svetskog rata.
+        </item>
+        <item>
+            Iz parka u centru Aranđelovca, put se penje između vila do muzeja. Iznad poslednjih
+            kuća počinje krivudava pešačka staza Dušan Mitrović kroz šumu bukve do tornja koji
+            služi kao vidikovac, a zatim do vrha Bukulje na kome se nalazi antena. Postoji
+            mogućnost za spuštanje zapadnom stranom šume do Garaškog jezera.
+
+            \n\nPređite put ispred hotela Izvor, uđite u park i prošetajte nekoliko metara do
+            desnog kraja cvetne aleje odakle počinje obeležena planinarska staza na Bukulji.
+            Na tom mestu se nalazi krst od belog mermera. Popnite se po asfaltiranoj pešačkoj
+            stazi ispod visokih starih stabala sve dok ne naiđete na nekoliko stepenica kojima
+            ćete izaći iz parka. Pređite glavni put i skrenite levo na pešačku stazu koja vodi
+            uzbrdo. Na betonskom stubu nalazi se strelica. Popnite se vijugavim putem između
+            kuća dok ne dođete do Narodnog muzeja. Nekoliko koraka levo od muzeja nalazi se
+            crkva koju možete posetiti; a odmah ispod, kroz prelepi park, nalazi se bajkovita
+            (iako zatvorena) Vila Karadžić. Nastavite uzbrdo putem desno od muzeja u smeru
+            putokaza za bolnicu. Kada uđete u šumu i nađete se iznad crkve Bukulja, šumskim putem
+            koji vodi uzbrdo skrenite desno. Na betonskom stubu sa suprotne strane nalazi se
+            strelica. Nakon oko 50m ovog šumskog puta ispod nekolicine kuća obležena planinarska
+            staza skreće udesno i nizbrdo, na manju stazu. Na betonskom zidu iznad pešačke staze
+            nalazi se strelica koja pokazuje gde se skreće.
+        </item>
+        <item>
+            Ruta prati reku Zasavicu preko širokih travnatih prostranstava i kroz šumu.
+
+            \n\nIzađite iz kruga centra za posetioce Zasavica kroz kapiju ka informativnoj tabli
+            nedaleko od kule osmatračnice. Na tom mestu se nalazi početni stub od niza kojima je
+            obeležena staza. Pratite stazu preko širokih travnjaka. Nakon nekih 2,5km šetnje pored
+            informativnog plakata pređite merdevinama preko ograde i zađite u šumu. Nastavite
+            šumskom stazom koja se prostire između polja i nakon nekih 1,5km stižete do reke
+            Zasavice. Put prati reku sve do romskog naselja pored koga stižete do asfaltnog puta
+            u selu Zasavica. Nastavite nekoliko koraka tim asfaltnim putem do staze koja vodi
+            levo na most preko Zasavice. Pored mosta postoji prelepo izletište.
+        </item>
+        <item>
+            Blagoslovena prelepim pogledom na reke Dunav i Tisu i dve vojvođanske oblasti -
+            Srem i Banat, ruta vodi uz uzbrdice od Starog Slankamena do nizbrdica koje se spuštaju
+            pored rimske tvrđave i bezbrojnih vikendica do prostranih vinograda i voćnjaka, i vraća
+            se uskom stazom u Novi Slankamen.
+
+            \n\nOd poslednje autobuske stanice u Starom Slankamenu skrenite levo na glavni put i
+            pratite zeleni putokaz 1 za tvrđavu Acumincum (1000m). Na raskrsnici ispred katoličke
+            crkve skrenite levo uzbrdo i pratite put Gudura koji se lagano penje oko brda s leve
+            strane rimske tvrđave. Iza poslednjih kuća Starog Slankamena, asfalt prelazi u poljski
+            put, a vi prolazite pored groblja koje ostaje s vaše leve strane. Sa vaše desne strane
+            pruža se sjajan pogled preko malih ostrva i Dunava do plantaža uz reku Tisu i širom
+            otvorenih ravnica Banata. Na mestu na kome poljski put zalazi u unutrašnjost putokaz 8
+            označava tvrđavu Acumincum (350m). Oko 50m dalje, na raskrsnici pored male bele prizemne
+            kuće za odmor, skrenite levo prateći rukom pisani putokaz za tvrđavu (100m). Penjite se
+            po spranom poljskom putu sve dok ne naiđete na jednospratnu kuću za odmor s terasom s
+            pogledom na Stari Slankamen. Putokaz 9 označava spomenik Bici kod Slankamena (2500m).
+            Pre nego što nastavite pravcem koji pokazuje putokaz 9, skrenite levo i pratite usku
+            pešačku stazu tik ispred kuće za odmor koja vodi uz vrh rimske tvrđave i ruševine kule,
+            takođe s prekrasnim pogledom.
+        </item>
+        <item>
+            Od Stražilova na severnom obronku vijugava staza vodi uzbrdo do Brankovog spomenika
+            odakle se penje na asfaltni put duž istočno-zapadnog obronka. Nakon kratkog spuštanja
+            po asfaltnom putu, drugi dobar šumski put spušta se ka jugu do manastira Grgeteg.
+            Na slaboprometnom asfaltnom putu sa kontra usponom, ruta vodi do sela Neradin i
+            restorana Salaš Perkov smeštenom na periferiji sela.
+
+            \n\nIza restorana Brankova koliba u Stražilovu, dobra staza vijugavom padinom vodi
+            uzbrdo dvadesetak minuta do Brankovog groba (čuveni srpski pesnik iz epohe romantizma)
+            na zaravni sa koje se pruža pogled na Novi Sad. Iza spomenika nastavlja se šumski put.
+            Ne obazirite se na skretanje desno ka planinarskom domu Stražilovo. Dobar šumski put
+            lagano se uspinje do prevoja na trećem kilometru, prolazi barijeru i izbija na glavni
+            asfaltni put - Partizanski put. Kada stignete do asfaltnog puta skrenite levo i
+            spuštajte se obeleženom pešačkom stazom otrpilike 1,5km. Pređite asfaltni put i
+            nastavite obeleženim šumskim putem sa druge strane (oznake imaju ikonu!). Put savija
+            udesno i nekih 100m ide uporedo sa asfaltnim putem niže od njega pre nego što zavije
+            ulevo dole. Prođite povrh vikendica i nakon nekih 500m naići ćete na natkriven
+            izletnički sto odakle se pruža izvrstan pogled. Spustite se niz prevoj dok vam manastir
+            Grgeteg ostaje s desne strane. Pređite preko potoka pored manastirske kapije sa zlatnim
+            mozaikom.
+
+            \n\nNastavite da se spuštate pored nekoliko kuća i farme držeći desnu stranu naselja
+            sve dok ne naiđete na putokaz za Neradin. Pratite slabofrekventan asfaltni put strmim
+            usponom udesno, a nakon toga se širokim prevojem spustite u selo Neradin, udaljenom
+            oko 4km od manastira Grgeteg. Spustite se kroz Neradin, do njegovog najnižeg dela
+            odakle ponovo počinjete da se penjete na sledeći prevoj. Tu se nalazi putokaz za
+            Salaš Perkov. Kada se nađete na zaravni skrenite levo i zaputite se ka straoj zgradi
+            Salaša Perkov kroz njegov prelep voćnjak.
+        </item>
+        <item>
+            Nakon spuštanja stepenicama do manastira Ćelije i makadamom do Ekocentra, ruta prvi put
+            prelazi reku Gradac. Sledi dosta prelaza na jednu, pa na drugu stranu rečne obale. Slede
+            fantastična mesta za kupanje i roštiljanje pre nego što se stigne na vrh makadamskog
+            puta, odakle se šetač, nakon što prođe kroz nekoliko lepo smeštenih kafića, vraća u
+            Valjevo.
+
+            \n\nSa informativne table na reci Gradac, nedaleko od autobuske stanice, spustite se
+            novim stepenicama koje vode do manastira, ne asfaltnim putem. Pored stepenica nalazi se
+            mnoštvo izletničkih klupa. Desno od parkirališta manastira i pored velike braon table
+            kojom se izražava dobrodošlica manastiru grubo se spušta makadamski put. Nakon nekih
+            300m šetnje udesno i uzvodno njime stižete do reke Gradac. Pređite reku preko čvrstog
+            pešačkog mosta napravljenog od debla do starog mlina i Ekocentra. Ekocentar je živopisno
+            mesto za opuštanje uz ležaljke pored reke i kafea. Umesto da nastavite silazak pored
+            reke Gradac gde nema staze, pređite livadu ispred Ekocentra kako biste ponovo došli do
+            reke kroz uski deo šume.
+        </item>
+        <item>
+            Nakon početne makadamske staze, pešačka staza se kroz šumu uspinje kroz prelaz Devojački
+            grob (1311m). Odatle ruta prati obronak, a sa cilja se pruža prelep pogled u svim
+            pravcima.
+
+            \n\nOd planinarskog doma Studenac na Bojaninim vodama pratite makadamski put u smeru
+            plavog putokaza za Trem, prvo prelazeći skijašku stazu, a zatim nastavljajući kroz
+            bukovu šumu. Nakon neka dva kilometra ovim makadamskim putem pešačka ruta kreće uzbrdo
+            uskom stazom kroz šumu. Tu se nalazi crveni putokaz, prikovan za drvo na skretanju, na
+            kome piše Trem (3h). Pratite tu usku uzlaznu stazu, prvo kroz bukovu šumu, a zatim preko
+            velike čistine oko 1,5h, dok ne stignete do obronka na mestu zvanom Devojački grob, gde
+            se Trem nalazi s vaše leve, a Sokolov s desne strane. S prevoja skrenite levo i sledite
+            prelepu stazu, koja se još 1,5 sat penje božanstvenim travnatim prevojima, kako biste
+            došli do vrha Trem. Put prati rub masiva Trem s visokim liticama i spektakularnim
+            pogledom s vaše leve strane. Trem se može prepoznati s mnogih lokacija u Srbiji,
+            uglavnom se pomalja iz magle.
+        </item>
+        <item>
+            Iz hotela Stara planina dolazi se do malog prevoja između Babinog Zuba i Midžora uskim
+            putem ispod stene Babin Zub. S prevoja, strmi poljski put vodi širokim obronkom. Iza
+            prvog malog vrha, poljski put zavija udesno, i naposletku, nakon dugog, ali blagog
+            uspona po golim padinama, stiže do vrha na granici s Bugarskom.
+
+            \n\nDa biste biciklom došli iz hotela Stara planina do restorana Plaža pratite uzan
+            asfaltni put koji prelazi u makadamski i prolazi pored planinarskog doma Babin Zub. Ovaj
+            ski put skreće strmo uzbrdo oko 1,5km od hotela uz glavni asfaltni put u smeru ka
+            Knjaževcu, a do restorana stiže nakon oko 5km. Ako pešačite, pratite rutu 27, ali zbog
+            dugog uspona na Midžor, možda biste mogli prvi deo uspona da pređete žičarom.
+
+            \n\nOd restorana Plaža spustite se nekoliko metara grubim makadamskim putem do najniže
+            tačke prevoja. S prevoja makadmski put vodi desno nizibrdo prateći putokaz za Topli Do
+            koji vi zanemarujete. Nastavite pravo uzbrdo, u smeru strelice za Midžor iscratnoj na
+            velikoj steni. Odatle široki greben savldajte makdamskim putem koji se u početku strmo
+            uspinje. Možda ćete morati da gurate bicikl na pojedinim težim deonicama. Prođite pored
+            prvog malog vrha s vaše desne strane. Iz anjega poljski put postaje manje strm i počinje
+            da zavija udesno. Nakon toga prolazite ispod tri mala vrha s vaše leve strane. Crveni
+            putokaz označava jasan smer za Midžor. Završni deo trase opet se podiže strmije i
+            stiže do ruševine s još jednim crvenim putokazom i tu se poljski put završava. Skrenite
+            oštro ulevo i pratite usku stazu uzbrdo, te ponovo 100m dale možemo oštro desno, da
+            biste stigli do vrha. Na najvišom tački Srbije nalazi se beli betonski stub.
+        </item>
+    </string-array>
+</resources>

@@ -9,8 +9,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/weight"
         style="@style/MaterialEditText.MaterialEditTextConstraintable"
-        android:layout_marginStart="@dimen/DefaultHorizontalMargin"
-        android:layout_marginEnd="@dimen/DefaultHorizontalMargin"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
         android:hint="@string/calories_weight"
         app:layout_constraintBottom_toTopOf="@id/age"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,8 +28,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/height"
         style="@style/MaterialEditText.MaterialEditTextConstraintable"
-        android:layout_marginStart="@dimen/DefaultHorizontalMargin"
-        android:layout_marginEnd="@dimen/DefaultHorizontalMargin"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
         android:hint="@string/calories_height"
         app:layout_constraintBaseline_toBaselineOf="@id/weight"
         app:layout_constraintLeft_toRightOf="@id/weight"

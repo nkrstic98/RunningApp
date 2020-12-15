@@ -22,4 +22,8 @@
     <!-- Main -->
     <string name="main_button_label_calories">Izračunaj kalorije</string>
     <string name="main_button_label_browse">Pretraži rute</string>
+
+    <!-- Route -->
+    <string name="route_button_label_description">Opis</string>
+    <string name="route_button_label_location">Lokacija</string>
 </resources>
