@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,6 +15,7 @@
             android:id="@+id/route_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/route_image_height"
+            tools:src="@drawable/route_9_midzor"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -26,7 +28,8 @@
                 android:id="@+id/route_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                tools:text="Route" />
 
             <TextView
                 android:id="@+id/route_name"
@@ -34,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/route_info_item_margin_top"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="Route name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -61,7 +65,8 @@
                     android:textColor="?android:attr/textColorSecondary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/route_length_label"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="14.5 km"/>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -90,16 +95,18 @@
                     android:textColor="?android:attr/textColorSecondary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/route_difficulty_label"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="hard"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/route_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="404dp"
                 android:layout_marginTop="@dimen/route_info_item_margin_top"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="@tools:sample/lorem/random" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
