@@ -21,12 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
 
-    private static final String CALORIES_TAG = "fragment-calories-tag";
-    private CaloriesFragment caloriesFragment;
-
-    private static final String ROUTE_TAG = "fragment-route-tag";
-    private RouteFragment routeFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,44 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        if (fragmentManager.getFragments().size() == 0) {
-            caloriesFragment = new CaloriesFragment();
-            routeFragment = new RouteFragment();
-            fragmentManager
-                    .beginTransaction()
-                    .add(R.id.frame_layout, caloriesFragment, CALORIES_TAG)
-                    .add(R.id.frame_layout, routeFragment, ROUTE_TAG)
-                    .hide(caloriesFragment)
-                    .show(routeFragment)
-                    .commit();
-        } else {
-            caloriesFragment = (CaloriesFragment) fragmentManager
-                    .findFragmentByTag(CALORIES_TAG);
-            routeFragment = (RouteFragment) fragmentManager
-                    .findFragmentByTag(ROUTE_TAG);
-        }
-
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_item_routes:
-//                    Toast.makeText(this, "routes", Toast.LENGTH_SHORT).show();
-                    fragmentManager
-                            .beginTransaction()
-//                            .replace(R.id.frame_layout, new RouteBrowseFragment(), ROUTE_BROWSE_TAG)
-//                            .addToBackStack(null)
-                            .show(routeFragment)
-                            .hide(caloriesFragment)
-                            .commit();
+
                     return true;
                 case R.id.menu_item_calories:
-//                    Toast.makeText(this, "routes", Toast.LENGTH_SHORT).show();
-                    fragmentManager
-                            .beginTransaction()
-//                            .replace(R.id.frame_layout, new CaloriesFragment(), CALORIES_TAG)
-//                            .addToBackStack(null)
-                            .show(caloriesFragment)
-                            .hide(routeFragment)
-                            .commit();
+
                     return true;
             }
             return false;
@@ -84,11 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (binding.bottomNavigation.getSelectedItemId() == R.id.menu_item_routes) {
-            if (routeFragment.getChildFragmentManager().getBackStackEntryCount() > 0) {
-                routeViewModel.setSelectedRoute(null);
-                routeFragment.getChildFragmentManager().popBackStack();
-                return;
-            }
+            routeViewModel.setSelectedRoute(null);
         }
         super.onBackPressed();
     }
