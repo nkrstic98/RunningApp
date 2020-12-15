@@ -1,16 +1,18 @@
 package rs.ac.bg.etf.running;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MyViewModel extends ViewModel {
 
-    private int caloriesBurned;
+    private final MutableLiveData<Integer> caloriesBurned = new MutableLiveData<>();
 
-    public int getCaloriesBurned() {
+    public LiveData<Integer> getCaloriesBurned() {
         return caloriesBurned;
     }
 
     public void setCaloriesBurned(int value) {
-        caloriesBurned = value;
+        caloriesBurned.setValue(value);
     }
 }
