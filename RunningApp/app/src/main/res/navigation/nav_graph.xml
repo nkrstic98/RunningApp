@@ -9,7 +9,11 @@
         android:id="@+id/route_browse"
         android:name="rs.ac.bg.etf.running.routes.RouteBrowseFragment"
         android:label="fragment_route_browse"
-        tools:layout="@layout/fragment_route_browse" />
+        tools:layout="@layout/fragment_route_browse" >
+        <action
+            android:id="@+id/action_show_route_details"
+            app:destination="@id/route_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/route_details"
@@ -21,5 +25,14 @@
         android:id="@+id/calories"
         android:name="rs.ac.bg.etf.running.calories.CaloriesFragment"
         android:label="fragment_calories"
-        tools:layout="@layout/fragment_calories" />
+        tools:layout="@layout/fragment_calories" >
+        <action
+            android:id="@+id/action_calories_pop"
+            app:popUpTo="@id/calories"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_calories"
+        app:destination="@id/calories" />
 </navigation>
