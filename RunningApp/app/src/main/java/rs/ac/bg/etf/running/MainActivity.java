@@ -2,13 +2,10 @@ package rs.ac.bg.etf.running;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import rs.ac.bg.etf.running.calories.CaloriesActivity;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
-import rs.ac.bg.etf.running.routes.RouteBrowseActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,5 +16,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_item_routes:
+                    Toast.makeText(this, "routes", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.menu_item_calories:
+                    Toast.makeText(this, "routes", Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+            return false;
+        });
     }
 }

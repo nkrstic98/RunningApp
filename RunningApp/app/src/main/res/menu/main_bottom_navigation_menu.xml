@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_item_routes"
         android:icon="@drawable/baseline_terrain_black_48"
         android:title="@string/main_navigation_label_routes" />
 
     <item
+        android:id="@+id/menu_item_calories"
         android:icon="@drawable/baseline_directions_run_black_48"
         android:title="@string/main_navigation_label_calories" />
 </menu>
