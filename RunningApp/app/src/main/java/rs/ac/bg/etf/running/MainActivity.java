@@ -19,18 +19,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        binding.buttonCalories.setOnClickListener(view -> {
-            Intent explicitIntent = new Intent();
-            explicitIntent.setClass(this, CaloriesActivity.class);
-            startActivity(explicitIntent);
-        });
-
-        binding.buttonRoute.setOnClickListener(view -> {
-            Intent explicitIntent = new Intent();
-            explicitIntent.setClass(this, RouteBrowseActivity.class);
-            startActivity(explicitIntent);
-        });
-
     }
 }
