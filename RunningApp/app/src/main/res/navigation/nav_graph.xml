@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/routeBrowseFragment">
+
+    <fragment
+        android:id="@+id/routeBrowseFragment"
+        android:name="rs.ac.bg.etf.running.routes.RouteBrowseFragment"
+        android:label="fragment_route_browse"
+        tools:layout="@layout/fragment_route_browse" />
+
+    <fragment
+        android:id="@+id/routeDetailsFragment"
+        android:name="rs.ac.bg.etf.running.routes.RouteDetailsFragment"
+        android:label="RouteDetailsFragment"
+        tools:layout="@layout/fragment_route_details" />
+
+    <fragment
+        android:id="@+id/caloriesFragment"
+        android:name="rs.ac.bg.etf.running.calories.CaloriesFragment"
+        android:label="fragment_calories"
+        tools:layout="@layout/fragment_calories" />
+</navigation>
