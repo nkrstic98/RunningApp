@@ -5,17 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import rs.ac.bg.etf.running.calories.CaloriesFragment;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String LOG_TAG = "fragment-example";
+
     private ActivityMainBinding binding;
+
+    private CaloriesFragment caloriesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        caloriesFragment = new CaloriesFragment();
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {

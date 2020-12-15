@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import rs.ac.bg.etf.running.LifecycleAwareLogger;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentCaloriesBinding;
@@ -24,7 +25,9 @@ public class CaloriesFragment extends Fragment {
     private CaloriesViewModel caloriesViewModel;
 
     public CaloriesFragment() {
-        // Required empty public constructor
+        getLifecycle().addObserver(new LifecycleAwareLogger(
+                MainActivity.LOG_TAG,
+                CaloriesFragment.class.getSimpleName()));
     }
 
     @Override
