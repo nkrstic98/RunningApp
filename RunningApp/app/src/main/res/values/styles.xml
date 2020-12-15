@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MaterialEditText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="MaterialEditText.MaterialEditTextWithMargins">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="MaterialEditText.MaterialEditTextConstraintable">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="HorizontalMargins">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+</resources>

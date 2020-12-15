@@ -33,7 +33,7 @@
         android:hint="@string/height"
         app:layout_constraintBaseline_toBaselineOf="@id/weight"
         app:layout_constraintLeft_toRightOf="@id/weight"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@id/guideline_2"
         app:suffixText="@string/height_unit">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -104,7 +104,7 @@
         android:id="@+id/duration"
         style="@style/MaterialEditText.MaterialEditTextConstraintable"
         android:hint="@string/duration"
-        app:layout_constraintBottom_toTopOf="@id/calculate"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/age"
         app:layout_constraintRight_toRightOf="@id/age"
         app:layout_constraintTop_toBottomOf="@id/age"
@@ -126,15 +126,21 @@
         app:layout_constraintRight_toRightOf="@id/radio_group"
         app:layout_constraintTop_toTopOf="@id/duration" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
     <Button
         android:id="@+id/calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/calculate"
-        app:layout_constraintBottom_toTopOf="@id/burned"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/duration" />
+        app:layout_constraintBaseline_toBaselineOf="@id/height"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_2"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/burned"
@@ -142,7 +148,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/ResultTextSize"
         app:layout_constraintBottom_toTopOf="@id/bmr"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calculate" />
 
@@ -152,7 +158,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/ResultTextSize"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guideline_2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/burned" />
 

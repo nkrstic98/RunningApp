@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aplikacija za trcanje</string>
+    <string name="weight">Tezina</string>
+    <string name="height">Visina</string>
+    <string name="age">Starost</string>
+    <string name="male">Musko</string>
+    <string name="female">Zensko</string>
+    <string name="duration">Trajanje</string>
+    <string name="calculate">Izracunaj</string>
+    <string name="weight_unit">kg</string>
+    <string name="height_unit">cm</string>
+    <string name="age_unit">god</string>
+    <string name="duration_unit">min</string>
+</resources>
