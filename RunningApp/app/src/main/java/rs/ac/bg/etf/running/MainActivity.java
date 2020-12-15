@@ -1,6 +1,9 @@
 package rs.ac.bg.etf.running;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -13,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOG_TAG = "fragment-example";
 
     private ActivityMainBinding binding;
+    private FragmentManager fragmentManager;
 
+    private static final String CALORIES_TAG = "fragment-calories-tag";
     private CaloriesFragment caloriesFragment;
 
     @Override
@@ -22,7 +27,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        fragmentManager = getSupportFragmentManager();
+
         caloriesFragment = new CaloriesFragment();
+
+        fragmentManager
+                .beginTransaction()
+                .add(R.id.frame_layout, caloriesFragment, CALORIES_TAG)
+                .commit();
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
