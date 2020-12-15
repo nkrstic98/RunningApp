@@ -20,13 +20,13 @@ public class RouteBrowseActivity extends AppCompatActivity {
         binding = ActivityRouteBrowseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        List<Route> routes = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            routes.add(Route.createFromResources(getResources(), i));
-        }
-
-        binding.recyclerView.setHasFixedSize(true);
-        binding.recyclerView.setAdapter(new RouteAdapter(this, routes));
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        List<Route> routes = new ArrayList<>();
+//        for (int i = 0; i < 9; i++) {
+//            routes.add(Route.createFromResources(getResources(), i));
+//        }
+//
+//        binding.recyclerView.setHasFixedSize(true);
+//        binding.recyclerView.setAdapter(new RouteAdapter(this, routes));
+//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

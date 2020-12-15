@@ -10,15 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.databinding.ViewHolderRouteBinding;
 
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
 
-    private final RouteBrowseActivity routeBrowseActivity;
+    private final MainActivity mainActivity;
     private final List<Route> routes;
 
-    public RouteAdapter(RouteBrowseActivity routeBrowseActivity, List<Route> routes) {
-        this.routeBrowseActivity = routeBrowseActivity;
+    public RouteAdapter(MainActivity mainActivity, List<Route> routes) {
+        this.mainActivity = mainActivity;
         this.routes = routes;
     }
 
@@ -62,10 +63,10 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
                 int routeIndex = getAdapterPosition();
 
                 Intent intent = new Intent();
-                intent.setClass(routeBrowseActivity, RouteDetailsActivity.class);
+                intent.setClass(mainActivity, RouteDetailsActivity.class);
                 intent.putExtra(RouteDetailsActivity.SELECTED_ROUTE_INDEX, routeIndex);
 
-                routeBrowseActivity.startActivity(intent);
+                mainActivity.startActivity(intent);
             });
 
             binding.routeButtonLocation.setOnClickListener(view -> {
@@ -79,7 +80,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(locationUri);
 
-                routeBrowseActivity.startActivity(intent);
+                mainActivity.startActivity(intent);
             });
         }
     }
