@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/bottom_navigation_routes"
     app:startDestination="@id/route_browse">
 
     <fragment
@@ -27,23 +27,4 @@
             />
     </fragment>
 
-    <fragment
-        android:id="@+id/calories"
-        android:name="rs.ac.bg.etf.running.calories.CaloriesFragment"
-        android:label="fragment_calories"
-        tools:layout="@layout/fragment_calories" >
-        <action
-            android:id="@+id/action_calories_pop"
-            app:popUpTo="@id/calories"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-    <action
-        android:id="@+id/action_global_calories"
-        app:destination="@id/calories" />
-    <fragment
-        android:id="@+id/workoutListFragment"
-        android:name="rs.ac.bg.etf.running.workouts.WorkoutListFragment"
-        android:label="fragment_workout_list"
-        tools:layout="@layout/fragment_workout_list" />
 </navigation>
