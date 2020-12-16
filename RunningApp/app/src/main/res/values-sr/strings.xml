@@ -3,6 +3,17 @@
 
     <string name="app_name">Aplikacija za trčanje</string>
 
+    <!-- Main -->
+    <string name="main_button_label_calories">Izračunaj kalorije</string>
+    <string name="main_button_label_browse">Pretraži rute</string>
+    <string name="main_navigation_label_routes">Rute</string>
+    <string name="main_navigation_label_calories">Kalorije</string>
+
+    <!-- Route -->
+    <string name="route_toolbar_label">Rute za šetanje</string>
+    <string name="route_button_label_description">Opis</string>
+    <string name="route_button_label_location">Lokacija</string>
+
     <!-- Calories -->
     <string name="calories_weight">Težina</string>
     <string name="calories_height">Visina</string>
@@ -18,14 +29,4 @@
     <string name="calories_burned">Potrošeno</string>
     <string name="calories_needed">Potrebno</string>
     <string name="calories_error_message">Pogrešne vrednosti!</string>
-
-    <!-- Main -->
-    <string name="main_button_label_calories">Izračunaj kalorije</string>
-    <string name="main_button_label_browse">Pretraži rute</string>
-    <string name="main_navigation_label_routes">Rute</string>
-    <string name="main_navigation_label_calories">Kalorije</string>
-
-    <!-- Route -->
-    <string name="route_button_label_description">Opis</string>
-    <string name="route_button_label_location">Lokacija</string>
 </resources>

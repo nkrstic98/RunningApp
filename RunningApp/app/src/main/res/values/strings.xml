@@ -1,6 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Running Application</string>
+
+    <!-- Main -->
+    <string name="main_button_label_calories">Calculate calories</string>
+    <string name="main_button_label_browse">Browse routes</string>
+    <string name="main_navigation_label_routes">Routes</string>
+    <string name="main_navigation_label_calories">Calories</string>
+
+    <!-- Route -->
+    <string name="route_toolbar_label">Walking routes</string>
+    <string name="route_button_label_description">Description</string>
+    <string name="route_button_label_location">Location</string>
 
     <!-- Calories -->
     <string name="calories_weight">Weight</string>
@@ -17,14 +29,4 @@
     <string name="calories_burned">Burned</string>
     <string name="calories_needed">Needed</string>
     <string name="calories_error_message">Wrong values!</string>
-
-    <!-- Main -->
-    <string name="main_button_label_calories">Calculate calories</string>
-    <string name="main_button_label_browse">Browse routes</string>
-    <string name="main_navigation_label_routes">Routes</string>
-    <string name="main_navigation_label_calories">Calories</string>
-
-    <!-- Route -->
-    <string name="route_button_label_description">Description</string>
-    <string name="route_button_label_location">Location</string>
 </resources>

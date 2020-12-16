@@ -2,17 +2,12 @@ package rs.ac.bg.etf.running.routes;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
-import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.databinding.ViewHolderRouteBinding;
 
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
@@ -21,14 +16,14 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
         void invoke(T parameter);
     }
 
-    private final MainActivity mainActivity;
     private final RouteViewModel routeViewModel;
-    private final Callback<Integer> callback;
+    private final Callback<Integer> callbackDescription;
+    private final Callback<Integer> callbackLocation;
 
-    public RouteAdapter(MainActivity mainActivity, Callback<Integer> callback) {
-        this.mainActivity = mainActivity;
-        this.routeViewModel = new ViewModelProvider(mainActivity).get(RouteViewModel.class);
-        this.callback = callback;
+    public RouteAdapter(RouteViewModel routeViewModel, Callback<Integer> callbackDescription, Callback<Integer> callbackLocation) {
+        this.routeViewModel = routeViewModel;
+        this.callbackDescription = callbackDescription;
+        this.callbackLocation = callbackLocation;
     }
 
     @NonNull
@@ -70,21 +65,12 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
             binding.routeButtonDescription.setOnClickListener(view -> {
                 int routeIndex = getAdapterPosition();
 //                routeViewModel.setSelectedRoute(routeViewModel.getRoutes().get(routeIndex));
-                callback.invoke(routeIndex);
+                callbackDescription.invoke(routeIndex);
             });
 
             binding.routeButtonLocation.setOnClickListener(view -> {
                 int routeIndex = getAdapterPosition();
-                String locationString = routeViewModel.getRoutes().get(routeIndex).getLocation();
-                locationString = locationString.replace(" ", "%20");
-                locationString = locationString.replace(",", "%2C");
-                Uri locationUri = Uri.parse("geo:0,0?q=" + locationString);
-
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(locationUri);
-
-                mainActivity.startActivity(intent);
+                callbackLocation.invoke(routeIndex);
             });
         }
     }
