@@ -29,4 +29,5 @@
     <string name="calories_burned">Potrošeno</string>
     <string name="calories_needed">Potrebno</string>
     <string name="calories_error_message">Pogrešne vrednosti!</string>
+    <string name="calories_toolbar_label">Kalkulator kalorija</string>
 </resources>
