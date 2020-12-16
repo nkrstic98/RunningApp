@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         //dohvatimo NavHostFragment
-        NavHostFragment navHost = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment);
+        NavHostFragment navHost = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_container);
         //dohvatimo NavController
         navController = navHost.getNavController();
 

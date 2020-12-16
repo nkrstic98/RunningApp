@@ -41,4 +41,9 @@
     <action
         android:id="@+id/action_global_calories"
         app:destination="@id/calories" />
+    <fragment
+        android:id="@+id/workoutListFragment"
+        android:name="rs.ac.bg.etf.running.workouts.WorkoutListFragment"
+        android:label="fragment_workout_list"
+        tools:layout="@layout/fragment_workout_list" />
 </navigation>
