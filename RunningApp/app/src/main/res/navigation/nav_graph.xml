@@ -19,7 +19,13 @@
         android:id="@+id/route_details"
         android:name="rs.ac.bg.etf.running.routes.RouteDetailsFragment"
         android:label="fragment_route_browse"
-        tools:layout="@layout/fragment_route_details" />
+        tools:layout="@layout/fragment_route_details">
+        <argument
+            android:name="routeIndex"
+            android:defaultValue="0"
+            app:argType="integer"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/calories"
