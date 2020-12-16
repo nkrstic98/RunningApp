@@ -16,6 +16,7 @@
 
     <!-- Workouts -->
     <string name="workout_toolbar_label">Workouts</string>
+    <string name="main_navigation_label_workouts">Workouts</string>
 
     <!-- Calories -->
     <string name="calories_weight">Weight</string>
