@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 
 import rs.ac.bg.etf.running.calories.CaloriesFragment;
+import rs.ac.bg.etf.running.calories.CaloriesFragmentDirections;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
 import rs.ac.bg.etf.running.routes.RouteBrowseFragment;
 import rs.ac.bg.etf.running.routes.RouteFragment;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_item_routes:
                     switch (navController.getCurrentDestination().getId()) {
                         case R.id.calories:
-                            navController.navigate(R.id.action_calories_pop);
+                            NavDirections action = CaloriesFragmentDirections.actionCaloriesPop();
+                            navController.navigate(action);
                             break;
 
                         default:
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     switch (navController.getCurrentDestination().getId()) {
                         case R.id.route_browse:
                         case R.id.route_details:
-                            navController.navigate(R.id.action_global_calories);
+                            NavDirections action = NavGraphDirections.actionGlobalCalories();
+                            navController.navigate(action);
                             break;
 
                         default:
@@ -77,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.route_details:
                 routeViewModel.setSelectedRoute(null);
                 break;
+            case R.id.calories:
+                binding.bottomNavigation.getMenu().getItem(0).setChecked(true);
         }
         super.onBackPressed();
     }
