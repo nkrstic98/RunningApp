@@ -9,11 +9,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 
-import rs.ac.bg.etf.running.calories.CaloriesFragment;
 import rs.ac.bg.etf.running.calories.CaloriesFragmentDirections;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
-import rs.ac.bg.etf.running.routes.RouteBrowseFragment;
-import rs.ac.bg.etf.running.routes.RouteFragment;
 import rs.ac.bg.etf.running.routes.RouteViewModel;
 
 public class MainActivity extends AppCompatActivity {
