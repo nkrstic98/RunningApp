@@ -14,6 +14,9 @@
     <string name="route_button_label_description">Opis</string>
     <string name="route_button_label_location">Lokacija</string>
 
+    <!-- Workouts -->
+    <string name="workout_toolbar_label">Treninzi</string>
+
     <!-- Calories -->
     <string name="calories_weight">Težina</string>
     <string name="calories_height">Visina</string>
