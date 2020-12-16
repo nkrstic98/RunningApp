@@ -3,7 +3,6 @@ package rs.ac.bg.etf.running.calories;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,16 +38,15 @@ public class CaloriesFragment extends Fragment {
         MainActivity parentActivity = (MainActivity) getActivity();
 
         caloriesViewModel = new ViewModelProvider(this).get(CaloriesViewModel.class);
-        caloriesViewModel.initByInstanceStateBundle(savedInstanceState);
 
-        caloriesViewModel.getCaloriesBurned().observe(this, caloriesBurned -> {
+        caloriesViewModel.getCaloriesBurned().observe(getViewLifecycleOwner(), caloriesBurned -> {
             if (caloriesBurned != -1) {
                 String prefix = getResources().getString(R.string.calories_burned);
                 binding.burned.setText(prefix + ": " + caloriesBurned + " kcal");
             }
         });
 
-        caloriesViewModel.getCaloriesNeeded().observe(this, caloriesNeeded -> {
+        caloriesViewModel.getCaloriesNeeded().observe(getViewLifecycleOwner(), caloriesNeeded -> {
             if (caloriesNeeded != -1) {
                 String prefix = getResources().getString(R.string.calories_needed);
                 binding.needed.setText(prefix + ": " + caloriesNeeded + " kcal");
@@ -131,16 +129,5 @@ public class CaloriesFragment extends Fragment {
         });
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(
-                CaloriesViewModel.CALORIES_BURNED_KEY,
-                caloriesViewModel.getCaloriesBurned().getValue());
-        outState.putInt(
-                CaloriesViewModel.CALORIES_NEEDED_KEY,
-                caloriesViewModel.getCaloriesNeeded().getValue());
     }
 }
