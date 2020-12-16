@@ -1,7 +1,5 @@
 package rs.ac.bg.etf.running.routes;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -64,7 +62,6 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
             binding.routeButtonDescription.setOnClickListener(view -> {
                 int routeIndex = getAdapterPosition();
-//                routeViewModel.setSelectedRoute(routeViewModel.getRoutes().get(routeIndex));
                 callbackDescription.invoke(routeIndex);
             });
 

@@ -75,6 +75,8 @@ public class RouteBrowseFragment extends Fragment {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setData(locationUri);
+
+                    mainActivity.startActivity(intent);
                 }
         );
 
