@@ -2,6 +2,7 @@ package rs.ac.bg.etf.running.routes;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,12 +17,18 @@ import rs.ac.bg.etf.running.databinding.ViewHolderRouteBinding;
 
 public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
 
+    public interface Callback<T> {
+        void invoke(T parameter);
+    }
+
     private final MainActivity mainActivity;
     private final RouteViewModel routeViewModel;
+    private final Callback<Integer> callback;
 
-    public RouteAdapter(MainActivity mainActivity) {
+    public RouteAdapter(MainActivity mainActivity, Callback<Integer> callback) {
         this.mainActivity = mainActivity;
         this.routeViewModel = new ViewModelProvider(mainActivity).get(RouteViewModel.class);
+        this.callback = callback;
     }
 
     @NonNull
@@ -62,7 +69,8 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
             binding.routeButtonDescription.setOnClickListener(view -> {
                 int routeIndex = getAdapterPosition();
-                routeViewModel.setSelectedRoute(routeViewModel.getRoutes().get(routeIndex));
+//                routeViewModel.setSelectedRoute(routeViewModel.getRoutes().get(routeIndex));
+                callback.invoke(routeIndex);
             });
 
             binding.routeButtonLocation.setOnClickListener(view -> {

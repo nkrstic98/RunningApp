@@ -51,18 +51,14 @@ public class RouteBrowseFragment extends Fragment {
         }
         routeViewModel.setRoutes(routes);
 
-        //ovo se svakako poziva nakon kreiranja Viewa
-        routeViewModel.getSelectedRoute().observe(getViewLifecycleOwner(), selectedRoute -> {
-            if (selectedRoute != null) {
-                NavDirections action = RouteBrowseFragmentDirections.actionShowRouteDetails();
-                navController.navigate(action);
-            }
+        RouteAdapter routeAdapter = new RouteAdapter(parentActivity, routeIndex -> {
+            RouteBrowseFragmentDirections.ActionShowRouteDetails action = RouteBrowseFragmentDirections.actionShowRouteDetails();
+            action.setRouteIndex(routeIndex);
+            navController.navigate(action);
         });
 
-        routeViewModel = new ViewModelProvider(parentActivity).get(RouteViewModel.class);
-
         binding.recyclerView.setHasFixedSize(true);
-        binding.recyclerView.setAdapter(new RouteAdapter(parentActivity));
+        binding.recyclerView.setAdapter(routeAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(parentActivity));
 
         return binding.getRoot();

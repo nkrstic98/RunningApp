@@ -31,16 +31,14 @@ public class RouteDetailsFragment extends Fragment {
 
         routeViewModel = new ViewModelProvider(parentActivity).get(RouteViewModel.class);
 
-        routeViewModel.getSelectedRoute().observe(this, selectedRoute -> {
-            if (selectedRoute != null) {
-                binding.routeImage.setImageDrawable(selectedRoute.getImage());
-                binding.routeLabel.setText(selectedRoute.getLabel());
-                binding.routeName.setText(selectedRoute.getName());
-                binding.routeLength.setText(selectedRoute.getLength() + "km");
-                binding.routeDifficulty.setText(selectedRoute.getDifficulty());
-                binding.routeDescription.setText(selectedRoute.getDescription());
-            }
-        });
+        Route selectedRoute = routeViewModel.getRoutes().get(RouteDetailsFragmentArgs.fromBundle(requireArguments()).getRouteIndex());
+
+        binding.routeImage.setImageDrawable(selectedRoute.getImage());
+        binding.routeLabel.setText(selectedRoute.getLabel());
+        binding.routeName.setText(selectedRoute.getName());
+        binding.routeLength.setText(selectedRoute.getLength() + "km");
+        binding.routeDifficulty.setText(selectedRoute.getDifficulty());
+        binding.routeDescription.setText(selectedRoute.getDescription());
 
         return binding.getRoot();
     }
