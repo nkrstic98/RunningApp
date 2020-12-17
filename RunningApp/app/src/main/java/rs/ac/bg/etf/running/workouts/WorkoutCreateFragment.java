@@ -14,9 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.Format;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 import rs.ac.bg.etf.running.MainActivity;
+import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.RunDatabase;
+import rs.ac.bg.etf.running.data.Workout;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutCreateBinding;
 
 public class WorkoutCreateFragment extends Fragment {
@@ -61,6 +69,28 @@ public class WorkoutCreateFragment extends Fragment {
                     binding.workoutDate.getEditText().setText(dateForEditText);
                 });
 
+        binding.create.setOnClickListener(view -> {
+            Date date = (Date) parse(binding.workoutDate, DateTimeUtil.getSimpleDateFormat());
+            String label = (String) parse(binding.workoutLabel, null);
+            Number distance = (Number) parse(binding.workoutDistance, NumberFormat.getInstance());
+            Number duration = (Number) parse(binding.workoutDuration, NumberFormat.getInstance());
+
+            if(!(date == null || label == null || distance == null || duration == null)) {
+                RunDatabase runDatabase = RunDatabase.getInstance(mainActivity);
+                runDatabase.workoutDao().insert(
+                        new Workout(
+                                0,
+                                date,
+                                label,
+                                distance.doubleValue(),
+                                duration.doubleValue()
+                        )
+                );
+
+                navController.navigateUp();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -70,4 +100,29 @@ public class WorkoutCreateFragment extends Fragment {
         navController = Navigation.findNavController(view);
     }
 
+    private Object parse(TextInputLayout textInputLayout, Format format) {
+        Object result;
+
+        try {
+            String inputString = textInputLayout.getEditText().getText().toString();
+            if(!inputString.equals("")) {
+                if(format != null) {
+                    result = format.parseObject(inputString);
+                }
+                else {
+                    result = inputString;
+                }
+                textInputLayout.setError(null);
+            }
+            else {
+                textInputLayout.setError(mainActivity.getResources().getString(R.string.workout_create_error_empty));
+                result = null;
+            }
+        } catch (ParseException e) {
+            textInputLayout.setError(mainActivity.getResources().getString(R.string.workout_create_error_format));
+            return null;
+        }
+
+        return result;
+    }
 }
