@@ -1,5 +1,6 @@
 package rs.ac.bg.etf.running.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -16,4 +17,7 @@ public interface WorkoutDao {
 
     @Query("SELECT * FROM Workout")
     List<Workout> getAll();
+
+    @Query("SELECT * FROM Workout")
+    LiveData<List<Workout>> getAllLiveData();
 }
