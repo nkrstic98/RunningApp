@@ -49,12 +49,7 @@ public class WorkoutListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWorkoutListBinding.inflate(inflater, container, false);
 
-        RunDatabase runDatabase = Room.databaseBuilder(
-                mainActivity.getApplicationContext(),
-                RunDatabase.class,
-                "run-app.db")
-                .allowMainThreadQueries()
-                .build();
+        RunDatabase runDatabase = RunDatabase.getInstance(mainActivity);
 
         runDatabase
                 .workoutDao()
