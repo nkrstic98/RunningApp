@@ -50,7 +50,7 @@
                 app:layout_constraintEnd_toStartOf="@id/workout_duration"
                 app:layout_constraintStart_toEndOf="@id/workout_distance"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="4'58 /km" />
+                tools:text="4:58 min/km" />
 
             <TextView
                 android:id="@+id/workout_duration"
