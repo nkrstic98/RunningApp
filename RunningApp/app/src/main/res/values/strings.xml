@@ -17,6 +17,17 @@
     <!-- Workouts -->
     <string name="workout_toolbar_label">Workouts</string>
     <string name="main_navigation_label_workouts">Workouts</string>
+    <string name="workout_toolbar_create_label">New Workout</string>
+    <string name="workout_create_date">Date</string>
+    <string name="workout_create_label">Label</string>
+    <string name="workout_create_distance">Distance</string>
+    <string name="workout_create_duration">Duration</string>
+    <string name="workout_create_distance_unit">km</string>
+    <string name="workout_create_duration_unit">min</string>
+    <string name="workout_create_button_label">Create</string>
+    <string name="workout_create_error_empty">Field is required</string>
+    <string name="workout_create_error_format">Wrong format</string>
+    <string name="workout_options_menu_sort_label">Sort</string>
 
     <!-- Calories -->
     <string name="calories_weight">Weight</string>

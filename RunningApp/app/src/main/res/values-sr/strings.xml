@@ -16,7 +16,19 @@
 
     <!-- Workouts -->
     <string name="workout_toolbar_label">Treninzi</string>
-    <string name="main_navigation_label_workouts">Workouts</string>
+    <string name="main_navigation_label_workouts">Treninzi</string>
+    <string name="workout_toolbar_create_label">Novi trening</string>
+    <string name="workout_create_date">Datum</string>
+    <string name="workout_create_label">Naziv</string>
+    <string name="workout_create_distance">Distanca</string>
+    <string name="workout_create_duration">Trajanje</string>
+    <string name="workout_create_distance_unit">km</string>
+    <string name="workout_create_duration_unit">min</string>
+    <string name="workout_create_button_label">Napravi</string>
+    <string name="workout_create_error_empty">Obavezno polje</string>
+    <string name="workout_create_error_format">Pogrešan format</string>
+    <string name="workout_options_menu_sort_label">Sortiraj</string>
+
 
     <!-- Calories -->
     <string name="calories_weight">Težina</string>
