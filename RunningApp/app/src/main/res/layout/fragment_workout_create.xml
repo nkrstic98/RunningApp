@@ -28,10 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:hint="@string/workout_create_date"
-            app:endIconDrawable="@drawable/baseline_calendar_today_24"
-            app:endIconMode="custom"
-            app:endIconTint="?attr/colorPrimary">
+            android:hint="@string/workout_create_date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/workout_date_edit_text"
