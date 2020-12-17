@@ -9,6 +9,15 @@
         android:id="@+id/workout_list"
         android:name="rs.ac.bg.etf.running.workouts.WorkoutListFragment"
         android:label="fragment_workout_list"
-        tools:layout="@layout/fragment_workout_list" />
+        tools:layout="@layout/fragment_workout_list" >
+        <action
+            android:id="@+id/create_workout"
+            app:destination="@id/workout_create" />
+    </fragment>
+    <fragment
+        android:id="@+id/workout_create"
+        android:name="rs.ac.bg.etf.running.workouts.WorkoutCreateFragment"
+        android:label="fragment_workout_create"
+        tools:layout="@layout/fragment_workout_create" />
 
 </navigation>
