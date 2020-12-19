@@ -16,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.data.RunDatabase;
 import rs.ac.bg.etf.running.data.WorkoutRepository;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
 
+@AndroidEntryPoint
 public class WorkoutListFragment extends Fragment {
 
     private FragmentWorkoutListBinding binding;
@@ -37,17 +39,7 @@ public class WorkoutListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mainActivity = (MainActivity) requireActivity();
-
-        RunDatabase runDatabase = RunDatabase.getInstance(mainActivity);
-        WorkoutRepository workoutRepository = new WorkoutRepository(runDatabase.workoutDao());
-        ViewModelProvider.Factory factory = new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T) new WorkoutViewModel(workoutRepository);
-            }
-        };
-        workoutViewModel = new ViewModelProvider(mainActivity, factory).get(WorkoutViewModel.class);
+        workoutViewModel = new ViewModelProvider(mainActivity).get(WorkoutViewModel.class);
 
     }
 
