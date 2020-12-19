@@ -25,8 +25,10 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import rs.ac.bg.etf.running.LifecycleAwareLogger;
 import rs.ac.bg.etf.running.MainActivity;
@@ -118,7 +120,7 @@ public class CaloriesFragment extends Fragment {
 
             final int SLEEP_PERIOD = 1000;
 
-            executorService.submit(() -> {
+            Future<Boolean> future = executorService.submit(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
                 uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
@@ -133,6 +135,21 @@ public class CaloriesFragment extends Fragment {
 
                 SystemClock.sleep(SLEEP_PERIOD);
                 uiThreadHandler.post(() -> binding.calculate.setText("Okay 2"));
+
+                return true;
+            });
+
+            executorService.submit(() -> {
+                try {
+                    Boolean retValue = future.get(); //blokiramo se dok se future ne zavrsi -> vraca boolean
+                    uiThreadHandler.post(() -> {
+                        Toast.makeText(mainActivity, "retValue = " + retValue, Toast.LENGTH_SHORT).show();
+                    });
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             });
 
         });
