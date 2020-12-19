@@ -100,6 +100,12 @@ public class CaloriesFragment extends Fragment {
             } catch (ParseException ignored) {
                 //ignore
             }
+
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
 
         return binding.getRoot();
