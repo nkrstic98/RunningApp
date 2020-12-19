@@ -25,6 +25,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import rs.ac.bg.etf.running.LifecycleAwareLogger;
 import rs.ac.bg.etf.running.MainActivity;
@@ -40,7 +42,7 @@ public class CaloriesFragment extends Fragment {
     private MainActivity mainActivity;
     private NavController navController;
 
-    private HandlerThread handlerThread;
+    private ExecutorService executorService;
 
     public CaloriesFragment() {
 //        getLifecycle().addObserver(new LifecycleAwareLogger(
@@ -54,8 +56,7 @@ public class CaloriesFragment extends Fragment {
         mainActivity = (MainActivity) requireActivity();
         caloriesViewModel = new ViewModelProvider(mainActivity).get(CaloriesViewModel.class);
 
-        handlerThread = new HandlerThread("handler-thread-main");
-        handlerThread.start();
+        executorService = Executors.newFixedThreadPool(4);
     }
 
     @Override
@@ -113,13 +114,11 @@ public class CaloriesFragment extends Fragment {
                 //ignore
             }
 
-            Handler newThreadHandler = new Handler(handlerThread.getLooper());
-
             Handler uiThreadHandler = new Handler(Looper.getMainLooper());
 
             final int SLEEP_PERIOD = 1000;
 
-            newThreadHandler.post(() -> {
+            executorService.submit(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
                 uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
