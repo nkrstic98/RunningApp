@@ -56,6 +56,7 @@ public class WorkoutListFragment extends Fragment {
         binding.toolbar.setOnMenuItemClickListener(menuItem -> {
             switch(menuItem.getItemId()) {
                 case R.id.workout_menu_item_sort:
+                    workoutViewModel.invertSorted();
                 return true;
             }
             return false;

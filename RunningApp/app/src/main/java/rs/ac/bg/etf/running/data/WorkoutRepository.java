@@ -28,4 +28,8 @@ public class WorkoutRepository {
     public LiveData<List<Workout>> getAllLiveData() {
         return workoutDao.getAllLiveData();
     }
+
+    public LiveData<List<Workout>> getAllSortedLiveData() {
+        return workoutDao.getAllSortedLiveData();
+    }
 }
