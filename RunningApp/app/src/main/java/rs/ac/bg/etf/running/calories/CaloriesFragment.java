@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentCaloriesBinding;
 import rs.ac.bg.etf.running.threading.CustomDequeueThread;
+import rs.ac.bg.etf.running.threading.CustomLooperThread;
 
 public class CaloriesFragment extends Fragment {
 
@@ -36,7 +38,7 @@ public class CaloriesFragment extends Fragment {
     private MainActivity mainActivity;
     private NavController navController;
 
-    private CustomDequeueThread customDequeueThread;
+    private CustomLooperThread customLooperThread;
 
     public CaloriesFragment() {
 //        getLifecycle().addObserver(new LifecycleAwareLogger(
@@ -50,8 +52,8 @@ public class CaloriesFragment extends Fragment {
         mainActivity = (MainActivity) requireActivity();
         caloriesViewModel = new ViewModelProvider(mainActivity).get(CaloriesViewModel.class);
 
-        customDequeueThread = new CustomDequeueThread();
-        customDequeueThread.start();
+        customLooperThread = new CustomLooperThread();
+        customLooperThread.start();
     }
 
     @Override
@@ -109,9 +111,11 @@ public class CaloriesFragment extends Fragment {
                 //ignore
             }
 
+            Handler newThreadHandler = new Handler(customLooperThread.getLooper());
+
             final int SLEEP_PERIOD = 1000;
 
-            customDequeueThread.getRunnableDequeue().addLast(() -> {
+            newThreadHandler.post(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
                 mainActivity.runOnUiThread(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
