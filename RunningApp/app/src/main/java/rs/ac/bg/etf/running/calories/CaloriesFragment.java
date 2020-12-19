@@ -114,6 +114,9 @@ public class CaloriesFragment extends Fragment {
 
                 SystemClock.sleep(SLEEP_PERIOD);
                 binding.calculate.setBackgroundColor(Color.RED);
+
+                SystemClock.sleep(SLEEP_PERIOD);
+                binding.calculate.setText("error");
             }).start();
 
 
