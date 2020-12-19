@@ -122,34 +122,31 @@ public class CaloriesFragment extends Fragment {
 
             Future<Boolean> future = executorService.submit(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
+                if(Thread.interrupted()) return false;
                 uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
                 SystemClock.sleep(SLEEP_PERIOD);
+                if(Thread.interrupted()) return false;
                 uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.BLUE));
 
                 SystemClock.sleep(SLEEP_PERIOD);
+                if(Thread.interrupted()) return false;
                 uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.RED));
 
                 SystemClock.sleep(SLEEP_PERIOD);
+                if(Thread.interrupted()) return false;
                 uiThreadHandler.post(() -> binding.calculate.setText("Okay 1"));
 
                 SystemClock.sleep(SLEEP_PERIOD);
+                if(Thread.interrupted()) return false;
                 uiThreadHandler.post(() -> binding.calculate.setText("Okay 2"));
 
                 return true;
             });
 
             executorService.submit(() -> {
-                try {
-                    Boolean retValue = future.get(); //blokiramo se dok se future ne zavrsi -> vraca boolean
-                    uiThreadHandler.post(() -> {
-                        Toast.makeText(mainActivity, "retValue = " + retValue, Toast.LENGTH_SHORT).show();
-                    });
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                SystemClock.sleep(2500);
+                future.cancel(true);
             });
 
         });
