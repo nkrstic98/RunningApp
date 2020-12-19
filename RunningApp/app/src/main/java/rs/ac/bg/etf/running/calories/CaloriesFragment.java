@@ -27,6 +27,7 @@ import rs.ac.bg.etf.running.LifecycleAwareLogger;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentCaloriesBinding;
+import rs.ac.bg.etf.running.threading.CustomDequeueThread;
 
 public class CaloriesFragment extends Fragment {
 
@@ -34,6 +35,8 @@ public class CaloriesFragment extends Fragment {
     private CaloriesViewModel caloriesViewModel;
     private MainActivity mainActivity;
     private NavController navController;
+
+    private CustomDequeueThread customDequeueThread;
 
     public CaloriesFragment() {
 //        getLifecycle().addObserver(new LifecycleAwareLogger(
@@ -46,6 +49,9 @@ public class CaloriesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) requireActivity();
         caloriesViewModel = new ViewModelProvider(mainActivity).get(CaloriesViewModel.class);
+
+        customDequeueThread = new CustomDequeueThread();
+        customDequeueThread.start();
     }
 
     @Override
@@ -105,7 +111,7 @@ public class CaloriesFragment extends Fragment {
 
             final int SLEEP_PERIOD = 1000;
 
-            new Thread(() -> {
+            customDequeueThread.getRunnableDequeue().addLast(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
                 mainActivity.runOnUiThread(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
@@ -120,7 +126,7 @@ public class CaloriesFragment extends Fragment {
 
                 SystemClock.sleep(SLEEP_PERIOD);
                 binding.calculate.post(() -> binding.calculate.setText("Okay 2"));
-            }).start();
+            });
 
         });
 
