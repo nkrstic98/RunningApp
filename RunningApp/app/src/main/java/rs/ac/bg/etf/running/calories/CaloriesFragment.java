@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,23 +115,25 @@ public class CaloriesFragment extends Fragment {
 
             Handler newThreadHandler = new Handler(handlerThread.getLooper());
 
+            Handler uiThreadHandler = new Handler(Looper.getMainLooper());
+
             final int SLEEP_PERIOD = 1000;
 
             newThreadHandler.post(() -> {
                 SystemClock.sleep(SLEEP_PERIOD);
-                mainActivity.runOnUiThread(() -> binding.calculate.setBackgroundColor(Color.GREEN));
+                uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.GREEN));
 
                 SystemClock.sleep(SLEEP_PERIOD);
-                mainActivity.runOnUiThread(() -> binding.calculate.setBackgroundColor(Color.BLUE));
+                uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.BLUE));
 
                 SystemClock.sleep(SLEEP_PERIOD);
-                mainActivity.runOnUiThread(() -> binding.calculate.setBackgroundColor(Color.RED));
+                uiThreadHandler.post(() -> binding.calculate.setBackgroundColor(Color.RED));
 
                 SystemClock.sleep(SLEEP_PERIOD);
-                mainActivity.runOnUiThread(() -> binding.calculate.setText("Okay 1"));
+                uiThreadHandler.post(() -> binding.calculate.setText("Okay 1"));
 
                 SystemClock.sleep(SLEEP_PERIOD);
-                binding.calculate.post(() -> binding.calculate.setText("Okay 2"));
+                uiThreadHandler.post(() -> binding.calculate.setText("Okay 2"));
             });
 
         });
