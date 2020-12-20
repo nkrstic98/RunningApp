@@ -23,7 +23,6 @@ public abstract class RunDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             RunDatabase.class,
                             DATABASE_NAME)
-                            .allowMainThreadQueries()
                             .build();
                 }
             }
