@@ -29,6 +29,24 @@
     <string name="workout_create_error_format">Wrong format</string>
     <string name="workout_options_menu_sort_label">Sort</string>
 
+    <string name="workout_list_fab_text_start">Start</string>
+    <string name="workout_list_fab_text_create">Create</string>
+    <string name="workout_list_fab_button_text_start">Start</string>
+    <string name="workout_list_fab_button_text_finish">Finish</string>
+    <string name="workout_list_fab_button_text_cancel">Cancel</string>
+    <string name="workout_list_fab_button_text_power">Power</string>
+    <string-array name="workout_toast_motivation">
+        <item>Run longer! :)</item>
+        <item>Run faster! :)</item>
+    </string-array>
+    <string name="workout_notification_channel_name">Workout tracker</string>
+    <string name="workout_notification_content_title">Workout</string>
+    <string name="workout_notification_content_text">
+        Running application is tracking your workout.
+    </string>
+    <string name="workout_label">Workout</string>
+
+
     <!-- Calories -->
     <string name="calories_weight">Weight</string>
     <string name="calories_height">Height</string>

@@ -29,6 +29,23 @@
     <string name="workout_create_error_format">Pogrešan format</string>
     <string name="workout_options_menu_sort_label">Sortiraj</string>
 
+    <string name="workout_list_fab_text_start">Započni</string>
+    <string name="workout_list_fab_text_create">Napravi</string>
+    <string name="workout_list_fab_button_text_start">Započni</string>
+    <string name="workout_list_fab_button_text_finish">Završi</string>
+    <string name="workout_list_fab_button_text_cancel">Odustani</string>
+    <string name="workout_list_fab_button_text_power">Power</string>
+    <string-array name="workout_toast_motivation">
+        <item>Trči više! :)</item>
+        <item>Trči brže! :)</item>
+    </string-array>
+    <string name="workout_notification_channel_name">Pratilac treninga</string>
+    <string name="workout_notification_content_title">Workout</string>
+    <string name="workout_notification_content_text">
+        Aplikacija za trčanje prati vaš trening.
+    </string>
+    <string name="workout_label">Trening</string>
+
 
     <!-- Calories -->
     <string name="calories_weight">Težina</string>
