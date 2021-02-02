@@ -31,10 +31,10 @@
 
     <string name="workout_list_fab_text_start">Start</string>
     <string name="workout_list_fab_text_create">Create</string>
-    <string name="workout_list_fab_button_text_start">Start</string>
-    <string name="workout_list_fab_button_text_finish">Finish</string>
-    <string name="workout_list_fab_button_text_cancel">Cancel</string>
-    <string name="workout_list_fab_button_text_power">Power</string>
+    <string name="workout_start_button_text_start">Start</string>
+    <string name="workout_start_button_text_finish">Finish</string>
+    <string name="workout_start_button_text_power">Power</string>
+    <string name="workout_start_button_text_cancel">Cancel</string>
     <string-array name="workout_toast_motivation">
         <item>Run longer! :)</item>
         <item>Run faster! :)</item>
@@ -63,4 +63,5 @@
     <string name="calories_needed">Needed</string>
     <string name="calories_error_message">Wrong values!</string>
     <string name="calories_toolbar_label">Calories calculator</string>
+
 </resources>

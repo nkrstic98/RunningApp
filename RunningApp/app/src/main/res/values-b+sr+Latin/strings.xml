@@ -31,10 +31,10 @@
 
     <string name="workout_list_fab_text_start">Započni</string>
     <string name="workout_list_fab_text_create">Napravi</string>
-    <string name="workout_list_fab_button_text_start">Započni</string>
-    <string name="workout_list_fab_button_text_finish">Završi</string>
-    <string name="workout_list_fab_button_text_cancel">Odustani</string>
-    <string name="workout_list_fab_button_text_power">Power</string>
+    <string name="workout_start_button_text_start">Započni</string>
+    <string name="workout_start_button_text_finish">Završi</string>
+    <string name="workout_start_button_text_power">Power</string>
+    <string name="workout_start_button_text_cancel">Odustani</string>
     <string-array name="workout_toast_motivation">
         <item>Trči više! :)</item>
         <item>Trči brže! :)</item>
@@ -63,4 +63,5 @@
     <string name="calories_needed">Potrebno</string>
     <string name="calories_error_message">Pogrešne vrednosti!</string>
     <string name="calories_toolbar_label">Kalkulator kalorija</string>
+
 </resources>

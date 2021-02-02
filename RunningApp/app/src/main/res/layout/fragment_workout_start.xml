@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".workouts.WorkoutStartFragment">
+
+    <TextView
+        android:id="@+id/workout_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="00:00:00.00"
+        android:textAppearance="?attr/textAppearanceHeadline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="00:27:13.84" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="@string/workout_start_button_text_start"
+        app:layout_constraintEnd_toEndOf="@id/workout_duration"
+        app:layout_constraintStart_toStartOf="@id/workout_duration"
+        app:layout_constraintTop_toBottomOf="@id/workout_duration" />
+
+    <Button
+        android:id="@+id/finish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:enabled="false"
+        android:text="@string/workout_start_button_text_finish"
+        app:layout_constraintEnd_toEndOf="@id/workout_duration"
+        app:layout_constraintStart_toStartOf="@id/workout_duration"
+        app:layout_constraintTop_toBottomOf="@id/start" />
+
+    <Button
+        android:id="@+id/power"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="@string/workout_start_button_text_power"
+        app:layout_constraintEnd_toEndOf="@id/workout_duration"
+        app:layout_constraintStart_toStartOf="@id/workout_duration"
+        app:layout_constraintTop_toBottomOf="@id/finish" />
+
+    <Button
+        android:id="@+id/cancel"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="@string/workout_start_button_text_cancel"
+        app:layout_constraintEnd_toEndOf="@id/workout_duration"
+        app:layout_constraintStart_toStartOf="@id/workout_duration"
+        app:layout_constraintTop_toBottomOf="@id/power" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
