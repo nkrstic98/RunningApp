@@ -1,6 +1,7 @@
 package rs.ac.bg.etf.running.workouts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -130,6 +131,10 @@ public class WorkoutStartFragment extends Fragment {
                 handler.post(() -> binding.workoutDuration.setText(workoutDuration));
             }
         }, 0, 10);
+
+        Intent intent = new Intent();
+        intent.setClass(mainActivity, WorkoutService.class);
+        mainActivity.startService(intent);
 
         timer.schedule(new TimerTask() {
             @Override
