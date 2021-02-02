@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Timer;
@@ -129,6 +130,18 @@ public class WorkoutStartFragment extends Fragment {
                 handler.post(() -> binding.workoutDuration.setText(workoutDuration));
             }
         }, 0, 10);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(() -> Toast.makeText(
+                        mainActivity,
+                        getResources().getStringArray(
+                                R.array.workout_toast_motivation)[0],
+                                Toast.LENGTH_SHORT).show()
+                );
+            }
+        }, 0, 7000);
     }
 
     private void finishWorkout() {
