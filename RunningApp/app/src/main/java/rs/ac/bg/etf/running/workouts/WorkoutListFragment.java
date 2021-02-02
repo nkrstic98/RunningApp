@@ -71,9 +71,16 @@ public class WorkoutListFragment extends Fragment {
 
         binding.floatingActionButton.inflate(R.menu.workout_list_fab_menu);
 
-        binding.floatingActionButton.setOnClickListener(view -> {
-            NavDirections action = WorkoutListFragmentDirections.createWorkout();
-            navController.navigate(action);
+        binding.floatingActionButton.setOnActionSelectedListener(actionItem -> {
+            switch (actionItem.getId()) {
+                case R.id.workout_fab_create:
+                    navController.navigate(WorkoutListFragmentDirections.createWorkout());
+                    return false; //zatvaramo speed dial
+                case R.id.workout_fab_start:
+                    return false;
+            }
+
+            return true;
         });
 
         return binding.getRoot();
