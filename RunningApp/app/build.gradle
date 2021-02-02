@@ -63,4 +63,6 @@ dependencies {
 
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    implementation "com.leinardi.android:speed-dial:3.1.1"
 }
