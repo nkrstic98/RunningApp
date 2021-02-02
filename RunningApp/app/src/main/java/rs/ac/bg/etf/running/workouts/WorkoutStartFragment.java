@@ -135,18 +135,6 @@ public class WorkoutStartFragment extends Fragment {
         Intent intent = new Intent();
         intent.setClass(mainActivity, WorkoutService.class);
         mainActivity.startService(intent);
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(() -> Toast.makeText(
-                        mainActivity,
-                        getResources().getStringArray(
-                                R.array.workout_toast_motivation)[0],
-                                Toast.LENGTH_SHORT).show()
-                );
-            }
-        }, 0, 7000);
     }
 
     private void finishWorkout() {
