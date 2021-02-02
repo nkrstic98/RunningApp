@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -62,11 +63,21 @@ public class WorkoutStartFragment extends Fragment {
 
         timer = new Timer();
 
-        if(sharedPreferences.contains(START_TIMESTAMP_KEY)) {
+        if (sharedPreferences.contains(START_TIMESTAMP_KEY)) {
             startWorkout(sharedPreferences.getLong(START_TIMESTAMP_KEY, new Date().getTime()));
         }
 
         binding.start.setOnClickListener(v -> startWorkout(new Date().getTime()));
+
+        mainActivity.getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        stopWorkout();
+                    }
+                }
+        );
 
         return binding.getRoot();
     }
@@ -75,6 +86,12 @@ public class WorkoutStartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        timer.cancel();
     }
 
     private void startWorkout(long startTimestamp) {
@@ -94,10 +111,10 @@ public class WorkoutStartFragment extends Fragment {
             public void run() {
                 long elapsed = new Date().getTime() - startTimestamp;
 
-                int miliseconds = (int)((elapsed % 1000) / 10);
-                int seconds = (int)((elapsed / 1000) % 60);
-                int minutes = (int)((elapsed / (1000 * 60)) % 60);
-                int hours = (int)((elapsed / (1000 * 60 * 60)) % 60);
+                int miliseconds = (int) ((elapsed % 1000) / 10);
+                int seconds = (int) ((elapsed / 1000) % 60);
+                int minutes = (int) ((elapsed / (1000 * 60)) % 60);
+                int hours = (int) ((elapsed / (1000 * 60 * 60)) % 60);
 
                 StringBuilder workoutDuration = new StringBuilder();
                 workoutDuration.append(String.format("%02d", hours)).append(":");
@@ -110,9 +127,8 @@ public class WorkoutStartFragment extends Fragment {
         }, 0, 10);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        timer.cancel();
+    private void stopWorkout() {
+        sharedPreferences.edit().remove(START_TIMESTAMP_KEY).commit();
+        navController.navigateUp();
     }
 }
