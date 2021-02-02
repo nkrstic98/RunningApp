@@ -19,7 +19,10 @@ public class WorkoutService extends Service {
 
     private Timer timer = new Timer();
 
+    private boolean serviceStarted = false;
+
     private void scheduleTimer() {
+        serviceStarted = true;
 
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -45,7 +48,9 @@ public class WorkoutService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onStartCommand()");
-        scheduleTimer();
+        if(!serviceStarted) {
+            scheduleTimer();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -59,6 +64,9 @@ public class WorkoutService extends Service {
     public void onDestroy() {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onDestroy()");
         super.onDestroy();
-        timer.cancel();
+
+        if(serviceStarted) {
+            timer.cancel();
+        }
     }
 }
