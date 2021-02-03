@@ -19,11 +19,15 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicReference;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 
 public class WorkoutService extends Service {
+
+    public static final String INTENT_ACTION_START = "rs.ac.bg.etf.running.workouts.START";
+    public static final String INTENT_ACTION_POWER = "rs.ac.bg.etf.running.workouts.POWER";
 
     private static final String NOTIFICATION_CHANNEL_ID = "workout-notification-channel";
     private static final int NOTIFICATION_ID = 1;
@@ -32,7 +36,17 @@ public class WorkoutService extends Service {
 
     private boolean serviceStarted = false;
 
+    private int motivationMessageIndex = 0;
+    private final AtomicReference<String> motivationMessage = new AtomicReference<>(null);
+
     private void scheduleTimer() {
+        if(motivationMessage.get() == null) {
+            String[] motivationMessages =
+                getResources().getStringArray(R.array.workout_toast_motivation);
+            motivationMessage.set(motivationMessages[0]);
+            motivationMessageIndex = (motivationMessageIndex + 1) % motivationMessages.length;
+        }
+
         serviceStarted = true;
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -43,11 +57,21 @@ public class WorkoutService extends Service {
                 handler.post(() -> Toast.makeText(
                         WorkoutService.this,
                         getResources().getStringArray(
-                                R.array.workout_toast_motivation)[0],
+                                R.array.workout_toast_motivation)[motivationMessageIndex],
                         Toast.LENGTH_SHORT).show()
                 );
             }
         }, 0, 7000);
+    }
+
+    private void changeMotivationMessage() {
+        String[] motivationMessages =
+                getResources().getStringArray(R.array.workout_toast_motivation);
+        motivationMessage.set(motivationMessages[motivationMessageIndex]);
+        motivationMessageIndex = (motivationMessageIndex + 1) % motivationMessages.length;
+
+        Toast.makeText(this, "changeMotivationMessage", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -63,9 +87,21 @@ public class WorkoutService extends Service {
         createNotificationChannel();
         this.startForeground(NOTIFICATION_ID, getNotification());
 
-        if(!serviceStarted) {
-            scheduleTimer();
+        switch(intent.getAction())
+        {
+            case INTENT_ACTION_START:
+                if(!serviceStarted) {
+                    scheduleTimer();
+                }
+                break;
+            case INTENT_ACTION_POWER:
+                if(serviceStarted) {
+                    changeMotivationMessage();
+                }
+                break;
         }
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 
