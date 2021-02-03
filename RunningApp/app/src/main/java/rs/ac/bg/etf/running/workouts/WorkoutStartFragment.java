@@ -18,6 +18,9 @@ import androidx.navigation.Navigation;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +50,12 @@ public class WorkoutStartFragment extends Fragment {
     private Timer timer;
     private SharedPreferences sharedPreferences;
 
-    private WorkoutService workoutService;
+    private Messenger messenger;
     private boolean bound = false;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            workoutService = ((WorkoutService.PrimitiveBinder) service).getService();
+            messenger = new Messenger(service);
             bound = true;
         }
 
@@ -65,7 +68,6 @@ public class WorkoutStartFragment extends Fragment {
     public WorkoutStartFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,13 @@ public class WorkoutStartFragment extends Fragment {
         binding.cancel.setOnClickListener(v -> cancelWorkout());
         binding.power.setOnClickListener(v -> {
             if(bound) {
-                workoutService.changeMotivationMessage();
+                Message message = Message.obtain();
+                message.what = WorkoutService.PrimitiveHandler.CHANGE_MOTIVATION_MESSAGE;
+                try {
+                    messenger.send(message);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

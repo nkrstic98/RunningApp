@@ -11,10 +11,13 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
+import android.os.Messenger;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -110,10 +113,22 @@ public class WorkoutService extends Service {
         return START_STICKY;
     }
 
-    public class PrimitiveBinder extends Binder {
-        //Work only when there is no IPC
-        public WorkoutService getService() {
-            return WorkoutService.this;
+    public class PrimitiveHandler extends Handler {
+        public static final int CHANGE_MOTIVATION_MESSAGE = 1;
+
+        public PrimitiveHandler(@NonNull Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what)
+            {
+                case CHANGE_MOTIVATION_MESSAGE:
+                    changeMotivationMessage();
+                    break;
+                default: super.handleMessage(msg);
+            }
         }
     }
 
@@ -121,7 +136,7 @@ public class WorkoutService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onBind()");
-        return new PrimitiveBinder();
+        return new Messenger(new PrimitiveHandler(Looper.getMainLooper())).getBinder();
     }
 
     @Override
