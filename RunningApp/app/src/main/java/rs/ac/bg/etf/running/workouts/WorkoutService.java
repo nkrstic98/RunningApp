@@ -125,7 +125,7 @@ public class WorkoutService extends Service {
 
     private void createNotificationChannel() {
         NotificationChannelCompat notificationChannel = new NotificationChannelCompat
-                .Builder(NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_HIGH)
+                .Builder(NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_DEFAULT)
                 .setName(getString(R.string.workout_notification_channel_name))
                 .build();
 
@@ -135,6 +135,9 @@ public class WorkoutService extends Service {
     private Notification getNotification() {
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
+        intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, 0);

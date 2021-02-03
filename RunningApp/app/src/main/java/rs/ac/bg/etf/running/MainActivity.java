@@ -2,15 +2,21 @@ package rs.ac.bg.etf.running;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
+import rs.ac.bg.etf.running.workouts.WorkoutListFragmentDirections;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "running-app-example";
+
+    public static final String INTENT_ACTION_NOTIFICATION = "rs.ac.bg.etf.running.NOTIFICATION";
 
     private ActivityMainBinding binding;
 
@@ -22,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             setupBottomNavigation();
+        }
+
+        if(getIntent().getAction().equals(INTENT_ACTION_NOTIFICATION)) {
+            NavController navController = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_workouts);
+            if(navController != null) {
+                navController.navigate(WorkoutListFragmentDirections.startWorkout());
+            }
         }
     }
 

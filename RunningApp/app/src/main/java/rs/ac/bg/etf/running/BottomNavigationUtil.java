@@ -5,6 +5,7 @@ package rs.ac.bg.etf.running;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,6 +15,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BottomNavigationUtil {
+
+    private interface NavHostFragmentChanger {
+        NavController change(int id);
+    }
+
+    private static NavHostFragmentChanger navHostFragmentChanger;
 
     //za neke navigacione resurse definisemo NavHost fragmente
     //formiramo NavHost fragmente
@@ -59,19 +66,23 @@ public class BottomNavigationUtil {
 
             AtomicReference<String> currTag = new AtomicReference<>(navGraphIdToTagMap.get(bottomNavigationView.getSelectedItemId()));
 
-            bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            navHostFragmentChanger = id -> {
                 //da li smo u sigurnom stanju
                 if(!fragmentManager.isStateSaved()) {
                     //dobijamo informaciju gde treba da skocimo
-                    String dstTag = navGraphIdToTagMap.get(menuItem.getItemId());
+                    String dstTag = navGraphIdToTagMap.get(id);
+
+                    bottomNavigationView.getMenu().findItem(id).setChecked(true);
+
+                    NavHostFragment homeNavHostFragment =
+                            (NavHostFragment) fragmentManager.findFragmentByTag(homeTag);
+                    NavHostFragment dstNavHostfragment =
+                            (NavHostFragment) fragmentManager.findFragmentByTag(dstTag);
 
                     //da li skacemo na destinaciju razlicitu od one na kojoj se trenutno nalazimo
                     //treba da se izvrsi akcija ako skacemo na drugi fragment
                     if(!dstTag.equals(currTag.get())) {
                         fragmentManager.popBackStack(homeTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                        NavHostFragment homeNavHostFragment = (NavHostFragment) fragmentManager.findFragmentByTag(homeTag);
-                        NavHostFragment dstNavHostfragment = (NavHostFragment) fragmentManager.findFragmentByTag(dstTag);
 
                         if(!dstTag.equals(homeTag)) {
                             fragmentManager
@@ -87,12 +98,15 @@ public class BottomNavigationUtil {
                         currTag.set(dstTag);
 
                         isOnHomeWrapper.set(dstTag.equals(homeTag));
-
-                        return true;
                     }
+                    return dstNavHostfragment.getNavController();
                 }
-                return false;
-            });
+                return null;
+            };
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(menuItem ->
+                            navHostFragmentChanger.change(menuItem.getItemId()) != null
+            );
 
             int finalHomeNavGraphId = homeNavGraphId;
             fragmentManager.addOnBackStackChangedListener(() -> {
@@ -101,6 +115,10 @@ public class BottomNavigationUtil {
                 }
             });
         }
+    }
+
+    public static NavController changeNavHostFragment(int id){
+        return navHostFragmentChanger.change(id);
     }
 
     //dohvatamo ili pravimo NavHost fragmente
