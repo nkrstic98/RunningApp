@@ -1,7 +1,9 @@
 package rs.ac.bg.etf.running.workouts;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +47,21 @@ public class WorkoutStartFragment extends Fragment {
     private Timer timer;
     private SharedPreferences sharedPreferences;
 
+    private WorkoutService workoutService;
+    private boolean bound = false;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            workoutService = ((WorkoutService.PrimitiveBinder) service).getService();
+            bound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            bound = false;
+        }
+    };
+
     public WorkoutStartFragment() {
         // Required empty public constructor
     }
@@ -67,6 +85,10 @@ public class WorkoutStartFragment extends Fragment {
 
         timer = new Timer();
 
+        Intent intent = new Intent();
+        intent.setClass(mainActivity, WorkoutService.class);
+        mainActivity.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+
         if (sharedPreferences.contains(START_TIMESTAMP_KEY)) {
             startWorkout(sharedPreferences.getLong(START_TIMESTAMP_KEY, new Date().getTime()));
         }
@@ -75,10 +97,9 @@ public class WorkoutStartFragment extends Fragment {
         binding.finish.setOnClickListener(v -> finishWorkout());
         binding.cancel.setOnClickListener(v -> cancelWorkout());
         binding.power.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setClass(mainActivity, WorkoutService.class);
-            intent.setAction(WorkoutService.INTENT_ACTION_POWER);
-            mainActivity.startService(intent);
+            if(bound) {
+                workoutService.changeMotivationMessage();
+            }
         });
 
         mainActivity.getOnBackPressedDispatcher().addCallback(
@@ -104,6 +125,7 @@ public class WorkoutStartFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         timer.cancel();
+        mainActivity.unbindService(serviceConnection);
     }
 
     private void startWorkout(long startTimestamp) {

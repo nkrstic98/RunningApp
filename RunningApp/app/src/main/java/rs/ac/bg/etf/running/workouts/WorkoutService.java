@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,6 +23,8 @@ import androidx.core.content.ContextCompat;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.annotation.Nullable;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
@@ -66,7 +69,7 @@ public class WorkoutService extends Service {
         }, 0, 7000);
     }
 
-    private void changeMotivationMessage() {
+    public void changeMotivationMessage() {
         String[] motivationMessages =
                 getResources().getStringArray(R.array.workout_toast_motivation);
         motivationMessage.set(motivationMessages[motivationMessageIndex]);
@@ -104,13 +107,21 @@ public class WorkoutService extends Service {
         }
 
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
+    public class PrimitiveBinder extends Binder {
+        //Work only when there is no IPC
+        public WorkoutService getService() {
+            return WorkoutService.this;
+        }
+    }
+
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onBind()");
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new PrimitiveBinder();
     }
 
     @Override
