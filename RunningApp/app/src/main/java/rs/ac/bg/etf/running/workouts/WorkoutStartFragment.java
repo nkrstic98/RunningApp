@@ -50,12 +50,12 @@ public class WorkoutStartFragment extends Fragment {
     private Timer timer;
     private SharedPreferences sharedPreferences;
 
-    private Messenger messenger;
+    private WorkoutServiceInterface workoutServiceInterface;
     private boolean bound = false;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            messenger = new Messenger(service);
+            workoutServiceInterface = WorkoutServiceInterface.Stub.asInterface(service);
             bound = true;
         }
 
@@ -100,10 +100,8 @@ public class WorkoutStartFragment extends Fragment {
         binding.cancel.setOnClickListener(v -> cancelWorkout());
         binding.power.setOnClickListener(v -> {
             if(bound) {
-                Message message = Message.obtain();
-                message.what = WorkoutService.PrimitiveHandler.CHANGE_MOTIVATION_MESSAGE;
                 try {
-                    messenger.send(message);
+                    workoutServiceInterface.changeMotivationMessage();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

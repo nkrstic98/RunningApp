@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
@@ -132,11 +133,19 @@ public class WorkoutService extends Service {
         }
     }
 
+    public class AidlBinder extends WorkoutServiceInterface.Stub {
+
+        @Override
+        public void changeMotivationMessage() throws RemoteException {
+            WorkoutService.this.changeMotivationMessage();
+        }
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onBind()");
-        return new Messenger(new PrimitiveHandler(Looper.getMainLooper())).getBinder();
+        return new AidlBinder();
     }
 
     @Override
