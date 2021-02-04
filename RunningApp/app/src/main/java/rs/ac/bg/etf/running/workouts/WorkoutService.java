@@ -47,6 +47,9 @@ public class WorkoutService extends LifecycleService {
     @Inject
     public LifecycleAwarePlayer player;
 
+    @Inject
+    public LifecycleAwareMeasurer measurer;
+
     @Override
     public void onCreate() {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onCreate()");
@@ -54,6 +57,7 @@ public class WorkoutService extends LifecycleService {
 
         getLifecycle().addObserver(motivator);
         getLifecycle().addObserver(player);
+        getLifecycle().addObserver(measurer);
     }
 
     @Override
@@ -71,6 +75,7 @@ public class WorkoutService extends LifecycleService {
                     serviceStarted = true;
                     motivator.start(this);
                     player.start(this);
+                    measurer.start(this);
                 }
                 break;
             case INTENT_ACTION_POWER:
