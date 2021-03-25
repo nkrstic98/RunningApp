@@ -64,4 +64,18 @@
     <string name="calories_error_message">Pogrešne vrednosti!</string>
     <string name="calories_toolbar_label">Kalkulator kalorija</string>
 
+    <!-- Login -->
+    <string name="email">Email</string>
+    <string name="password">Lozinka</string>
+    <string name="keep_me_logged_in">Ostani ulogovan</string>
+    <string name="login">Uloguj se</string>
+    <string name="register_link">Nemate nalog? Registrujte se ovde</string>
+
+    <string name="registration_label">Registration</string>
+    <string name="profile_pic">Dodaj profilnu sliku (opciono)</string>
+    <string name="first_name">Ime</string>
+    <string name="last_name">Prezime</string>
+    <string name="register">Registruj se</string>
+    <string name="login_link">Već imate nalog? Ulogujte se ovde</string>
+
 </resources>

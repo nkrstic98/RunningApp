@@ -64,4 +64,18 @@
     <string name="calories_error_message">Wrong values!</string>
     <string name="calories_toolbar_label">Calories calculator</string>
 
+    <!-- Login -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="keep_me_logged_in">Keep me logged in</string>
+    <string name="login">Login</string>
+    <string name="register_link">Do not have an account? Register here</string>
+
+    <string name="registration_label">Registration</string>
+    <string name="profile_pic">Upload profile picture (optional)</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="register">Register</string>
+    <string name="login_link">Already have an account? Login here</string>
+
 </resources>
