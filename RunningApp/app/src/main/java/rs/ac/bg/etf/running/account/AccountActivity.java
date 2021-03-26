@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.ActivityAccountBinding;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
@@ -34,7 +35,9 @@ public class AccountActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuthInstance.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null) {
-            //pokreni MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setAction(MainActivity.INTENT_ACTION_REGISTRATION);
+            startActivity(intent);
         }
 
         sharedPreferences = this.getSharedPreferences(RegisterFragment.SHARED_PREFERENCES_PHOTO, MODE_PRIVATE);

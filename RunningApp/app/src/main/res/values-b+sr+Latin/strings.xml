@@ -77,5 +77,7 @@
     <string name="last_name">Prezime</string>
     <string name="register">Registruj se</string>
     <string name="login_link">Već imate nalog? Ulogujte se ovde</string>
+    <string name="registration_success">Registracija uspešna!</string>
+    <string name="registrayion_error">Registation neuspešna, pokušajte ponovo!</string>
 
 </resources>

@@ -24,8 +24,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
@@ -33,7 +37,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.User;
 import rs.ac.bg.etf.running.databinding.FragmentRegisterBinding;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
 import rs.ac.bg.etf.running.firebase.FirebaseFirestoreInstance;
@@ -115,7 +121,73 @@ public class RegisterFragment extends Fragment {
     }
 
     private void register() {
+        String firstname = binding.firstnameText.getText().toString();
+        String lastname = binding.lastnameText.getText().toString();
+        String email = binding.emailText.getText().toString();
+        String password = binding.passwordText.getText().toString();
 
+        if(firstname.equals("")) {
+            binding.firstnameLabel.getEditText().requestFocus();
+        }
+        if(lastname.equals("")) {
+            binding.lastnameLabel.getEditText().requestFocus();
+        }
+        if(email.equals("")) {
+            binding.emailLabel.getEditText().requestFocus();
+        }
+        if(password.equals("")) {
+            binding.passwordLabel.getEditText().requestFocus();
+        }
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(accountActivity, task -> {
+                    if(task.isSuccessful()) {
+                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                        if(currentUser != null) {
+                            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(firstname + " " + lastname)
+                                    .build();
+
+                            if(this.takenPhoto != null) {
+                                request = new UserProfileChangeRequest.Builder()
+                                        .setPhotoUri(this.takenPhoto)
+                                        .build();
+                            }
+
+                            currentUser.updateProfile(request)
+                                    .addOnCompleteListener(accountActivity, command -> {
+                                        if(command.isSuccessful()) {
+                                            User user = new User(
+                                                    firstname,
+                                                    lastname,
+                                                    email,
+                                                    password
+                                            );
+
+                                            firebaseFirestore.collection("users")
+                                                    .document(email)
+                                                    .set(user)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        Toast.makeText(accountActivity, getResources().getString(R.string.registration_success), Toast.LENGTH_SHORT).show();
+
+                                                        Intent intent = new Intent(accountActivity, MainActivity.class);
+                                                        intent.setAction(MainActivity.INTENT_ACTION_REGISTRATION);
+                                                        startActivity(intent);
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        Toast.makeText(accountActivity, getResources().getString(R.string.registrayion_error), Toast.LENGTH_SHORT).show();
+                                                    });
+                                        }
+                                        else {
+                                            Toast.makeText(accountActivity, command.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                    else {
+                        Toast.makeText(accountActivity, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private boolean allPermissionsGranted() {
