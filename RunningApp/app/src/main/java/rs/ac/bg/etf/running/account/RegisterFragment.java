@@ -115,9 +115,6 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
-        ImageView imageView = accountActivity.findViewById(R.id.imageProfile);
-        imageView.setImageDrawable(getResources().getDrawable(R.drawable.no_profile_pic));
     }
 
     private void register() {
@@ -173,6 +170,7 @@ public class RegisterFragment extends Fragment {
                                                         Intent intent = new Intent(accountActivity, MainActivity.class);
                                                         intent.setAction(MainActivity.INTENT_ACTION_REGISTRATION);
                                                         startActivity(intent);
+                                                        accountActivity.finish();
                                                     })
                                                     .addOnFailureListener(e -> {
                                                         Toast.makeText(accountActivity, getResources().getString(R.string.registrayion_error), Toast.LENGTH_SHORT).show();

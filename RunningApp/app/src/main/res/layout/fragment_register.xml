@@ -30,6 +30,7 @@
         android:id="@+id/imageProfile"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:src="@drawable/no_profile_pic"
         android:scaleType="centerCrop"
         app:riv_oval="true"
         android:layout_gravity="center"
