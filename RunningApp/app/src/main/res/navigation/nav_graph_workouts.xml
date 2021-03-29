@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/workout_list"
         android:name="rs.ac.bg.etf.running.workouts.WorkoutListFragment"
-        android:label="fragment_workout_list"
+        android:label="@string/workout_toolbar_label"
         tools:layout="@layout/fragment_workout_list" >
         <action
             android:id="@+id/create_workout"
@@ -20,12 +20,11 @@
     <fragment
         android:id="@+id/workout_create"
         android:name="rs.ac.bg.etf.running.workouts.WorkoutCreateFragment"
-        android:label="fragment_workout_create"
+        android:label="@string/workout_toolbar_create_label"
         tools:layout="@layout/fragment_workout_create" />
     <fragment
         android:id="@+id/workout_start"
         android:name="rs.ac.bg.etf.running.workouts.WorkoutStartFragment"
-        android:label="fragment_workout_start"
+        android:label="@string/workout_start"
         tools:layout="@layout/fragment_workout_start" />
-
 </navigation>

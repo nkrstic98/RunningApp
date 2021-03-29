@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/calories"
         android:name="rs.ac.bg.etf.running.calories.CaloriesFragment"
-        android:label="fragment_calories"
+        android:label="@string/calories_toolbar_label"
         tools:layout="@layout/fragment_calories" >
     </fragment>
 

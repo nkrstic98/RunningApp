@@ -38,6 +38,7 @@ public class AccountActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setAction(MainActivity.INTENT_ACTION_REGISTRATION);
             startActivity(intent);
+            finish();
         }
 
         sharedPreferences = this.getSharedPreferences(RegisterFragment.SHARED_PREFERENCES_PHOTO, MODE_PRIVATE);

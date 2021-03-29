@@ -79,5 +79,6 @@
     <string name="login_link">Already have an account? Login here</string>
     <string name="registration_success">Registation succesfful</string>
     <string name="registrayion_error">Registation failed, please try again</string>
+    <string name="workout_start">Workout</string>
 
 </resources>

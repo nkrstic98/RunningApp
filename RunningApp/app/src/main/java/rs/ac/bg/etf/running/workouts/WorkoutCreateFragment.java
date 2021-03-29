@@ -60,8 +60,8 @@ public class WorkoutCreateFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWorkoutCreateBinding.inflate(inflater, container, false);
 
-        binding.toolbar.setNavigationOnClickListener(
-                view -> navController.navigateUp());
+//        binding.toolbar.setNavigationOnClickListener(
+//                view -> navController.navigateUp());
 
         binding.workoutDateEditText.setOnClickListener(
                 view -> new DatePickerFragment().show(getChildFragmentManager(), null));

@@ -28,6 +28,7 @@
     <string name="workout_create_error_empty">Obavezno polje</string>
     <string name="workout_create_error_format">Pogrešan format</string>
     <string name="workout_options_menu_sort_label">Sortiraj</string>
+    <string name="workout_start">Vežbaj</string>
 
     <string name="workout_list_fab_text_start">Započni</string>
     <string name="workout_list_fab_text_create">Napravi</string>

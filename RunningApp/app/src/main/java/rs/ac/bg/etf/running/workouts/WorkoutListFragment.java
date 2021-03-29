@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,9 +43,17 @@ public class WorkoutListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         mainActivity = (MainActivity) requireActivity();
         workoutViewModel = new ViewModelProvider(mainActivity).get(WorkoutViewModel.class);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        mainActivity.getMenuInflater().inflate(R.menu.workout_list_options_menu, menu);
     }
 
     @Override
@@ -52,15 +64,16 @@ public class WorkoutListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWorkoutListBinding.inflate(inflater, container, false);
 
-        binding.toolbar.inflateMenu(R.menu.workout_list_options_menu);
-        binding.toolbar.setOnMenuItemClickListener(menuItem -> {
-            switch(menuItem.getItemId()) {
-                case R.id.workout_menu_item_sort:
-                    workoutViewModel.invertSorted();
-                return true;
-            }
-            return false;
-        });
+
+//        toolbar.inflateMenu(R.menu.workout_list_options_menu);
+//        toolbar.setOnMenuItemClickListener(menuItem -> {
+//            switch(menuItem.getItemId()) {
+//                case R.id.workout_menu_item_sort:
+//                    workoutViewModel.invertSorted();
+//                return true;
+//            }
+//            return false;
+//        });
 
         WorkoutAdapter workoutAdapter = new WorkoutAdapter();
 

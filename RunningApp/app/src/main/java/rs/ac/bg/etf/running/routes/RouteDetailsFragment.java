@@ -43,9 +43,10 @@ public class RouteDetailsFragment extends Fragment {
 
         Route selectedRoute = routeViewModel.getRoutes().get(RouteDetailsFragmentArgs.fromBundle(requireArguments()).getRouteIndex());
 
-        binding.toolbar.setTitle(selectedRoute.getLabel());
+        mainActivity.getSupportActionBar().setTitle(selectedRoute.getLabel());
+//        binding.toolbar.setTitle(selectedRoute.getLabel());
 
-        binding.toolbar.setNavigationOnClickListener(view -> navController.navigateUp());
+//        binding.toolbar.setNavigationOnClickListener(view -> navController.navigateUp());
 
         binding.routeImage.setImageDrawable(selectedRoute.getImage());
         binding.routeLabel.setText(selectedRoute.getLabel());

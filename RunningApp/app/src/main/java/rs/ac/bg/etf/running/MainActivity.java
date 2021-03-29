@@ -2,12 +2,18 @@ package rs.ac.bg.etf.running;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String INTENT_ACTION_LOGGING = "rs.ac.bg.etf.running.LOGGING";
 
     private ActivityMainBinding binding;
+    private AppBarConfiguration appBarConfiguration;
 
     private FirebaseAuth firebaseAuth = FirebaseAuthInstance.getInstance();
 
@@ -38,14 +45,32 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if(savedInstanceState == null) {
-            setupBottomNavigation();
-        }
+        setSupportActionBar(findViewById(R.id.toolbar_main));
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = binding.navView;
+        DrawerLayout drawerLayout = binding.drawerLayout;
+
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.route_browse,
+                R.id.calories,
+                R.id.workout_list
+        )
+        .setDrawerLayout(drawerLayout)
+        .build();
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+//        if(savedInstanceState == null) {
+//            setupBottomNavigation();
+//        }
 
         if(getIntent().getAction().equals(INTENT_ACTION_NOTIFICATION)) {
-            NavController navController = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_workouts);
-            if(navController != null) {
-                navController.navigate(WorkoutListFragmentDirections.startWorkout());
+            NavController navController1 = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_workouts);
+            if(navController1 != null) {
+                navController1.navigate(WorkoutListFragmentDirections.startWorkout());
             }
         }
 
@@ -63,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if(!keepLoggedIn.getValue()) {
@@ -73,21 +105,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        setupBottomNavigation();
+//        setupBottomNavigation();
     }
 
-    private void setupBottomNavigation() {
-        int[] navResourceIds = new int[] {
-                R.navigation.nav_graph_routes,
-                R.navigation.nav_graph_workouts,
-                R.navigation.nav_graph_calories
-        };
-
-        BottomNavigationUtil.setup(
-                binding.bottomNavigation,
-                getSupportFragmentManager(),
-                navResourceIds,
-                R.id.nav_host_container
-        );
-    }
+//    private void setupBottomNavigation() {
+//        int[] navResourceIds = new int[] {
+//                R.navigation.nav_graph_routes,
+//                R.navigation.nav_graph_workouts,
+//                R.navigation.nav_graph_calories
+//        };
+//
+//        BottomNavigationUtil.setup(
+//                binding.bottomNavigation,
+//                getSupportFragmentManager(),
+//                navResourceIds,
+//                R.id.nav_host_container
+//        );
+//    }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/route_browse"
         android:name="rs.ac.bg.etf.running.routes.RouteBrowseFragment"
-        android:label="fragment_route_browse"
+        android:label="@string/route_toolbar_label"
         tools:layout="@layout/fragment_route_browse" >
         <action
             android:id="@+id/action_show_route_details"
@@ -18,7 +18,6 @@
     <fragment
         android:id="@+id/route_details"
         android:name="rs.ac.bg.etf.running.routes.RouteDetailsFragment"
-        android:label="fragment_route_browse"
         tools:layout="@layout/fragment_route_details">
         <argument
             android:name="routeIndex"
