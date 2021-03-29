@@ -7,13 +7,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Toolbar.Primary"
-        app:navigationIcon="@drawable/baseline_arrow_back_white_24"
-        />
+<!--    <com.google.android.material.appbar.MaterialToolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        style="@style/Widget.MaterialComponents.Toolbar.Primary"-->
+<!--        app:navigationIcon="@drawable/baseline_arrow_back_white_24"-->
+<!--        />-->
 
     <ScrollView
         android:layout_width="match_parent"
