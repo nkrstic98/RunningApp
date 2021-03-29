@@ -17,4 +17,7 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
     </style>
+
+    <style name="Theme.RunningApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.RunningApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
