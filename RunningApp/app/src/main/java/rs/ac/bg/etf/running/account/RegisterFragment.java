@@ -141,13 +141,16 @@ public class RegisterFragment extends Fragment {
                     if(task.isSuccessful()) {
                         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                         if(currentUser != null) {
-                            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(firstname + " " + lastname)
-                                    .build();
-
+                            UserProfileChangeRequest request;
                             if(this.takenPhoto != null) {
                                 request = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(firstname + " " + lastname)
                                         .setPhotoUri(this.takenPhoto)
+                                        .build();
+                            }
+                            else {
+                                request = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(firstname + " " + lastname)
                                         .build();
                             }
 

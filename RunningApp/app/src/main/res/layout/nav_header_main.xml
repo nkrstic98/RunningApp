@@ -14,7 +14,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfile"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/no_profile_pic"

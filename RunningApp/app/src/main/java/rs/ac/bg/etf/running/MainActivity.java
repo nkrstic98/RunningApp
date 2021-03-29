@@ -12,12 +12,16 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import rs.ac.bg.etf.running.account.AccountActivity;
 import rs.ac.bg.etf.running.account.LoginFragment;
 import rs.ac.bg.etf.running.databinding.ActivityMainBinding;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
@@ -59,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
         .setDrawerLayout(drawerLayout)
         .build();
 
+        binding.navView.getMenu().findItem(R.id.menu_logout).setOnMenuItemClickListener(item -> {
+            firebaseAuth.signOut();
+
+            Intent intent = new Intent(this, AccountActivity.class);
+            startActivity(intent);
+            finish();
+
+            return true;
+        });
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -85,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             boolean login = getIntent().getBooleanExtra(LoginFragment.KEEP_LOGGED_IN, false);
             keepLoggedIn.setValue(login);
         }
+
+        setUserData();
     }
 
     @Override
@@ -106,6 +122,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 //        setupBottomNavigation();
+    }
+
+    private void setUserData() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        View headerView = binding.navView.getHeaderView(0);
+
+        TextView name = (TextView) headerView.findViewById(R.id.user_name);
+        name.setText(user.getDisplayName());
+        TextView email = (TextView) headerView.findViewById(R.id.user_email);
+        email.setText(user.getEmail());
+        ImageView profile = (ImageView) headerView.findViewById(R.id.imageProfile);
+        if(user.getPhotoUrl() != null) {
+            profile.setImageURI(user.getPhotoUrl());
+        }
     }
 
 //    private void setupBottomNavigation() {
