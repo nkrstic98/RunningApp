@@ -5,6 +5,13 @@
         android:id="@+id/workout_menu_item_sort"
         android:title="@string/workout_options_menu_sort_label"
         android:icon="@drawable/baseline_sort_24"
-        app:showAsAction="always"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/workout_menu_item_filter"
+        android:title="@string/workout_options_menu_filter_label"
+        android:icon="@drawable/baseline_filter_alt_24"
+        app:showAsAction="never"
         />
 </menu>

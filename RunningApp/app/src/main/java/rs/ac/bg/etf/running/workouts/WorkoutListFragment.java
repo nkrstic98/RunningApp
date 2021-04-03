@@ -41,13 +41,20 @@ public class WorkoutListFragment extends Fragment {
 
         mainActivity = (MainActivity) requireActivity();
         workoutViewModel = new ViewModelProvider(mainActivity).get(WorkoutViewModel.class);
-
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         mainActivity.getMenuInflater().inflate(R.menu.workout_list_options_menu, menu);
+
+        menu.getItem(0).setOnMenuItemClickListener(item -> {
+            return true;
+        });
+
+        menu.getItem(1).setOnMenuItemClickListener(item -> {
+            return true;
+        });
     }
 
     @Override
@@ -58,20 +65,8 @@ public class WorkoutListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentWorkoutListBinding.inflate(inflater, container, false);
 
-
-//        toolbar.inflateMenu(R.menu.workout_list_options_menu);
-//        toolbar.setOnMenuItemClickListener(menuItem -> {
-//            switch(menuItem.getItemId()) {
-//                case R.id.workout_menu_item_sort:
-//                    workoutViewModel.invertSorted();
-//                return true;
-//            }
-//            return false;
-//        });
-
         WorkoutAdapter workoutAdapter = new WorkoutAdapter();
 
-//        workoutViewModel.getWorkoutList().observe(getViewLifecycleOwner(), workoutAdapter::setWorkoutList);
         workoutViewModel.subscribeToRealtimeUpdates(workoutAdapter);
 
         binding.recyclerView.setAdapter(workoutAdapter);
@@ -91,6 +86,7 @@ public class WorkoutListFragment extends Fragment {
 
             return true;
         });
+
 
         return binding.getRoot();
     }

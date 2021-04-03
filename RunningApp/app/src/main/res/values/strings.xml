@@ -28,6 +28,7 @@
     <string name="workout_create_error_empty">Field is required</string>
     <string name="workout_create_error_format">Wrong format</string>
     <string name="workout_options_menu_sort_label">Sort</string>
+    <string name="workout_options_menu_filter_label">Filter</string>
 
     <string name="workout_list_fab_text_start">Start</string>
     <string name="workout_list_fab_text_create">Create</string>

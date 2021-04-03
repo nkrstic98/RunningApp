@@ -78,7 +78,6 @@ public class WorkoutCreateFragment extends Fragment {
             if(!(date == null || label == null || distance == null || duration == null)) {
                 workoutViewModel.insertWorkout(
                         new Workout(
-                                "",
                                 date,
                                 label,
                                 distance.doubleValue(),

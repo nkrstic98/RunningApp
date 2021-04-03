@@ -6,8 +6,6 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 public class Workout {
-
-    private String username = "";
     private Date date;
     private String label;
     private double distance;
@@ -16,20 +14,11 @@ public class Workout {
     public Workout() {
     }
 
-    public Workout(String username, Date date, String label, double distance, double duration) {
-        this.username = username;
+    public Workout(Date date, String label, double distance, double duration) {
         this.date = date;
         this.label = label;
         this.distance = distance;
         this.duration = duration;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Date getDate() {

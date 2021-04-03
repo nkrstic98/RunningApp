@@ -170,7 +170,6 @@ public class WorkoutStartFragment extends Fragment {
         long elapsed = new Date().getTime() - startTimestamp;
         double minutes = elapsed / (1000.0 * 60);
         workoutViewModel.insertWorkout(new Workout(
-                "",
                 new Date(),
                 getText(R.string.workout_label).toString(),
                 0.2 * minutes,
