@@ -5,31 +5,31 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity
 public class Workout {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
-
+    private String username = "";
     private Date date;
     private String label;
     private double distance;
     private double duration;
 
-    public Workout(long id, Date date, String label, double distance, double duration) {
-        this.id = id;
+    public Workout() {
+    }
+
+    public Workout(String username, Date date, String label, double distance, double duration) {
+        this.username = username;
         this.date = date;
         this.label = label;
         this.distance = distance;
         this.duration = duration;
     }
 
-    public long getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getDate() {

@@ -63,7 +63,6 @@ public class WorkoutStartFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +170,7 @@ public class WorkoutStartFragment extends Fragment {
         long elapsed = new Date().getTime() - startTimestamp;
         double minutes = elapsed / (1000.0 * 60);
         workoutViewModel.insertWorkout(new Workout(
-                0,
+                "",
                 new Date(),
                 getText(R.string.workout_label).toString(),
                 0.2 * minutes,

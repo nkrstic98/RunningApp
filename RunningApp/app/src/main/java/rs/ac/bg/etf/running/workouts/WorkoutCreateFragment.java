@@ -1,12 +1,10 @@
 package rs.ac.bg.etf.running.workouts;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,9 +23,7 @@ import java.util.Date;
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
-import rs.ac.bg.etf.running.data.RunDatabase;
 import rs.ac.bg.etf.running.data.Workout;
-import rs.ac.bg.etf.running.data.WorkoutRepository;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutCreateBinding;
 
 @AndroidEntryPoint
@@ -82,7 +78,7 @@ public class WorkoutCreateFragment extends Fragment {
             if(!(date == null || label == null || distance == null || duration == null)) {
                 workoutViewModel.insertWorkout(
                         new Workout(
-                                0,
+                                "",
                                 date,
                                 label,
                                 distance.doubleValue(),

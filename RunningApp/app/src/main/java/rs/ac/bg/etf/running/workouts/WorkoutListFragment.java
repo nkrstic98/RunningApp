@@ -4,13 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,8 +19,6 @@ import android.view.ViewGroup;
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
-import rs.ac.bg.etf.running.data.RunDatabase;
-import rs.ac.bg.etf.running.data.WorkoutRepository;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
 
 @AndroidEntryPoint
@@ -77,7 +71,8 @@ public class WorkoutListFragment extends Fragment {
 
         WorkoutAdapter workoutAdapter = new WorkoutAdapter();
 
-        workoutViewModel.getWorkoutList().observe(getViewLifecycleOwner(), workoutAdapter::setWorkoutList);
+//        workoutViewModel.getWorkoutList().observe(getViewLifecycleOwner(), workoutAdapter::setWorkoutList);
+        workoutViewModel.subscribeToRealtimeUpdates(workoutAdapter);
 
         binding.recyclerView.setAdapter(workoutAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
