@@ -45,6 +45,9 @@ public class WorkoutService extends LifecycleService {
     public LifecycleAwareMotivator motivator;
 
     @Inject
+    public LifecycleAwarePlayer player;
+
+    @Inject
     public LifecycleAwareMeasurer measurer;
 
     @Inject
@@ -56,6 +59,7 @@ public class WorkoutService extends LifecycleService {
         super.onCreate();
 
         getLifecycle().addObserver(motivator);
+        getLifecycle().addObserver(player);
         getLifecycle().addObserver(measurer);
         getLifecycle().addObserver(locator);
     }
@@ -74,6 +78,7 @@ public class WorkoutService extends LifecycleService {
                 if(!serviceStarted) {
                     serviceStarted = true;
                     motivator.start(this);
+                    player.start(this);
                     measurer.start(this);
                     locator.getLocation(this);
                 }

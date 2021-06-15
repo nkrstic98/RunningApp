@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.route_browse,
                 R.id.calories,
-                R.id.workout_list
+                R.id.workout_list,
+                R.id.playlists
         )
         .setDrawerLayout(drawerLayout)
         .build();

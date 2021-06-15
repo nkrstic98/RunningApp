@@ -8,6 +8,7 @@
     <string name="main_button_label_browse">Browse routes</string>
     <string name="main_navigation_label_routes">Routes</string>
     <string name="main_navigation_label_calories">Calories</string>
+    <string name="main_navigation_label_playlists">My Playlists</string>
 
     <!-- Route -->
     <string name="route_toolbar_label">Walking routes</string>
@@ -81,5 +82,7 @@
     <string name="registration_success">Registation succesfful</string>
     <string name="registrayion_error">Registation failed, please try again</string>
     <string name="workout_start">Workout</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -6,4 +6,5 @@
     <include app:graph="@navigation/nav_graph_calories" />
     <include app:graph="@navigation/nav_graph_routes" />
     <include app:graph="@navigation/nav_graph_workouts" />
+    <include app:graph="@navigation/nav_graph_musicplayer" />
 </navigation>
