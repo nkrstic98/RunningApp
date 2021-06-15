@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="workouts_sort">
+        <item>Date</item>
+        <item>Distance</item>
+        <item>Duration</item>
+    </string-array>
+
+    <string-array name="workout_filter">
+
+    </string-array>
+
+</resources>

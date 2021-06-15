@@ -98,6 +98,9 @@ public class LoginFragment extends Fragment {
                        startActivity(intent);
                        accountActivity.finish();
                    }
+                   else {
+                       Toast.makeText(accountActivity, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                   }
                 });
     }
 }

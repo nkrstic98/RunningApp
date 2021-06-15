@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         .setDrawerLayout(drawerLayout)
         .build();
 
+        setUserData();
+
         binding.navView.getMenu().findItem(R.id.menu_logout).setOnMenuItemClickListener(item -> {
             firebaseAuth.signOut();
 
@@ -88,19 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-//        if(getIntent().getAction().equals(INTENT_ACTION_REGISTRATION)) {
-//            NavController navController = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_routes);
-//            if(navController != null) {
-//                navController.navigate(WorkoutListFragmentDirections.startWorkout());
-//            }
-//        }
-
         if(getIntent().getAction().equals(INTENT_ACTION_LOGGING)) {
             boolean login = getIntent().getBooleanExtra(LoginFragment.KEEP_LOGGED_IN, false);
             keepLoggedIn.setValue(login);
         }
-
-        setUserData();
     }
 
     @Override

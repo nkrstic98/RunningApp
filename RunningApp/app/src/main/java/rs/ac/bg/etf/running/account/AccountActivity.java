@@ -36,7 +36,8 @@ public class AccountActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser() != null) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.setAction(MainActivity.INTENT_ACTION_REGISTRATION);
+            intent.setAction(MainActivity.INTENT_ACTION_LOGGING);
+            intent.putExtra(LoginFragment.KEEP_LOGGED_IN, true);
             startActivity(intent);
             finish();
         }

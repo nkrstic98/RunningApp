@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
+import rs.ac.bg.etf.running.dialogs.SortDialogFragment;
 
 @AndroidEntryPoint
 public class WorkoutListFragment extends Fragment {
@@ -49,6 +50,8 @@ public class WorkoutListFragment extends Fragment {
         mainActivity.getMenuInflater().inflate(R.menu.workout_list_options_menu, menu);
 
         menu.getItem(0).setOnMenuItemClickListener(item -> {
+            SortDialogFragment dialogFragment = new SortDialogFragment();
+            dialogFragment.show(getChildFragmentManager(), "sort-fragment");
             return true;
         });
 

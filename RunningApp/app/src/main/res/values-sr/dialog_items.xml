@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="workouts_sort">
+        <item>Datum</item>
+        <item>Razdaljina</item>
+        <item>Trajanje</item>
+    </string-array>
+
+</resources>

@@ -8,8 +8,6 @@ import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,7 +18,6 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.data.Workout;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
 import rs.ac.bg.etf.running.firebase.FirebaseFirestoreInstance;
@@ -35,9 +32,19 @@ public class WorkoutViewModel extends ViewModel {
     private FirebaseFirestore firebaseFirestore;
     private CollectionReference workoutCollection;
 
+    private WorkoutAdapter workoutAdapter;
+
+    private static final String SORT_KEY = "workout-sort-key";
+    private String sortCondition;
+
     @ViewModelInject
     public WorkoutViewModel(@Assisted SavedStateHandle savedStateHandle) {
         this.savedStateHandle = savedStateHandle;
+
+        sortCondition = savedStateHandle.get(SORT_KEY);
+        if(sortCondition == null) {
+            sortCondition = "date";
+        }
 
         firebaseAuth = FirebaseAuthInstance.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -61,8 +68,13 @@ public class WorkoutViewModel extends ViewModel {
                 });
     }
 
+    public void setSortCondition(String condition) {
+        savedStateHandle.set(SORT_KEY, condition);
+    }
 
     public void subscribeToRealtimeUpdates(WorkoutAdapter workoutAdapter) {
+        this.workoutAdapter = workoutAdapter;
+
         workoutCollection
                 .orderBy("date", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
@@ -78,7 +90,27 @@ public class WorkoutViewModel extends ViewModel {
                             workouts.add(workout);
                         }
 
+                        this.workoutAdapter.setWorkoutList(workouts);
+                    }
+                });
+    }
+
+    public void sortWorkouts(String cond) {
+        workoutCollection
+                .orderBy(cond, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(command -> {
+                    if(command.isSuccessful()) {
+                        workouts = new ArrayList<>();
+                        for (DocumentSnapshot document : command.getResult().getDocuments()) {
+                            Workout workout = document.toObject(Workout.class);
+                            workouts.add(workout);
+                        }
+
                         workoutAdapter.setWorkoutList(workouts);
+                    }
+                    else {
+                        Log.e("err", command.getException().getMessage());
                     }
                 });
     }
