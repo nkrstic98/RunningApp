@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,7 @@ public class PlaylistCreatorDialog extends DialogFragment {
 
         dialog.setOnShowListener(dialog1 -> {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-                String playlist_title = binding.title.getEditText().getText().toString();
+                String playlist_title = ((EditText) dialog.findViewById(R.id.title_edit_text)).getText().toString();
                 if(playlist_title.equals("")) {
                     mainActivity.runOnUiThread(() -> {
                         binding.title.getEditText().requestFocus();
