@@ -6,6 +6,10 @@ public class Playlist {
     private String title;
     private List<Audio> audioList;
 
+    public Playlist() {
+
+    }
+
     public Playlist(String name) {
         title = name;
     }

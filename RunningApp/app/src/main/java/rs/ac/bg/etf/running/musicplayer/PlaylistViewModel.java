@@ -1,5 +1,9 @@
 package rs.ac.bg.etf.running.musicplayer;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.hilt.Assisted;
@@ -17,6 +21,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
 import rs.ac.bg.etf.running.firebase.FirebaseFirestoreInstance;
 

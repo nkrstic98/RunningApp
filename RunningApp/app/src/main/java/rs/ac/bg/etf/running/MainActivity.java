@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
         if(user.getPhotoUrl() != null) {
             profile.setImageURI(user.getPhotoUrl());
         }
+        else {
+            profile.setImageDrawable(getDrawable(R.drawable.no_profile_pic));
+        }
     }
 
 //    private void setupBottomNavigation() {

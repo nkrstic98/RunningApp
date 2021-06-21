@@ -1,23 +1,39 @@
 package rs.ac.bg.etf.running.musicplayer;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.databinding.FragmentPlaylistsBinding;
 import rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog;
 import rs.ac.bg.etf.running.dialogs.SortDialogFragment;
+
+import static rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog.REQUEST_CODE;
 
 public class PlaylistsFragment extends Fragment {
 
@@ -25,6 +41,9 @@ public class PlaylistsFragment extends Fragment {
     private MainActivity mainActivity;
     private PlaylistViewModel playlistViewModel;
     private NavController navController;
+
+    Playlist playlist = null;
+    List<Audio> audioList;
 
     public PlaylistsFragment() {
         // Required empty public constructor
@@ -51,8 +70,8 @@ public class PlaylistsFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.floatingActionButton.setOnClickListener(v -> {
-            PlaylistCreatorDialog dialog = new PlaylistCreatorDialog();
-            dialog.show(getChildFragmentManager(), "sort-fragment");
+            playlist = new Playlist("Moja plejlista");
+            permission();
         });
 
         return binding.getRoot();
@@ -62,5 +81,84 @@ public class PlaylistsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+    }
+
+    private void permission() {
+        if(ContextCompat.checkSelfPermission(mainActivity.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(mainActivity, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        }
+        else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("audio/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            Intent multipleAudioChooser = intent.createChooser(intent, "Choose a file");
+            startActivityForResult(multipleAudioChooser, 1);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            if(null != data) { // checking empty selection
+                audioList = new ArrayList<>();
+                if(null != data.getClipData()) { // checking multiple selection or not
+                    for(int i = 0; i < data.getClipData().getItemCount(); i++) {
+                        Uri uri = data.getClipData().getItemAt(i).getUri();
+                        Log.d("my-chosen-audio", uri + "");
+                        loadAudio(uri);
+                    }
+                } else {
+                    Uri uri = data.getData();
+                    loadAudio(uri);
+                }
+                savePlaylist();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_CODE) {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("audio/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                Intent multipleAudioChooser = intent.createChooser(intent, "Choose a file");
+                startActivityForResult(multipleAudioChooser, 1);
+            }
+            else {
+                ActivityCompat.requestPermissions(mainActivity, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+            }
+        }
+    }
+
+    private void loadAudio(Uri uri) {
+        ContentResolver contentResolver = mainActivity.getContentResolver();
+
+//        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
+        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
+        Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                String data = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+                String title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                String artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                int duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+
+                // Save to audioList
+                audioList.add(new Audio(data, title, album, artist, duration));
+            }
+        }
+        cursor.close();
+    }
+
+    private void savePlaylist() {
+        playlist.setAudioList(audioList);
+        playlistViewModel.insertPlaylist(playlist);
     }
 }
