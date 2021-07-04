@@ -4,19 +4,31 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.databinding.ViewHolderPlaylistsBinding;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
 
+    public interface Callback<T> {
+        void invoke(T parameter);
+    }
+
     List<Playlist> playlists = new ArrayList<>();
 
-    public PlaylistAdapter() {
+    private MainActivity mainActivity;
+    private PlaylistViewModel playlistViewModel;
+    private final Callback<Integer> callback;
 
+    public PlaylistAdapter(MainActivity mainActivity, Callback<Integer> callback) {
+        this.mainActivity = mainActivity;
+        this.playlistViewModel = new ViewModelProvider(mainActivity).get(PlaylistViewModel.class);
+        this.callback = callback;
     }
 
     public void setPlaylists(List<Playlist> playlists) {
@@ -51,6 +63,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
 
             this.binding.deletePlaylist.setOnClickListener(v -> {
 
+            });
+
+            this.binding.title.setOnClickListener(v -> {
+                callback.invoke(getAdapterPosition());
             });
         }
     }

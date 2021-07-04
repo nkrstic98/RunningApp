@@ -9,5 +9,19 @@
         android:id="@+id/playlists"
         android:name="rs.ac.bg.etf.running.musicplayer.PlaylistsFragment"
         android:label="My playlists"
-        tools:layout="@layout/fragment_playlists" />
+        tools:layout="@layout/fragment_playlists" >
+        <action
+            android:id="@+id/action_playlists_to_audio_fragment"
+            app:destination="@id/audio_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/audio_fragment"
+        android:name="rs.ac.bg.etf.running.musicplayer.AudioFragment"
+        android:label="My songs"
+        tools:layout="@layout/fragment_audio"
+        >
+        <argument
+            android:name="playlistIndex"
+            app:argType="integer" />
+    </fragment>
 </navigation>

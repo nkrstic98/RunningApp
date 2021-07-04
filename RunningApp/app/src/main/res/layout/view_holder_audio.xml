@@ -35,7 +35,7 @@
             android:textColor="@color/primary_text"
             android:layout_gravity="center_vertical"
             android:foregroundGravity="center_horizontal"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
 
     </LinearLayout>

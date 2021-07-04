@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
@@ -29,6 +31,7 @@ public class PlaylistViewModel extends ViewModel {
     private SavedStateHandle savedStateHandle;
 
     private List<Playlist> playlists;
+    private List<String> playlistIds = new ArrayList<>();
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -77,6 +80,7 @@ public class PlaylistViewModel extends ViewModel {
                     if(value != null) {
                         playlists = new ArrayList<>();
                         for(DocumentSnapshot document : value) {
+                            playlistIds.add(document.getId());
                             Playlist playlist = document.toObject(Playlist.class);
                             playlists.add(playlist);
                         }
@@ -84,5 +88,22 @@ public class PlaylistViewModel extends ViewModel {
                         this.playlistAdapter.setPlaylists(playlists);
                     }
                 });
+    }
+
+    public void updatePlaylist(MainActivity mainActivity, int playlistIndex, List<Audio> audios) {
+        Playlist playlist = playlists.get(playlistIndex);
+        List<Audio> audioList = playlist.getAudioList();
+        for(int i = 0; i < audios.size(); i++) {
+            audioList.add(audios.get(i));
+        }
+        playlist.setAudioList(audioList);
+
+        playlistCollection
+                .document(playlistIds.get(playlistIndex))
+                .update("audioList", playlist.getAudioList());
+    }
+
+    List<Audio> getAudioList(int index) {
+        return playlists.get(index).getAudioList();
     }
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -29,21 +30,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
-import rs.ac.bg.etf.running.databinding.FragmentPlaylistsBinding;
+import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.databinding.FragmentAudioBinding;
 
 import static rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog.REQUEST_CODE;
 
-public class PlaylistsFragment extends Fragment {
-
-    private FragmentPlaylistsBinding binding;
+public class AudioFragment extends Fragment {
+    private FragmentAudioBinding binding;
     private MainActivity mainActivity;
     private PlaylistViewModel playlistViewModel;
+
+    private AudioAdapter audioAdapter;
     private NavController navController;
 
-    Playlist playlist = null;
-    List<Audio> audioList;
+    MutableLiveData<Integer> playlistIndex = new MutableLiveData<>(-1);
 
-    public PlaylistsFragment() {
+    private List<Audio> audioList;
+
+    public AudioFragment() {
         // Required empty public constructor
     }
 
@@ -58,21 +62,20 @@ public class PlaylistsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPlaylistsBinding.inflate(inflater, container, false);
 
-        PlaylistAdapter adapter = new PlaylistAdapter(mainActivity, routeIndex -> {
-            PlaylistsFragmentDirections.ActionPlaylistsToAudioFragment action = PlaylistsFragmentDirections.actionPlaylistsToAudioFragment(routeIndex);
-            action.setPlaylistIndex(routeIndex);
-            navController.navigate(action);
-        });
+        binding = FragmentAudioBinding.inflate(inflater, container, false);
 
-        playlistViewModel.subscribeToRealtimeUpdates(adapter);
+        audioAdapter = new AudioAdapter();
 
-        binding.recyclerView.setAdapter(adapter);
+        playlistIndex.setValue(AudioFragmentArgs.fromBundle(requireArguments()).getPlaylistIndex());
+        audioList = playlistViewModel.getAudioList(AudioFragmentArgs.fromBundle(requireArguments()).getPlaylistIndex());
+
+        audioAdapter.setAudioList(audioList);
+
+        binding.recyclerView.setAdapter(audioAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.floatingActionButton.setOnClickListener(v -> {
-            playlist = new Playlist("Moja plejlista");
             permission();
         });
 
@@ -114,7 +117,7 @@ public class PlaylistsFragment extends Fragment {
                     Uri uri = data.getData();
                     loadAudio(uri);
                 }
-                savePlaylist();
+                updatePlaylist();
             }
         }
     }
@@ -159,8 +162,8 @@ public class PlaylistsFragment extends Fragment {
         cursor.close();
     }
 
-    private void savePlaylist() {
-        playlist.setAudioList(audioList);
-        playlistViewModel.insertPlaylist(playlist);
+    public void updatePlaylist() {
+        playlistViewModel.updatePlaylist(mainActivity, playlistIndex.getValue(), audioList);
+        audioAdapter.setAudioList(playlistViewModel.getAudioList(playlistIndex.getValue()));
     }
 }
