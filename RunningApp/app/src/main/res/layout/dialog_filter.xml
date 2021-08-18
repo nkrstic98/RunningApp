@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/run_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Run duration"
+        app:values="@array/initial_duration_values"
+        android:valueFrom="0.0"
+        android:valueTo="360.0"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/run_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Run distance"
+        app:values="@array/initial_distance_values"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+</LinearLayout>

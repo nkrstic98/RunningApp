@@ -34,6 +34,7 @@ import rs.ac.bg.etf.running.databinding.DialogCreatePlaylistBinding;
 import rs.ac.bg.etf.running.musicplayer.Audio;
 import rs.ac.bg.etf.running.musicplayer.Playlist;
 import rs.ac.bg.etf.running.musicplayer.PlaylistViewModel;
+import rs.ac.bg.etf.running.musicplayer.PlaylistsFragment;
 import rs.ac.bg.etf.running.workouts.WorkoutViewModel;
 
 public class PlaylistCreatorDialog extends DialogFragment {
@@ -47,8 +48,9 @@ public class PlaylistCreatorDialog extends DialogFragment {
 
     Playlist playlist = null;
 
-    public PlaylistCreatorDialog() {
-
+    public PlaylistCreatorDialog(Playlist playlist, PlaylistViewModel playlistViewModel) {
+        this.playlist = playlist;
+        this.playlistViewModel = playlistViewModel;
     }
 
     @Override
@@ -77,7 +79,9 @@ public class PlaylistCreatorDialog extends DialogFragment {
         builder
                 .setTitle("Create playlist")
                 .setView(inflater.inflate(R.layout.dialog_create_playlist, null))
-                .setPositiveButton("Create playlist", null)
+                .setPositiveButton("Create playlist", (dialog1, which) -> {
+
+                })
                 .setNegativeButton("Cancel", (dialog, which) -> {
                     dismiss();
                 });
@@ -94,7 +98,10 @@ public class PlaylistCreatorDialog extends DialogFragment {
                     });
                 }
                 else {
+                    playlist.setTitle(playlist_title);
+                    playlistViewModel.insertPlaylist(playlist);
 
+                    dismiss();
                 }
             });
         });

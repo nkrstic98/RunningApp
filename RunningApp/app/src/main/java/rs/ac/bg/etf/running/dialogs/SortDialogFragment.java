@@ -2,8 +2,10 @@ package rs.ac.bg.etf.running.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
 import rs.ac.bg.etf.running.workouts.WorkoutViewModel;
 
 public class SortDialogFragment extends DialogFragment {
@@ -21,10 +24,16 @@ public class SortDialogFragment extends DialogFragment {
     private MainActivity mainActivity;
     private WorkoutViewModel workoutViewModel;
 
+    private FragmentWorkoutListBinding workoutListBinding;
+
     private int chosenCondition = -1;
 
     public SortDialogFragment() {
         // Required empty public constructor
+    }
+
+    public SortDialogFragment(FragmentWorkoutListBinding workoutListBinding) {
+        this.workoutListBinding = workoutListBinding;
     }
 
     @Override
@@ -44,7 +53,6 @@ public class SortDialogFragment extends DialogFragment {
 
         builder
                 .setTitle("Sort workouts")
-                .setView(inflater.inflate(R.layout.dialog_sort_filter, null))
                 .setSingleChoiceItems(R.array.workouts_sort, -1, (dialog, which) -> {
                     chosenCondition = which;
                 })
@@ -58,5 +66,19 @@ public class SortDialogFragment extends DialogFragment {
                 });
 
         return builder.create();
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if(workoutViewModel.getSortApplied()) {
+            workoutListBinding.chipSort.setVisibility(View.VISIBLE);
+            workoutListBinding.chipSort.setText(workoutViewModel.getSortCriteria());
+            workoutListBinding.chipSort.setOnCloseIconClickListener(v -> {
+                workoutViewModel.removeSort();
+                workoutListBinding.chipSort.setVisibility(View.GONE);
+            });
+        }
     }
 }

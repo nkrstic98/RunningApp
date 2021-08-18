@@ -16,12 +16,49 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:title="@string/workout_toolbar_label" />-->
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/hor_line"
+        >
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_sort"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_duration_filter"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_distance_filter"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <View
+        android:id="@+id/hor_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c0c0c0"
+        app:layout_constraintBottom_toTopOf="@id/recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/chipGroup"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hor_line"
         tools:listitem="@layout/view_holder_workout" />
 
     <com.leinardi.android.speeddial.SpeedDialOverlayLayout

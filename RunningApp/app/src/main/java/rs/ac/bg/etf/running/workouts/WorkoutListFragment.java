@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
+import rs.ac.bg.etf.running.dialogs.FilterDialogFragment;
 import rs.ac.bg.etf.running.dialogs.SortDialogFragment;
 
 @AndroidEntryPoint
@@ -50,12 +51,14 @@ public class WorkoutListFragment extends Fragment {
         mainActivity.getMenuInflater().inflate(R.menu.workout_list_options_menu, menu);
 
         menu.getItem(0).setOnMenuItemClickListener(item -> {
-            SortDialogFragment dialogFragment = new SortDialogFragment();
+            SortDialogFragment dialogFragment = new SortDialogFragment(binding);
             dialogFragment.show(getChildFragmentManager(), "sort-fragment");
             return true;
         });
 
         menu.getItem(1).setOnMenuItemClickListener(item -> {
+            FilterDialogFragment dialog = new FilterDialogFragment(binding);
+            dialog.show(getChildFragmentManager(), "filter-fragment");
             return true;
         });
     }
@@ -90,6 +93,38 @@ public class WorkoutListFragment extends Fragment {
             return true;
         });
 
+        if(workoutViewModel.getDistanceFilterApplied()) {
+            binding.chipDistanceFilter.setVisibility(View.VISIBLE);
+            binding.chipDistanceFilter.setText(workoutViewModel.getDistanceFilter());
+            binding.chipDistanceFilter.setOnCloseIconClickListener(v -> {
+                workoutViewModel.resetDistanceFilter();
+            });
+        }
+        else {
+            binding.chipDistanceFilter.setVisibility(View.GONE);
+        }
+
+        if(workoutViewModel.getDurationFilterApplied()) {
+            binding.chipDurationFilter.setVisibility(View.VISIBLE);
+            binding.chipDurationFilter.setText(workoutViewModel.getDurationFilter());
+            binding.chipDurationFilter.setOnCloseIconClickListener(v -> {
+                workoutViewModel.resetDurationFilter();
+            });
+        }
+        else {
+            binding.chipDurationFilter.setVisibility(View.GONE);
+        }
+
+        if(workoutViewModel.getSortApplied()) {
+            binding.chipSort.setVisibility(View.VISIBLE);
+            binding.chipSort.setText(workoutViewModel.getSortCriteria());
+            binding.chipSort.setOnCloseIconClickListener(v -> {
+                workoutViewModel.removeSort();
+            });
+        }
+        else {
+            binding.chipSort.setVisibility(View.GONE);
+        }
 
         return binding.getRoot();
     }
@@ -99,4 +134,6 @@ public class WorkoutListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
     }
+
+
 }

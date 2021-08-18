@@ -24,12 +24,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.databinding.FragmentPlaylistsBinding;
+import rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog;
 
 import static rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog.REQUEST_CODE;
 
@@ -42,6 +44,8 @@ public class PlaylistsFragment extends Fragment {
 
     Playlist playlist = null;
     List<Audio> audioList;
+
+    public static String playlist_name = "";
 
     public PlaylistsFragment() {
         // Required empty public constructor
@@ -72,7 +76,7 @@ public class PlaylistsFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         binding.floatingActionButton.setOnClickListener(v -> {
-            playlist = new Playlist("Moja plejlista");
+            playlist = new Playlist();
             permission();
         });
 
@@ -160,7 +164,9 @@ public class PlaylistsFragment extends Fragment {
     }
 
     private void savePlaylist() {
+        PlaylistCreatorDialog dialog = new PlaylistCreatorDialog(playlist, playlistViewModel);
+        dialog.show(getChildFragmentManager(), "playlist-fragment");
+
         playlist.setAudioList(audioList);
-        playlistViewModel.insertPlaylist(playlist);
     }
 }
