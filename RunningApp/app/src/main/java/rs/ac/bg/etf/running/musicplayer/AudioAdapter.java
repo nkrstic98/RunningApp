@@ -105,6 +105,8 @@ public class AudioAdapter extends BaseAdapter {
         public AudioViewHolder(ViewHolderAudioBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            this.binding.playPause.setVisibility(View.GONE);
         }
     }
 }

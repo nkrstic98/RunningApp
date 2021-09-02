@@ -158,6 +158,7 @@ public class AudioFragment extends Fragment {
                 int duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
 
                 // Save to audioList
+                if(playlistViewModel.songAdded(playlistIndex.getValue(), title)) continue;
                 audioList.add(new Audio(data, title, album, artist, duration));
             }
         }

@@ -106,7 +106,7 @@ public class PlaylistAdapter extends BaseAdapter {
             super(binding.getRoot());
             this.binding = binding;
 
-            this.binding.title.setOnClickListener(v -> {
+            this.binding.cardview.setOnClickListener(v -> {
                 callback.invoke(getAdapterPosition());
             });
         }

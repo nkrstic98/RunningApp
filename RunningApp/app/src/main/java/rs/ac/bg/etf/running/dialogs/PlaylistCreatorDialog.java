@@ -98,10 +98,18 @@ public class PlaylistCreatorDialog extends DialogFragment {
                     });
                 }
                 else {
-                    playlist.setTitle(playlist_title);
-                    playlistViewModel.insertPlaylist(playlist);
+                    if(!playlistViewModel.playlistExists(playlist_title)) {
+                        playlist.setTitle(playlist_title);
+                        playlistViewModel.insertPlaylist(playlist);
 
-                    dismiss();
+                        dismiss();
+                    }
+                    else {
+                        mainActivity.runOnUiThread(() -> {
+                            binding.title.getEditText().requestFocus();
+                            Toast.makeText(mainActivity, "Playlist with that name already exists!", Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }
             });
         });

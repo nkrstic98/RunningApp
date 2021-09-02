@@ -115,7 +115,26 @@ public class PlaylistViewModel extends ViewModel {
                 .delete();
     }
 
-    List<Audio> getAudioList(int index) {
+    public List<Audio> getAudioList(int index) {
         return playlists.get(index).getAudioList();
+    }
+
+    public boolean playlistExists(String name) {
+        for (Playlist p :
+                playlists) {
+            if(p.getTitle().equals(name)) return true;
+        }
+
+        return false;
+    }
+
+    public boolean songAdded(int playlistIndex, String title) {
+        Playlist p = playlists.get(playlistIndex);
+        for (Audio a :
+                p.getAudioList()) {
+            if(a.getTitle().equals(title)) return true;
+        }
+
+        return false;
     }
 }
