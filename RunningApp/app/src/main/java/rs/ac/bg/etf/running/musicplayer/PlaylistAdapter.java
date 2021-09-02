@@ -1,19 +1,23 @@
 package rs.ac.bg.etf.running.musicplayer;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
+import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.ViewHolderPlaylistsBinding;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder> {
+public class PlaylistAdapter extends BaseAdapter {
 
     public interface Callback<T> {
         void invoke(T parameter);
@@ -24,6 +28,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
     private MainActivity mainActivity;
     private PlaylistViewModel playlistViewModel;
     private final Callback<Integer> callback;
+
+    private Playlist deletedItem;
+    private int deleteditemPosition;
+    private boolean delete = false;
 
     public PlaylistAdapter(MainActivity mainActivity, Callback<Integer> callback) {
         this.mainActivity = mainActivity;
@@ -45,8 +53,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
-        holder.binding.title.setText(playlists.get(position).getTitle());
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+        PlaylistViewHolder playlistViewHolder = (PlaylistViewHolder) holder;
+        playlistViewHolder.binding.title.setText(playlists.get(position).getTitle());
     }
 
     @Override
@@ -54,16 +63,48 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
         return playlists.size();
     }
 
-    public class PlaylistViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void deleteItem(int position) {
+        deletedItem = playlists.get(position);
+        deleteditemPosition = position;
+        delete = true;
+        playlists.remove(position);
+        notifyItemRemoved(position);
+        showUndoSnackbar();
+    }
+
+    @Override
+    public void showUndoSnackbar() {
+        View view = mainActivity.findViewById(R.id.recycler_view_playlists);
+        Snackbar snackbar = Snackbar.make(view, "Playlist deleted!", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Undo", v -> undoDelete());
+        snackbar.addCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                if(delete) {
+                    playlistViewModel.deletePlaylist(deleteditemPosition);
+                    delete = false;
+                }
+            }
+
+
+        });
+        snackbar.show();
+    }
+
+    @Override
+    public void undoDelete() {
+        delete = false;
+        playlists.add(deleteditemPosition, deletedItem);
+        notifyItemInserted(deleteditemPosition);
+    }
+
+    public class PlaylistViewHolder extends BaseAdapter.BaseViewHolder {
         private ViewHolderPlaylistsBinding binding;
 
         public PlaylistViewHolder(ViewHolderPlaylistsBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
-            this.binding.deletePlaylist.setOnClickListener(v -> {
-
-            });
 
             this.binding.title.setOnClickListener(v -> {
                 callback.invoke(getAdapterPosition());

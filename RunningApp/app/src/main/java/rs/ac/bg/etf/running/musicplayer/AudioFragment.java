@@ -18,6 +18,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
@@ -65,15 +66,16 @@ public class AudioFragment extends Fragment {
 
         binding = FragmentAudioBinding.inflate(inflater, container, false);
 
-        audioAdapter = new AudioAdapter();
-
         playlistIndex.setValue(AudioFragmentArgs.fromBundle(requireArguments()).getPlaylistIndex());
         audioList = playlistViewModel.getAudioList(AudioFragmentArgs.fromBundle(requireArguments()).getPlaylistIndex());
 
+        audioAdapter = new AudioAdapter(mainActivity, playlistIndex.getValue());
         audioAdapter.setAudioList(audioList);
 
-        binding.recyclerView.setAdapter(audioAdapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        binding.recyclerViewAudios.setAdapter(audioAdapter);
+        binding.recyclerViewAudios.setLayoutManager(new LinearLayoutManager(mainActivity));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(mainActivity, audioAdapter));
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewAudios);
 
         binding.floatingActionButton.setOnClickListener(v -> {
             permission();

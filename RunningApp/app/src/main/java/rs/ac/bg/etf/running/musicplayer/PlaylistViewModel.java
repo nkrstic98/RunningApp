@@ -103,6 +103,18 @@ public class PlaylistViewModel extends ViewModel {
                 .update("audioList", playlist.getAudioList());
     }
 
+    public void deleteAudioFromPlaylist(int playlistIndex, List<Audio> audios) {
+        playlistCollection
+                .document(playlistIds.get(playlistIndex))
+                .update("audioList", audios);
+    }
+
+    public void deletePlaylist(int index) {
+        playlistCollection
+                .document(playlistIds.get(index))
+                .delete();
+    }
+
     List<Audio> getAudioList(int index) {
         return playlists.get(index).getAudioList();
     }

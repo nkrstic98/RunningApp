@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
@@ -72,8 +73,10 @@ public class PlaylistsFragment extends Fragment {
 
         playlistViewModel.subscribeToRealtimeUpdates(adapter);
 
-        binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        binding.recyclerViewPlaylists.setAdapter(adapter);
+        binding.recyclerViewPlaylists.setLayoutManager(new LinearLayoutManager(mainActivity));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(mainActivity, adapter));
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewPlaylists);
 
         binding.floatingActionButton.setOnClickListener(v -> {
             playlist = new Playlist();
