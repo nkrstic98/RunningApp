@@ -30,9 +30,6 @@ public class WorkoutService extends LifecycleService {
     private boolean serviceStarted = false;
 
     @Inject
-    public LifecycleAwareMotivator motivator;
-
-    @Inject
     public LifecycleAwarePlayer player;
 
     @Inject
@@ -46,7 +43,6 @@ public class WorkoutService extends LifecycleService {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onCreate()");
         super.onCreate();
 
-        getLifecycle().addObserver(motivator);
         getLifecycle().addObserver(player);
         getLifecycle().addObserver(measurer);
         getLifecycle().addObserver(locator);
@@ -65,16 +61,12 @@ public class WorkoutService extends LifecycleService {
             case INTENT_ACTION_START:
                 if(!serviceStarted) {
                     serviceStarted = true;
-                    motivator.start(this);
                     player.start(this);
                     measurer.start(this);
                     locator.getLocation(this);
                 }
                 break;
             case INTENT_ACTION_POWER:
-                if(serviceStarted) {
-                    motivator.changeMessage(this);
-                }
                 break;
         }
 
@@ -109,7 +101,6 @@ public class WorkoutService extends LifecycleService {
         intent.setClass(this, MainActivity.class);
         intent.setAction(MainActivity.INTENT_ACTION_NOTIFICATION);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, 0);

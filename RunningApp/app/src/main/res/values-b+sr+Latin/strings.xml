@@ -96,5 +96,6 @@
     <string name="sun">N</string>
     <string name="set_a_reminder">Postavi podsetnik</string>
     <string name="remove_reminder">Ukloni podsetnik</string>
+    <string name="home">Početna</string>
 
 </resources>

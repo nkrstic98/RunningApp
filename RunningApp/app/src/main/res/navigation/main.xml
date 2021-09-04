@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main"
-    app:startDestination="@id/bottom_navigation_routes">
+    app:startDestination="@id/bottom_navigation_start_workouts">
 
     <include app:graph="@navigation/nav_graph_calories" />
     <include app:graph="@navigation/nav_graph_routes" />
     <include app:graph="@navigation/nav_graph_workouts" />
     <include app:graph="@navigation/nav_graph_musicplayer" />
     <include app:graph="@navigation/nav_graph_alarm" />
+    <include app:graph="@navigation/nav_graph_start_workout" />
 </navigation>

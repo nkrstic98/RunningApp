@@ -84,9 +84,6 @@ public class WorkoutListFragment extends Fragment {
             switch (actionItem.getId()) {
                 case R.id.workout_fab_create:
                     navController.navigate(WorkoutListFragmentDirections.createWorkout());
-                    return false; //zatvaramo speed dial
-                case R.id.workout_fab_start:
-                    navController.navigate(WorkoutListFragmentDirections.startWorkout());
                     return false;
             }
 

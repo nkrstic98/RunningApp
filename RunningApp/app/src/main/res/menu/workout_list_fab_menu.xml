@@ -4,8 +4,4 @@
         android:id="@+id/workout_fab_create"
         android:icon="@drawable/baseline_create_24"
         android:title="@string/workout_list_fab_text_create" />
-    <item
-        android:id="@+id/workout_fab_start"
-        android:icon="@drawable/baseline_play_arrow_24"
-        android:title="@string/workout_list_fab_text_start" />
 </menu>

@@ -16,8 +16,8 @@
     <string name="route_button_label_location">Location</string>
 
     <!-- Workouts -->
-    <string name="workout_toolbar_label">Workouts</string>
-    <string name="main_navigation_label_workouts">Workouts</string>
+    <string name="workout_toolbar_label">My Workouts</string>
+    <string name="main_navigation_label_workouts">My Workouts</string>
     <string name="workout_toolbar_create_label">New Workout</string>
     <string name="workout_create_date">Date</string>
     <string name="workout_create_label">Label</string>
@@ -94,5 +94,6 @@
     <string name="sun">S</string>
     <string name="set_a_reminder">Set reminder</string>
     <string name="remove_reminder">Remove reminder</string>
+    <string name="home">Home</string>
 
 </resources>

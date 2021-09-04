@@ -7,6 +7,12 @@
 
     <group android:id="@+id/group1" android:checkableBehavior="single">
         <item
+            android:id="@+id/bottom_navigation_start_workouts"
+            android:icon="@drawable/outline_home_black_48"
+            android:title="@string/home"
+            />
+
+        <item
             android:id="@+id/bottom_navigation_routes"
             android:icon="@drawable/baseline_terrain_black_48"
             android:title="@string/main_navigation_label_routes" />

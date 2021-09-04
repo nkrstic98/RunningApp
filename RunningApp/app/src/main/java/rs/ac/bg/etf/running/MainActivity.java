@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = binding.drawerLayout;
 
         appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.fragment_workout_start,
                 R.id.route_browse,
                 R.id.calories,
                 R.id.workout_list,
@@ -84,13 +85,6 @@ public class MainActivity extends AppCompatActivity {
 //        if(savedInstanceState == null) {
 //            setupBottomNavigation();
 //        }
-
-        if(getIntent().getAction().equals(INTENT_ACTION_NOTIFICATION)) {
-            NavController navController1 = BottomNavigationUtil.changeNavHostFragment(R.id.bottom_navigation_workouts);
-            if(navController1 != null) {
-                navController1.navigate(WorkoutListFragmentDirections.startWorkout());
-            }
-        }
 
         if(getIntent().getAction().equals(INTENT_ACTION_LOGGING)) {
             boolean login = getIntent().getBooleanExtra(LoginFragment.KEEP_LOGGED_IN, false);

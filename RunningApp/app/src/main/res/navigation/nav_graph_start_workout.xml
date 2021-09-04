@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation_start_workouts"
+    app:startDestination="@id/fragment_workout_start">
+
+    <fragment
+        android:id="@+id/fragment_workout_start"
+        android:name="rs.ac.bg.etf.running.workouts.WorkoutStartFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_workout_start" />
+</navigation>

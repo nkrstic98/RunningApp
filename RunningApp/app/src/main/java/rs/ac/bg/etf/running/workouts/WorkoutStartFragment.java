@@ -79,8 +79,6 @@ public class WorkoutStartFragment extends Fragment {
 
         binding = FragmentWorkoutStartBinding.inflate(inflater, container, false);
 
-        timer = new Timer();
-
         if (sharedPreferences.contains(START_TIMESTAMP_KEY)) {
             startWorkout(sharedPreferences.getLong(START_TIMESTAMP_KEY, new Date().getTime()));
         }
@@ -95,12 +93,10 @@ public class WorkoutStartFragment extends Fragment {
         });
         binding.finish.setOnClickListener(v -> finishWorkout());
         binding.cancel.setOnClickListener(v -> cancelWorkout());
-        binding.power.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setClass(mainActivity, WorkoutService.class);
-            intent.setAction(WorkoutService.INTENT_ACTION_POWER);
-            mainActivity.startService(intent);
-        });
+
+
+        binding.workoutDuration.setVisibility(View.INVISIBLE);
+        binding.startTimeCounter.setVisibility(View.VISIBLE);
 
         mainActivity.getOnBackPressedDispatcher().addCallback(
                 getViewLifecycleOwner(),
@@ -128,9 +124,13 @@ public class WorkoutStartFragment extends Fragment {
     }
 
     private void startWorkout(long startTimestamp) {
+        binding.workoutDuration.setVisibility(View.VISIBLE);
+        binding.startTimeCounter.setVisibility(View.INVISIBLE);
+
+        timer = new Timer();
+
         binding.start.setEnabled(false);
         binding.finish.setEnabled(true);
-        binding.power.setEnabled(true);
         binding.cancel.setEnabled(true);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -183,10 +183,18 @@ public class WorkoutStartFragment extends Fragment {
     }
 
     private void stopWorkout() {
+        timer.cancel();
         Intent intent = new Intent();
         intent.setClass(mainActivity, WorkoutService.class);
         mainActivity.stopService(intent);
         sharedPreferences.edit().remove(START_TIMESTAMP_KEY).commit();
-        navController.navigateUp();
+        //navController.navigateUp();
+
+        binding.start.setEnabled(true);
+        binding.finish.setEnabled(false);
+        binding.cancel.setEnabled(false);
+
+        binding.workoutDuration.setVisibility(View.INVISIBLE);
+        binding.startTimeCounter.setVisibility(View.VISIBLE);
     }
 }
