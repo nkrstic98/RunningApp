@@ -92,6 +92,7 @@
     <string name="f">F</string>
     <string name="s">S</string>
     <string name="sun">S</string>
-    <string name="set_a_reminder">Set a reminder</string>
+    <string name="set_a_reminder">Set reminder</string>
+    <string name="remove_reminder">Remove reminder</string>
 
 </resources>

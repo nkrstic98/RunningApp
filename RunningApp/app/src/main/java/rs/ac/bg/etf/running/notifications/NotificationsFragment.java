@@ -125,6 +125,12 @@ public class NotificationsFragment extends Fragment {
                         alarmTime.setHour(notification.getHours());
                         alarmTime.setMinute(notification.getMinutes());
                         binding.alarmTimeEditText.setText(notification.getTime());
+
+                        binding.buttonSubmit.setText("Update reminder");
+                        binding.buttonRemoveReminder.setEnabled(true);
+                    }
+                    else {
+                        binding.buttonRemoveReminder.setEnabled(false);
                     }
                 });
 
@@ -149,6 +155,10 @@ public class NotificationsFragment extends Fragment {
             else {
                 setReminder();
             }
+        });
+
+        binding.buttonRemoveReminder.setOnClickListener(v -> {
+            removeReminder();
         });
 
         binding.monday.setOnClickListener(v -> {
@@ -176,34 +186,22 @@ public class NotificationsFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String name = "NotificationAlarmChannel";
-            String description = "Channel for Alarm Notifications";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-
-            NotificationChannel channel = new NotificationChannel(NotificationBroadcast.ALARM_NOTIFICATION_ID, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = mainActivity.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
     private void setReminder() {
         if(binding.alarmTimeEditText.getText().toString().equals("")) {
             Toast.makeText(mainActivity, "Choose time of day for your notification!", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        Intent intent = new Intent(mainActivity, NotificationBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mainActivity, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.cancel(pendingIntent);
+
         for(int i = 0; i < days_selected.length; i++) {
             if(days_selected[i]) {
                 Toast.makeText(mainActivity, "Reminder set!", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(mainActivity, NotificationBroadcast.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(mainActivity, 0, intent, 0);
-
-                AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(Context.ALARM_SERVICE);
 
                 alarmManager.set(
                         AlarmManager.RTC_WAKEUP,
@@ -231,6 +229,40 @@ public class NotificationsFragment extends Fragment {
                             "minutes", alarmTime.getMinute(),
                             "days", days
                     );
+        }
+    }
+
+    private void removeReminder() {
+        for(int i = 0; i < days_selected.length; i++) {
+            if(days_selected[i]) toggleDays(i + 1);
+        }
+        binding.alarmTimeEditText.setText("");
+        binding.buttonSubmit.setText("Set Reminder");
+        binding.buttonRemoveReminder.setEnabled(false);
+
+        notificationReference
+                .document(notificationId)
+                .delete();
+
+        Intent intent = new Intent(mainActivity, NotificationBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mainActivity, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.cancel(pendingIntent);
+    }
+
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "NotificationAlarmChannel";
+            String description = "Channel for Alarm Notifications";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel channel = new NotificationChannel(NotificationBroadcast.ALARM_NOTIFICATION_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = mainActivity.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
