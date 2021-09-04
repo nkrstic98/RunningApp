@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.route_browse,
                 R.id.calories,
                 R.id.workout_list,
-                R.id.playlists
+                R.id.playlists,
+                R.id.notifications
         )
         .setDrawerLayout(drawerLayout)
         .build();

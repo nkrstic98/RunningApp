@@ -15,6 +15,7 @@ import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.Audio;
 import rs.ac.bg.etf.running.databinding.ViewHolderAudioBinding;
 
 public class AudioAdapter extends BaseAdapter {

@@ -1,17 +1,8 @@
 package rs.ac.bg.etf.running.dialogs;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +11,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.DialogCreatePlaylistBinding;
-import rs.ac.bg.etf.running.musicplayer.Audio;
-import rs.ac.bg.etf.running.musicplayer.Playlist;
+import rs.ac.bg.etf.running.data.Playlist;
 import rs.ac.bg.etf.running.musicplayer.PlaylistViewModel;
-import rs.ac.bg.etf.running.musicplayer.PlaylistsFragment;
-import rs.ac.bg.etf.running.workouts.WorkoutViewModel;
 
 public class PlaylistCreatorDialog extends DialogFragment {
     public static final int REQUEST_CODE = 1;

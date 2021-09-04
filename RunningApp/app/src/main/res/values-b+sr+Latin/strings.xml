@@ -83,4 +83,17 @@
     <string name="registration_success">Registracija uspešna!</string>
     <string name="registrayion_error">Registation neuspešna, pokušajte ponovo!</string>
 
+
+    <string name="notifications">Obaveštenja</string>
+
+    <string name="choose_time">Izaberite vreme</string>
+    <string name="m">P</string>
+    <string name="t">U</string>
+    <string name="w">S</string>
+    <string name="thu">Č</string>
+    <string name="f">P</string>
+    <string name="s">S</string>
+    <string name="sun">N</string>
+    <string name="set_a_reminder">Postavi podsetnik</string>
+
 </resources>

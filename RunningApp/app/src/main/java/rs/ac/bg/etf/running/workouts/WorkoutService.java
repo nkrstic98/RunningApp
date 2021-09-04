@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
-import rs.ac.bg.etf.running.musicplayer.LifecycleAwarePlayer;
 
 @AndroidEntryPoint
 public class WorkoutService extends LifecycleService {

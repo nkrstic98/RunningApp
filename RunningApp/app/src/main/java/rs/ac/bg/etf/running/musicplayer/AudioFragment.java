@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
-import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.Audio;
 import rs.ac.bg.etf.running.databinding.FragmentAudioBinding;
 
 import static rs.ac.bg.etf.running.dialogs.PlaylistCreatorDialog.REQUEST_CODE;

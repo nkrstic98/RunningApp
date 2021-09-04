@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,6 +14,7 @@ import java.util.List;
 
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.Playlist;
 import rs.ac.bg.etf.running.databinding.ViewHolderPlaylistsBinding;
 
 public class PlaylistAdapter extends BaseAdapter {

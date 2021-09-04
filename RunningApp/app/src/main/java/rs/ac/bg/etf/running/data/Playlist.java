@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.running.musicplayer;
+package rs.ac.bg.etf.running.data;
 
 import java.util.List;
 

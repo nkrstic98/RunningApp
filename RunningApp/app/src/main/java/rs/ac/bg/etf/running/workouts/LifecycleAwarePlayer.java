@@ -1,9 +1,8 @@
-package rs.ac.bg.etf.running.musicplayer;
+package rs.ac.bg.etf.running.workouts;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -14,6 +13,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rs.ac.bg.etf.running.data.Audio;
 
 public class LifecycleAwarePlayer implements DefaultLifecycleObserver {
 

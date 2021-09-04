@@ -3,6 +3,7 @@
     package="rs.ac.bg.etf.running">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -57,6 +58,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/path_file" />
         </provider>
+
+        <receiver android:name=".notifications.NotificationBroadcast" />
     </application>
 
 </manifest>

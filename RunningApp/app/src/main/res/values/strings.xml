@@ -82,7 +82,16 @@
     <string name="registration_success">Registation succesfful</string>
     <string name="registrayion_error">Registation failed, please try again</string>
     <string name="workout_start">Workout</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="notifications">Reminders</string>
+    <string name="choose_time">Choose time</string>
+    <string name="m">M</string>
+    <string name="t">T</string>
+    <string name="w">W</string>
+    <string name="thu">T</string>
+    <string name="f">F</string>
+    <string name="s">S</string>
+    <string name="sun">S</string>
+    <string name="set_a_reminder">Set a reminder</string>
 
 </resources>
