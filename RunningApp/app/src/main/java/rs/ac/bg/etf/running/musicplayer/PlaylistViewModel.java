@@ -133,4 +133,8 @@ public class PlaylistViewModel extends ViewModel {
 
         return false;
     }
+
+    public int size() {
+        return playlists.size();
+    }
 }

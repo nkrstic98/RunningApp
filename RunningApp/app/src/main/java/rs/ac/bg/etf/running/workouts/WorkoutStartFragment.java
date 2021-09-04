@@ -1,8 +1,10 @@
 package rs.ac.bg.etf.running.workouts;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -16,13 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,19 +48,30 @@ import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.data.Location;
 import rs.ac.bg.etf.running.data.Workout;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutStartBinding;
+import rs.ac.bg.etf.running.musicplayer.CustomTouchListener;
+import rs.ac.bg.etf.running.musicplayer.MediaPlayerService;
+import rs.ac.bg.etf.running.musicplayer.OnItemClickListener;
+import rs.ac.bg.etf.running.musicplayer.PlaylistAdapter;
+import rs.ac.bg.etf.running.musicplayer.PlaylistViewModel;
+import rs.ac.bg.etf.running.musicplayer.PlaylistsFragmentDirections;
+import rs.ac.bg.etf.running.musicplayer.StorageUtil;
+
+import static rs.ac.bg.etf.running.MainActivity.LOG_TAG;
 
 @RequiresApi(api = Build.VERSION_CODES.P)
 @AndroidEntryPoint
 public class WorkoutStartFragment extends Fragment {
+    public static final String Broadcast_PLAY_NEW_AUDIO = "rs.ac.bg.etf.running.PlayNewAudio";
 
     public static final String SHARED_PREFERENCES_NAME = "workout-shared-preferences";
     public static final String START_TIMESTAMP_KEY = "start-timestamp-key";
     public static final String RUNNING_PATH = "running-path";
     public static final String STEP_NUMBER = "step-number";
+    public static final String SERVICE_BOUND = "service-bound";
 
     private FragmentWorkoutStartBinding binding;
     private WorkoutViewModel workoutViewModel;
-    private NavController navController;
+    private PlaylistViewModel playlistViewModel;
     private MainActivity mainActivity;
 
     private Timer timer;
@@ -71,6 +88,33 @@ public class WorkoutStartFragment extends Fragment {
                     }
             );
 
+    private MediaPlayerService player;
+    boolean serviceBound = false;
+
+    //Binding this Client to the AudioPlayer Service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            MediaPlayerService.LocalBinder binder = (MediaPlayerService.LocalBinder) service;
+            player = binder.getService();
+            serviceBound = true;
+            sharedPreferences
+                    .edit()
+                    .putBoolean(WorkoutStartFragment.SERVICE_BOUND, serviceBound)
+                    .commit();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            serviceBound = false;
+            sharedPreferences
+                    .edit()
+                    .putBoolean(WorkoutStartFragment.SERVICE_BOUND, serviceBound)
+                    .commit();
+        }
+    };
+
     public WorkoutStartFragment() {
         // Required empty public constructor
     }
@@ -81,8 +125,11 @@ public class WorkoutStartFragment extends Fragment {
 
         mainActivity = (MainActivity) requireActivity();
         workoutViewModel = new ViewModelProvider(mainActivity).get(WorkoutViewModel.class);
+        playlistViewModel = new ViewModelProvider(mainActivity).get(PlaylistViewModel.class);
 
         sharedPreferences = mainActivity.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+        serviceBound = sharedPreferences.getBoolean(SERVICE_BOUND, false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -91,6 +138,21 @@ public class WorkoutStartFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentWorkoutStartBinding.inflate(inflater, container, false);
+
+        PlaylistAdapter adapter = new PlaylistAdapter(mainActivity, playlistIndex -> {
+            playAudios(playlistIndex);
+        });
+        adapter.setCanPlay(true);
+
+        playlistViewModel.subscribeToRealtimeUpdates(adapter);
+        binding.recyclerViewPlaylists.setAdapter(adapter);
+        binding.recyclerViewPlaylists.setLayoutManager(new LinearLayoutManager(mainActivity));
+        binding.recyclerViewPlaylists.addOnItemTouchListener(new CustomTouchListener(mainActivity, new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int index) {
+                playAudios(index);
+            }
+        }));
 
         binding.workoutDuration.setVisibility(View.INVISIBLE);
         binding.startTimeCounter.setVisibility(View.VISIBLE);
@@ -122,12 +184,6 @@ public class WorkoutStartFragment extends Fragment {
         );
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
     }
 
     @Override
@@ -168,6 +224,10 @@ public class WorkoutStartFragment extends Fragment {
         binding.start.setEnabled(false);
         binding.finish.setEnabled(true);
         binding.cancel.setEnabled(true);
+
+        if (!sharedPreferences.contains(SERVICE_BOUND)) {
+            playAudios(((int) Math.random()) % playlistViewModel.size());
+        }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(START_TIMESTAMP_KEY, startTimestamp);
@@ -269,7 +329,8 @@ public class WorkoutStartFragment extends Fragment {
                 .edit()
                 .remove(START_TIMESTAMP_KEY)
                 .remove(STEP_NUMBER)
-                .apply();
+                .remove(SERVICE_BOUND)
+                .commit();
         //navController.navigateUp();
 
         binding.start.setEnabled(true);
@@ -280,5 +341,32 @@ public class WorkoutStartFragment extends Fragment {
 
         binding.workoutDuration.setVisibility(View.INVISIBLE);
         binding.startTimeCounter.setVisibility(View.VISIBLE);
+
+        if (serviceBound && player != null && serviceConnection != null) {
+            mainActivity.unbindService(serviceConnection);
+            //service is active
+            player.stopSelf();
+            serviceBound = false;
+        }
+    }
+
+    private void playAudios(int index) {
+        StorageUtil storageUtil = new StorageUtil(mainActivity.getApplicationContext());
+        if(!serviceBound) {
+            storageUtil.storeAudio(playlistViewModel.getAudioList(index));
+            storageUtil.storeAudioIndex(0);
+
+            Intent playerIntent = new Intent(mainActivity, MediaPlayerService.class);
+            mainActivity.startService(playerIntent);
+            mainActivity.bindService(playerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+        else {
+            storageUtil.storeAudioIndex(index);
+
+            //Service is active
+            //Send broadcast to the service -> PLAY_NEW_AUDIO
+            Intent broadcastIntent = new Intent(Broadcast_PLAY_NEW_AUDIO);
+            mainActivity.sendBroadcast(broadcastIntent);
+        }
     }
 }

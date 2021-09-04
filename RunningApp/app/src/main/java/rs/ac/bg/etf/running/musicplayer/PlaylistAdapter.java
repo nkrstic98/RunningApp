@@ -28,6 +28,7 @@ public class PlaylistAdapter extends BaseAdapter {
     private MainActivity mainActivity;
     private PlaylistViewModel playlistViewModel;
     private final Callback<Integer> callback;
+    private boolean canPlay = true;
 
     private Playlist deletedItem;
     private int deleteditemPosition;
@@ -43,6 +44,10 @@ public class PlaylistAdapter extends BaseAdapter {
         this.playlists = playlists;
         notifyDataSetChanged();
     }
+
+    public void setCanPlay(boolean cp) {
+        canPlay = cp;
+    };
 
     @NonNull
     @Override
@@ -106,9 +111,12 @@ public class PlaylistAdapter extends BaseAdapter {
             super(binding.getRoot());
             this.binding = binding;
 
-            this.binding.cardview.setOnClickListener(v -> {
-                callback.invoke(getAdapterPosition());
-            });
+            if(!canPlay) {
+                this.binding.cardview.setOnClickListener(v -> {
+                    callback.invoke(getAdapterPosition());
+                });
+                binding.playPause.setVisibility(View.GONE);
+            }
         }
     }
 }

@@ -77,5 +77,72 @@
         app:layout_constraintStart_toStartOf="@id/workout_duration"
         app:layout_constraintTop_toBottomOf="@id/finish" />
 
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/previous"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/cancel"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/recycler_view_playlists"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/play_pause"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"-->
+<!--        app:icon="@drawable/outline_skip_previous_black_48"-->
+<!--        app:iconGravity="textEnd"-->
+<!--        android:padding="0dp"-->
+<!--        android:insetLeft="0dp"-->
+<!--        android:insetTop="0dp"-->
+<!--        android:insetRight="0dp"-->
+<!--        android:insetBottom="0dp"-->
+<!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"-->
+<!--        />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/play_pause"-->
+<!--        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        app:icon="@drawable/baseline_play_arrow_black_48"-->
+<!--        app:iconGravity="textStart"-->
+<!--        android:insetLeft="0dp"-->
+<!--        android:insetTop="0dp"-->
+<!--        android:insetRight="0dp"-->
+<!--        android:insetBottom="0dp"-->
+<!--        android:padding="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/previous"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/previous"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/next"-->
+<!--        app:layout_constraintTop_toTopOf="@id/previous"-->
+<!--        app:layout_constraintVertical_bias="0.0"-->
+<!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/next"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        app:layout_constraintTop_toTopOf="@id/previous"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/previous"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/play_pause"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:layout_marginRight="50dp"-->
+<!--        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"-->
+<!--        app:icon="@drawable/outline_skip_next_black_48"-->
+<!--        app:iconGravity="textStart"-->
+<!--        android:padding="0dp"-->
+<!--        android:insetLeft="0dp"-->
+<!--        android:insetTop="0dp"-->
+<!--        android:insetRight="0dp"-->
+<!--        android:insetBottom="0dp"-->
+<!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"-->
+<!--        />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_playlists"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/cancel"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/view_holder_playlists" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

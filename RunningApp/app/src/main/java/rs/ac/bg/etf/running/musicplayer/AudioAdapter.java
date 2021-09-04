@@ -108,6 +108,8 @@ public class AudioAdapter extends BaseAdapter {
             this.binding = binding;
 
             this.binding.playPause.setVisibility(View.GONE);
+
+
         }
     }
 }

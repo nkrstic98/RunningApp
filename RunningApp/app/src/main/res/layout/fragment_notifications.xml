@@ -33,7 +33,6 @@
             android:insetBottom="0dp"
             android:text="@string/m"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
-
             />
 
         <com.google.android.material.button.MaterialButton

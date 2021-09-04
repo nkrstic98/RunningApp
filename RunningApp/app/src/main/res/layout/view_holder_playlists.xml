@@ -8,26 +8,37 @@
     android:elevation="100dp">
 
     <!--android:background="#00bcd4"-->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cardview_light_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
+        <ImageButton
+            android:id="@+id/play_pause"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@android:drawable/ic_media_play"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/teal_200"
+            android:foregroundGravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/icons" />
+
         <TextView
             android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:text="Title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/primary_text"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center_vertical"
+            android:foregroundGravity="center_horizontal"
+            android:textStyle="bold" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

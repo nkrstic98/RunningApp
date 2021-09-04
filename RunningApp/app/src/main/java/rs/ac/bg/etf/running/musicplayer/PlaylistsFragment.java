@@ -78,6 +78,7 @@ public class PlaylistsFragment extends Fragment {
         binding.recyclerViewPlaylists.setLayoutManager(new LinearLayoutManager(mainActivity));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(mainActivity, adapter));
         itemTouchHelper.attachToRecyclerView(binding.recyclerViewPlaylists);
+        adapter.setCanPlay(false);
 
         binding.floatingActionButton.setOnClickListener(v -> {
             playlist = new Playlist();

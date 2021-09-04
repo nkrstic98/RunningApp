@@ -46,6 +46,8 @@
 
         <service android:name=".workouts.WorkoutService" />
 
+        <service android:name=".musicplayer.MediaPlayerService" />
+
         <activity android:name=".MainActivity">
 
         </activity>

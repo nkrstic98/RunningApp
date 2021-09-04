@@ -8,12 +8,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import rs.ac.bg.etf.running.data.Audio;
 
 public class StorageUtil {
 
-    private final String STORAGE = "rs.etf.pmu.musicplayer.STORAGE";
+    private final String STORAGE = "rs.ac.bg.etf.running.STORAGE";
     private SharedPreferences sharedPreferences;
     private Context context;
 
@@ -21,7 +22,7 @@ public class StorageUtil {
         this.context = context;
     }
 
-    public void storeAudio(ArrayList<Audio> arrayList) {
+    public void storeAudio(List<Audio> arrayList) {
         sharedPreferences = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -35,7 +36,7 @@ public class StorageUtil {
         sharedPreferences = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("audioArrayList", null);
-        Type type = new TypeToken<ArrayList<Audio>>() {}.getType();
+        Type type = new TypeToken<List<Audio>>() {}.getType();
         return gson.fromJson(json, type);
     }
 

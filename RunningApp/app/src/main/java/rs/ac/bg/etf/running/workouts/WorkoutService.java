@@ -38,9 +38,6 @@ public class WorkoutService extends LifecycleService {
     private boolean serviceStarted = false;
 
     @Inject
-    public LifecycleAwarePlayer player;
-
-    @Inject
     public LifecycleAwareMeasurer measurer;
 
     @Inject
@@ -54,7 +51,6 @@ public class WorkoutService extends LifecycleService {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onCreate()");
         super.onCreate();
 
-        getLifecycle().addObserver(player);
         getLifecycle().addObserver(measurer);
         getLifecycle().addObserver(locator);
         getLifecycle().addObserver(counter);
@@ -74,7 +70,6 @@ public class WorkoutService extends LifecycleService {
             case INTENT_ACTION_START:
                 if(!serviceStarted) {
                     serviceStarted = true;
-                    player.start(this);
                     measurer.start(this);
                     locator.startFollowing(this);
                     counter.start(this);
