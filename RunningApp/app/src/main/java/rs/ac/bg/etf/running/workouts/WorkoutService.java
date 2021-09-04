@@ -3,20 +3,28 @@ package rs.ac.bg.etf.running.workouts;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleService;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.Location;
 
 @AndroidEntryPoint
 public class WorkoutService extends LifecycleService {
@@ -38,6 +46,9 @@ public class WorkoutService extends LifecycleService {
     @Inject
     public LifecycleAwareLocator locator;
 
+    @Inject
+    public LifecycleAwareStepCounter counter;
+
     @Override
     public void onCreate() {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onCreate()");
@@ -46,8 +57,10 @@ public class WorkoutService extends LifecycleService {
         getLifecycle().addObserver(player);
         getLifecycle().addObserver(measurer);
         getLifecycle().addObserver(locator);
+        getLifecycle().addObserver(counter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -63,7 +76,8 @@ public class WorkoutService extends LifecycleService {
                     serviceStarted = true;
                     player.start(this);
                     measurer.start(this);
-                    locator.getLocation(this);
+                    locator.startFollowing(this);
+                    counter.start(this);
                 }
                 break;
             case INTENT_ACTION_POWER:
@@ -81,9 +95,24 @@ public class WorkoutService extends LifecycleService {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onDestroy() {
         Log.d(MainActivity.LOG_TAG, "WorkoutService.onDestroy()");
+
+        List<Location> coordinates =  locator.stopFollowing();
+        int steps = counter.stop();
+
+        Gson gson = new Gson();
+        String data = gson.toJson(coordinates);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(WorkoutStartFragment.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+        sharedPreferences
+                .edit()
+                .putInt(WorkoutStartFragment.STEP_NUMBER, steps)
+                .putString(WorkoutStartFragment.RUNNING_PATH, data)
+                .commit();
+
         super.onDestroy();
     }
 

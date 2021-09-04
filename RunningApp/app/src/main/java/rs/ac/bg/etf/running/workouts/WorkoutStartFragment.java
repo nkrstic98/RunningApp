@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -12,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,21 +28,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import rs.ac.bg.etf.running.MainActivity;
 import rs.ac.bg.etf.running.R;
+import rs.ac.bg.etf.running.data.Location;
 import rs.ac.bg.etf.running.data.Workout;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutStartBinding;
 
+@RequiresApi(api = Build.VERSION_CODES.P)
 @AndroidEntryPoint
 public class WorkoutStartFragment extends Fragment {
 
-    private static final String SHARED_PREFERENCES_NAME = "workout-shared-preferences";
-    private static final String START_TIMESTAMP_KEY = "start-timestamp-key";
+    public static final String SHARED_PREFERENCES_NAME = "workout-shared-preferences";
+    public static final String START_TIMESTAMP_KEY = "start-timestamp-key";
+    public static final String RUNNING_PATH = "running-path";
+    public static final String STEP_NUMBER = "step-number";
 
     private FragmentWorkoutStartBinding binding;
     private WorkoutViewModel workoutViewModel;
@@ -47,6 +58,7 @@ public class WorkoutStartFragment extends Fragment {
     private MainActivity mainActivity;
 
     private Timer timer;
+    private Timer stepTimer;
     private SharedPreferences sharedPreferences;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -54,7 +66,7 @@ public class WorkoutStartFragment extends Fragment {
                     new ActivityResultContracts.RequestPermission(),
                     isPermissionGranted -> {
                         if(isPermissionGranted) {
-                            startWorkout(new Date().getTime());
+                            setRequestPermissionLauncher();
                         }
                     }
             );
@@ -73,11 +85,15 @@ public class WorkoutStartFragment extends Fragment {
         sharedPreferences = mainActivity.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentWorkoutStartBinding.inflate(inflater, container, false);
+
+        binding.workoutDuration.setVisibility(View.INVISIBLE);
+        binding.startTimeCounter.setVisibility(View.VISIBLE);
 
         if (sharedPreferences.contains(START_TIMESTAMP_KEY)) {
             startWorkout(sharedPreferences.getLong(START_TIMESTAMP_KEY, new Date().getTime()));
@@ -88,15 +104,12 @@ public class WorkoutStartFragment extends Fragment {
                 requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
             }
             else {
-                startWorkout(new Date().getTime());
+                setRequestPermissionLauncher();
             }
         });
+
         binding.finish.setOnClickListener(v -> finishWorkout());
         binding.cancel.setOnClickListener(v -> cancelWorkout());
-
-
-        binding.workoutDuration.setVisibility(View.INVISIBLE);
-        binding.startTimeCounter.setVisibility(View.VISIBLE);
 
         mainActivity.getOnBackPressedDispatcher().addCallback(
                 getViewLifecycleOwner(),
@@ -120,10 +133,33 @@ public class WorkoutStartFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();
+        if(timer != null) {
+            timer.cancel();
+        }
+
+        if(stepTimer != null) {
+            stepTimer.cancel();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    public void setRequestPermissionLauncher() {
+        if(ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION);
+        }
+        else {
+            startWorkout(new Date().getTime());
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
     private void startWorkout(long startTimestamp) {
+        LocationManager locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE);
+        if(!locationManager.isLocationEnabled()) {
+            Toast.makeText(mainActivity, "Turn on Location services!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         binding.workoutDuration.setVisibility(View.VISIBLE);
         binding.startTimeCounter.setVisibility(View.INVISIBLE);
 
@@ -159,6 +195,16 @@ public class WorkoutStartFragment extends Fragment {
             }
         }, 0, 10);
 
+        stepTimer = new Timer();
+        Handler stepHandler = new Handler(Looper.getMainLooper());
+        stepTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int steps = sharedPreferences.getInt(WorkoutStartFragment.STEP_NUMBER, 0);
+                stepHandler.post(() -> binding.stepTimeCounter.setText(steps + " steps"));
+            }
+        }, 0, 1000);
+
         Intent intent = new Intent();
         intent.setClass(mainActivity, WorkoutService.class);
         intent.setAction(WorkoutService.INTENT_ACTION_START);
@@ -166,33 +212,71 @@ public class WorkoutStartFragment extends Fragment {
     }
 
     private void finishWorkout() {
+        timer.cancel();
+        stepTimer.cancel();
+        Intent intent = new Intent();
+        intent.setClass(mainActivity, WorkoutService.class);
+        mainActivity.stopService(intent);
+
         long startTimestamp = sharedPreferences.getLong(START_TIMESTAMP_KEY, new Date().getTime());
         long elapsed = new Date().getTime() - startTimestamp;
         double minutes = elapsed / (1000.0 * 60);
-        workoutViewModel.insertWorkout(new Workout(
-                new Date(),
-                getText(R.string.workout_label).toString(),
-                0.2 * minutes,
-                minutes
-        ));
+
+        Timer timer2 = new Timer();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        timer2.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(() -> {
+                    int steps = sharedPreferences.getInt(STEP_NUMBER, 0);
+                    String coordinates = sharedPreferences.getString(RUNNING_PATH, "");
+                    List<Location> locationList = null;
+                    if(!coordinates.equals("")) {
+                        Gson gson = new Gson();
+                        locationList = gson.fromJson(coordinates, List.class);
+                    }
+
+                    workoutViewModel.insertWorkout(new Workout(
+                            new Date(),
+                            getText(R.string.workout_label).toString(),
+                            0.2 * minutes,
+                            minutes,
+                            steps,
+                            locationList
+                    ));
+                });
+
+                timer2.cancel();
+            }
+        }, 1000, 1000);
+
         stopWorkout();
     }
 
     private void cancelWorkout() {
+        timer.cancel();
+        stepTimer.cancel();
+        Intent intent = new Intent();
+        intent.setClass(mainActivity, WorkoutService.class);
+        mainActivity.stopService(intent);
+
         stopWorkout();
     }
 
     private void stopWorkout() {
-        timer.cancel();
-        Intent intent = new Intent();
-        intent.setClass(mainActivity, WorkoutService.class);
-        mainActivity.stopService(intent);
-        sharedPreferences.edit().remove(START_TIMESTAMP_KEY).commit();
+        sharedPreferences
+                .edit()
+                .remove(START_TIMESTAMP_KEY)
+                .remove(STEP_NUMBER)
+                .apply();
         //navController.navigateUp();
 
         binding.start.setEnabled(true);
         binding.finish.setEnabled(false);
         binding.cancel.setEnabled(false);
+
+        binding.stepTimeCounter.setText("0 steps");
 
         binding.workoutDuration.setVisibility(View.INVISIBLE);
         binding.startTimeCounter.setVisibility(View.VISIBLE);

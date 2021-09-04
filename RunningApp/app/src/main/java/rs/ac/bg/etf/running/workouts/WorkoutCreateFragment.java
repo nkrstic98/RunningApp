@@ -81,7 +81,9 @@ public class WorkoutCreateFragment extends Fragment {
                                 date,
                                 label,
                                 distance.doubleValue(),
-                                duration.doubleValue()
+                                duration.doubleValue(),
+                                0,
+                                null
                         )
                 );
 
