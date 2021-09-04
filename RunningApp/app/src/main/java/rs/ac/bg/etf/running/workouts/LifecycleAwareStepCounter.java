@@ -68,6 +68,9 @@ public class LifecycleAwareStepCounter implements DefaultLifecycleObserver {
         return steps.getValue();
     }
 
+    public int get() {
+        return steps.getValue();
+    }
 
     @Override
     public void onDestroy(@NonNull LifecycleOwner owner) {

@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.media.MediaMetadata;
 import android.media.MediaPlayer;
 import android.media.session.MediaSessionManager;
 import android.os.Binder;
@@ -20,6 +21,7 @@ import android.os.RemoteException;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -262,6 +264,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
     @Override
     public void onSeekComplete(MediaPlayer mp) {
         //Invoked indicating the completion of a seek operation.
+        resumePosition = mp.getCurrentPosition();
+        resumeMedia();
     }
 
     @Override
@@ -453,6 +457,8 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
             @Override
             public void onSeekTo(long pos) {
                 super.onSeekTo(pos);
+                resumePosition = (int) pos;
+                mediaPlayer.seekTo(resumePosition);
             }
 
 
@@ -534,22 +540,45 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
 
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
 
+        mediaSession.setMetadata(
+                new MediaMetadataCompat.Builder()
+                        .putString(MediaMetadata.METADATA_KEY_TITLE, activeAudio.getTitle())
+                        .putString(MediaMetadata.METADATA_KEY_ARTIST, activeAudio.getArtist())
+                        .putString(MediaMetadata.METADATA_KEY_ALBUM, activeAudio.getAlbum())
+                        .putLong(MediaMetadata.METADATA_KEY_DURATION, activeAudio.getDuration())
+                        .build()
+        );
+
+        mediaSession.setPlaybackState(
+                new PlaybackStateCompat.Builder()
+                .setState(
+                        PlaybackStateCompat.STATE_PLAYING,
+                        mediaPlayer.getCurrentPosition(),
+                        1
+                )
+                .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+                .build()
+        );
+
         builder
                 .setShowWhen(false)
                 .setStyle(
                         new androidx.media.app.NotificationCompat.MediaStyle()
-                            .setMediaSession(mediaSession.getSessionToken())
+                            .setMediaSession(
+                                    mediaSession.getSessionToken()
+                            )
                             .setShowActionsInCompactView(0, 1, 2)
                 )
-                .setColor(getResources().getColor(R.color.teal_200))
                 .setLargeIcon(largeIcon)
                 .setSmallIcon(android.R.drawable.stat_sys_headset)
-                .setContentText(activeAudio.getArtist())
-                .setContentTitle(activeAudio.getAlbum())
-                .setContentInfo(activeAudio.getTitle())
+//                .setContentText(activeAudio.getAlbum())
+//                .setContentTitle(activeAudio.getTitle())
+//                .setContentInfo(activeAudio.getArtist())
                 .addAction(android.R.drawable.ic_media_previous, "previous", playbackAction(3))
                 .addAction(notificationAction, "pause", play_pauseAction)
                 .addAction(android.R.drawable.ic_media_next, "next", playbackAction(2))
+                .setProgress(0, 0, true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContentIntent(play_pauseAction);
 
         Notification notification = builder.build();
