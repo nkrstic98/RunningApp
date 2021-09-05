@@ -9,11 +9,18 @@ public class DateTimeUtil {
     private static final SimpleDateFormat simpleDateFormat =
             new SimpleDateFormat("dd.MM.yyyy.");
 
+    private static final SimpleDateFormat simpleDateTimeFormat =
+            new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
     private static final Calendar calendar =
             Calendar.getInstance();
 
     public static SimpleDateFormat getSimpleDateFormat() {
         return simpleDateFormat;
+    }
+
+    public static SimpleDateFormat getSimpleDateTimeFormat() {
+        return simpleDateTimeFormat;
     }
 
     public static String realMinutesToString(double realMinutes) {

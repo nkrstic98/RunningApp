@@ -9,10 +9,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +24,8 @@ import rs.ac.bg.etf.running.R;
 import rs.ac.bg.etf.running.databinding.FragmentWorkoutListBinding;
 import rs.ac.bg.etf.running.dialogs.FilterDialogFragment;
 import rs.ac.bg.etf.running.dialogs.SortDialogFragment;
+import rs.ac.bg.etf.running.musicplayer.CustomTouchListener;
+import rs.ac.bg.etf.running.musicplayer.OnItemClickListener;
 
 @AndroidEntryPoint
 public class WorkoutListFragment extends Fragment {
@@ -77,6 +81,11 @@ public class WorkoutListFragment extends Fragment {
 
         binding.recyclerView.setAdapter(workoutAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        binding.recyclerView.addOnItemTouchListener(new CustomTouchListener(mainActivity, (view, index) -> {
+            WorkoutListFragmentDirections.ActionWorkoutListToGoogleMapsFragment action =
+                    WorkoutListFragmentDirections.actionWorkoutListToGoogleMapsFragment(index);
+            navController.navigate(action);
+        }));
 
         binding.floatingActionButton.inflate(R.menu.workout_list_fab_menu);
 

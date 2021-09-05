@@ -20,6 +20,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import rs.ac.bg.etf.running.data.Location;
 import rs.ac.bg.etf.running.data.Workout;
 import rs.ac.bg.etf.running.firebase.FirebaseAuthInstance;
 import rs.ac.bg.etf.running.firebase.FirebaseFirestoreInstance;
@@ -97,6 +98,14 @@ public class WorkoutViewModel extends ViewModel {
                         this.workoutAdapter.setWorkoutList(workouts);
                     }
                 });
+    }
+
+    public Workout getWorokout(int index) {
+        return this.workouts.get(index);
+    }
+
+    public List<Location> getPath(int index) {
+        return this.workouts.get(index).getCoordinates();
     }
 
     public void sortWorkouts(String cond) {

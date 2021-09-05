@@ -13,10 +13,21 @@
         <action
             android:id="@+id/create_workout"
             app:destination="@id/workout_create" />
+        <action
+            android:id="@+id/action_workout_list_to_googleMapsFragment"
+            app:destination="@id/googleMapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/workout_create"
         android:name="rs.ac.bg.etf.running.workouts.WorkoutCreateFragment"
         android:label="@string/workout_toolbar_create_label"
         tools:layout="@layout/fragment_workout_create" />
+    <fragment
+        android:id="@+id/googleMapsFragment"
+        android:name="rs.ac.bg.etf.running.workouts.GoogleMapsFragment"
+        android:label="Workout details" >
+        <argument
+            android:name="workoutIndex"
+            app:argType="integer" />
+    </fragment>
 </navigation>
