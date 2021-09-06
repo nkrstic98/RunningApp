@@ -93,29 +93,30 @@ public class WorkoutService extends LifecycleService {
                 break;
         }
 
-        Handler handler = new Handler(Looper.getMainLooper());
+        SharedPreferences sharedPreferences = getSharedPreferences(WorkoutStartFragment.SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+        long startTimestamp = sharedPreferences.getLong(WorkoutStartFragment.START_TIMESTAMP_KEY, 0);
 
-        long startTimestamp = new Date().getTime();
+//        if(startTimestamp == 0) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    long elapsed = new Date().getTime() - startTimestamp;
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                long elapsed = new Date().getTime() - startTimestamp;
+                    int seconds = (int) ((elapsed / 1000) % 60);
+                    int minutes = (int) ((elapsed / (1000 * 60)) % 60);
+                    int hours = (int) ((elapsed / (1000 * 60 * 60)) % 60);
 
-                int seconds = (int) ((elapsed / 1000) % 60);
-                int minutes = (int) ((elapsed / (1000 * 60)) % 60);
-                int hours = (int) ((elapsed / (1000 * 60 * 60)) % 60);
+                    StringBuilder workoutDuration = new StringBuilder();
+                    workoutDuration.append(String.format("%02d", hours)).append(":");
+                    workoutDuration.append(String.format("%02d", minutes)).append(":");
+                    workoutDuration.append(String.format("%02d", seconds));
 
-                StringBuilder workoutDuration = new StringBuilder();
-                workoutDuration.append(String.format("%02d", hours)).append(":");
-                workoutDuration.append(String.format("%02d", minutes)).append(":");
-                workoutDuration.append(String.format("%02d", seconds));
+                    elapsedTime = workoutDuration.toString();
 
-                elapsedTime = workoutDuration.toString();
-
-                NotificationManagerCompat.from(getApplicationContext()).notify(NOTIFICATION_ID, getNotification());
-            }
-        }, 0, 1000);
+                    NotificationManagerCompat.from(getApplicationContext()).notify(NOTIFICATION_ID, getNotification());
+                }
+            }, 0, 1000);
+//        }
 
         return super.onStartCommand(intent, flags, startId);
     }

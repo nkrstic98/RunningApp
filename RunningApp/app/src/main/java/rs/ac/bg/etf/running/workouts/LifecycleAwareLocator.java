@@ -2,11 +2,14 @@ package rs.ac.bg.etf.running.workouts;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -20,6 +23,7 @@ import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,6 +83,8 @@ public class LifecycleAwareLocator implements DefaultLifecycleObserver {
     }
 
     public void startFollowing(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(WorkoutStartFragment.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
         FusedLocationProviderClient locationProviderClient =
                 LocationServices.getFusedLocationProviderClient(context);
 
@@ -88,6 +94,7 @@ public class LifecycleAwareLocator implements DefaultLifecycleObserver {
         Handler handler = new Handler(Looper.getMainLooper());
 
         timer.schedule(new TimerTask() {
+            @RequiresApi(api = Build.VERSION_CODES.P)
             @Override
             public void run() {
 
@@ -106,13 +113,19 @@ public class LifecycleAwareLocator implements DefaultLifecycleObserver {
                                     double latitude = location.getLatitude();
                                     double longitude = location.getLongitude();
 
-                                    if(coordinates.size() > 0) {
-                                        if (latitude != coordinates.get(coordinates.size() - 1).getLatitude()
-                                                || longitude != coordinates.get(coordinates.size() - 1).getLongitude()) {
-
+//                                    if(coordinates.size() > 0) {
+//                                        if (latitude != coordinates.get(coordinates.size() - 1).getLatitude()
+//                                                || longitude != coordinates.get(coordinates.size() - 1).getLongitude()) {
+//
                                             coordinates.add(new Location(latitude, longitude));
-                                        }
-                                    }
+//                                        }
+//                                    }
+
+                                    Gson gson = new Gson();
+                                    String data = gson.toJson(coordinates);
+                                    sp.edit()
+                                            .putString(WorkoutStartFragment.RUNNING_PATH, data)
+                                            .commit();
 
                                     Log.d(LOG_TAG, "lat: " + latitude + ", long: " + longitude);
                                 }
@@ -120,7 +133,7 @@ public class LifecycleAwareLocator implements DefaultLifecycleObserver {
                 });
 
             }
-        }, 0, 10000);
+        }, 0, 1000);
     }
 
     public List<Location> stopFollowing() {

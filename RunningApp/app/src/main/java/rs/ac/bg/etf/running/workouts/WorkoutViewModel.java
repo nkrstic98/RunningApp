@@ -16,6 +16,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     public void insertWorkout(Workout workout) {
+
         workoutCollection
                 .add(workout)
                 .addOnSuccessListener(documentReference -> {

@@ -225,9 +225,9 @@ public class WorkoutStartFragment extends Fragment {
         binding.finish.setEnabled(true);
         binding.cancel.setEnabled(true);
 
-        if (!sharedPreferences.contains(SERVICE_BOUND)) {
-            playAudios(((int) Math.random()) % playlistViewModel.size());
-        }
+//        if (!sharedPreferences.contains(SERVICE_BOUND)) {
+//            playAudios(((int) Math.random()) % playlistViewModel.size());
+//        }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(START_TIMESTAMP_KEY, startTimestamp);
@@ -309,7 +309,7 @@ public class WorkoutStartFragment extends Fragment {
 
                 timer2.cancel();
             }
-        }, 1000, 1000);
+        }, 3000, 3000);
 
         stopWorkout();
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Aplikacija za trčanje</string>
+    <string name="app_name">RunIT</string>
 
     <!-- Main -->
     <string name="main_button_label_calories">Izračunaj kalorije</string>
